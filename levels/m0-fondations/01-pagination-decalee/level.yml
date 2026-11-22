@@ -1,0 +1,28 @@
+id: m0-fondations-01
+title: La pagination décalée
+module: m0-fondations
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 40
+blackout: false
+hintCost: 10
+bugType: off-by-one
+entry: pagination.js
+brief: |
+  Le blog vient de passer à la pagination, et le support reçoit deux plaintes :
+
+  1. « Sur la page 1, je vois les articles 11 à 20. Où sont les dix premiers ? »
+  2. « Les trois derniers articles ont disparu, il n'y a pas de page pour eux. »
+
+  Les pages sont **numérotées à partir de 1**. Corrige `paginate` et `pageCount`
+  pour que les tests passent au vert.
+logs: |
+  [web] GET /blog?page=1  200  items=article-11..article-20
+  [web] GET /blog?page=3  200  items=[]
+  [web] pagination: total=23 perPage=10 pages=2
+hints:
+  - Calcule à la main l'index de départ pour page=1 et perPage=10. Que vaut-il, et que devrait-il valoir ?
+  - Avec 23 articles et 10 par page, combien faut-il de pages ? Math.floor arrondit dans quel sens ?
+tests: tests/

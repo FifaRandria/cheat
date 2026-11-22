@@ -1,0 +1,80 @@
+# Carte du parcours. L'ordre de la liste définit l'ordre d'affichage.
+# Un module sans niveau apparaît comme « à venir » sur la carte.
+- id: m0-fondations
+  code: M0
+  title: Fondations
+  tagline: Terminal, Git, HTTP et logique, les outils du diagnostic.
+  notions: [Terminal, Git, HTTP, Logique]
+  phase: MVP
+- id: m1-async
+  code: M1
+  title: JavaScript et Node.js
+  tagline: Fonctions, async/await, modules et erreurs.
+  notions: [Fonctions, async/await, Modules, Erreurs]
+  phase: MVP
+- id: m2-express
+  code: M2
+  title: Backend Express et API REST
+  tagline: Routes, middlewares, validation, JWT.
+  notions: [Routes, Middlewares, Validation, JWT]
+  phase: V1
+- id: m3-postgres
+  code: M3
+  title: PostgreSQL et Prisma
+  tagline: Modélisation, migrations, index, N+1.
+  notions: [Modélisation, Migrations, Requêtes, Index]
+  phase: V1
+- id: m4-frontend
+  code: M4
+  title: Frontend et frameworks JS
+  tagline: React, Next.js, puis un second framework.
+  notions: [React, Next.js, SSR, Hydratation]
+  phase: V1
+- id: m5-typescript
+  code: M5
+  title: TypeScript et qualité
+  tagline: Types, tests, lint, en finir avec any.
+  notions: [Types, Tests, Lint]
+  phase: V1
+- id: m6-docker
+  code: M6
+  title: Docker
+  tagline: Images, volumes, réseaux, compose.
+  notions: [Images, Dockerfile, Volumes, Réseaux]
+  phase: V1
+- id: m7-cicd
+  code: M7
+  title: CI/CD
+  tagline: Pipelines, GitHub Actions, déploiement.
+  notions: [Pipelines, GitHub Actions, Déploiement]
+  phase: V1
+- id: m8-python
+  code: M8
+  title: Python pour l'IA
+  tagline: venv, numpy, pandas, notebooks.
+  notions: [venv, numpy, pandas, Notebooks]
+  phase: V2
+- id: m9-finetuning
+  code: M9
+  title: Entraînement et fine-tuning
+  tagline: Loss, overfitting, LoRA, QLoRA, VRAM.
+  notions: [Dataset, Loss, LoRA, QLoRA, VRAM]
+  phase: V2
+- id: m10-rag
+  code: M10
+  title: RAG
+  tagline: Embeddings, chunking, recherche, prompt.
+  notions: [Embeddings, Chunking, Base vectorielle]
+  phase: V2
+- id: m11-n8n
+  code: M11
+  title: Automatisation n8n
+  tagline: Webhooks, nœuds, credentials, erreurs.
+  notions: [Webhooks, Nœuds, Credentials]
+  phase: V2
+- id: m12-boss
+  code: M12
+  title: Projet final
+  tagline: Une app fullstack dockerisée, CI verte, avec de l'IA.
+  notions: [Intégration, Déploiement, IA]
+  phase: V2

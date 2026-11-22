@@ -1,0 +1,30 @@
+id: m1-async-01
+title: Le await oublié
+module: m1-async
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 50
+blackout: false
+hintCost: 10
+bugType: async-await
+entry: profile.js
+brief: |
+  La page profil affiche un avatar vide et plante côté navigateur.
+  L'API répond pourtant `200 OK`… avec un corps vide.
+
+  `getProfile(id)` doit renvoyer `{ name, plan }` pour un utilisateur existant,
+  et **rejeter** avec une erreur contenant « introuvable » sinon.
+
+  Le fichier `db.js` simule la base de données : il n'est pas en cause.
+logs: |
+  [api]   GET /api/profile/1 → 200 (3 ms)
+  [api]   response body: {}
+  [api]   GET /api/profile/99 → 200 (2 ms)
+  [front] TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+              at Avatar (avatar.jsx:14:22)
+hints:
+  - Ajoute un console.log(user) juste après l'appel à findUserById. Qu'est-ce qui s'affiche ?
+  - Une fonction async renvoie toujours une promesse. Que faut-il écrire pour obtenir la valeur qu'elle contient ?
+tests: tests/

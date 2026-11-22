@@ -1,0 +1,32 @@
+id: m1-async-02
+title: Les e-mails fantômes
+module: m1-async
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: async-loop
+entry: notify.js
+brief: |
+  Le tableau de bord de l'équipe marketing affiche **« 0 e-mail envoyé »**
+  après chaque campagne, alors que les clients reçoivent bien leurs e-mails…
+  parfois.
+
+  `notifyAll(users)` doit envoyer un e-mail à chaque utilisateur, **attendre
+  que tous les envois soient terminés**, puis renvoyer le nombre d'e-mails
+  envoyés.
+
+  `mailer.js` simule le service d'envoi : il n'est pas en cause.
+logs: |
+  [worker] campaign#42 started, recipients=3
+  [worker] campaign#42 done, sent=0 (4 ms)
+  [mailer] delivered to ada@example.com (21 ms)
+  [mailer] delivered to grace@example.com (22 ms)
+  [mailer] delivered to linus@example.com (22 ms)
+hints:
+  - Regarde l'ordre des lignes dans les logs. La campagne est déclarée terminée avant ou après les envois ?
+  - Que fait forEach de la promesse renvoyée par une fonction async ? Essaie une boucle for...of, ou Promise.all.
+tests: tests/

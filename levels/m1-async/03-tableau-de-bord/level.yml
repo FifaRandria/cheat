@@ -1,0 +1,36 @@
+id: m1-async-03
+title: Un service tombe, tout tombe
+module: m1-async
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 120
+blackout: true
+hintCost: 0
+bugType: promise-all
+entry: dashboard.js
+brief: |
+  **Incident en cours.** Le service boursier ne répond plus, et depuis, le
+  tableau de bord est **entièrement vide** pour tous les utilisateurs, alors
+  que la météo et les actualités fonctionnent.
+
+  `buildDashboard(sources)` reçoit un objet `{ nom: fonctionAsync }` et doit
+  renvoyer un widget par source :
+
+  - `{ status: "up", data }` si la source a répondu ;
+  - `{ status: "down", error: message }` si elle a échoué.
+
+  Le tableau de bord ne doit **jamais** rejeter à cause d'une seule source.
+
+  Mode Blackout : pas d'indice, seulement les logs et la
+  [documentation MDN](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+logs: |
+  [api] GET /api/dashboard → 500 (31 ms)
+  [api] Error: connect ECONNREFUSED 10.0.3.7:8080
+            at fetchStocks (services.js:9:11)
+            at async Promise.all (index 1)
+            at async buildDashboard (dashboard.js:5:19)
+  [api] weather: ok (12 ms) · news: ok (18 ms) · stocks: ECONNREFUSED
+hints: []
+tests: tests/
