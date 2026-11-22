@@ -1,0 +1,32 @@
+id: ia-ft-01
+title: Le pipeline de fine-tuning en vrac
+order: 1
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: pipeline
+lessons: [ia-ft-02, ia-ft-01]
+brief: |
+  Un stagiaire a lancé un fine-tuning QLoRA… dans le désordre. Il a évalué le modèle avant
+  de l'entraîner, et configuré LoRA avant même de charger le modèle. Le notebook est
+  inutilisable.
+
+  Remets les étapes dans l'**ordre** où il faut réellement les exécuter, de la toute première
+  à la toute dernière.
+hints:
+  - "On ne peut rien entraîner sans données. Et on ne peut pas mesurer un succès qu'on n'a pas défini."
+  - "LoRA ajoute des adaptateurs à un modèle : ce modèle doit donc déjà être chargé."
+steps:
+  - label: Définir l'objectif et la métrique de succès
+    detail: Que doit savoir faire le modèle, et comment saura-t-on qu'il le fait bien ?
+  - label: Préparer le dataset
+    detail: Nettoyer, formater, séparer entraînement et validation.
+  - label: Charger le modèle de base en 4 bits
+    detail: BitsAndBytesConfig(load_in_4bit=True)
+  - label: Configurer les adaptateurs LoRA
+    detail: LoraConfig(r=8, lora_alpha=16, target_modules=[…])
+  - label: Entraîner en surveillant les deux courbes de loss
+  - label: Évaluer sur des exemples jamais vus
+  - label: Fusionner les poids et déployer

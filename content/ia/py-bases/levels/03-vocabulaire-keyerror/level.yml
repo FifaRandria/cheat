@@ -1,0 +1,32 @@
+id: py-bases-03
+title: Le compteur de mots qui plante au premier mot
+order: 3
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: key-error
+entry: vocabulaire.py
+lessons: [py-bases-05]
+brief: |
+  Avant d'entraîner un modèle de langage, on construit son **vocabulaire** : on compte combien
+  de fois chaque mot apparaît dans le corpus. Le script plante dès le premier mot.
+
+  `compter_mots(texte)` doit renvoyer un dictionnaire `{mot: nombre d'occurrences}`.
+  Les mots sont séparés par des espaces, et la casse est ignorée (`Le` et `le` comptent
+  pour le même mot).
+
+  Exemple : `compter_mots("le chat et le chien")` renvoie
+  `{"le": 2, "chat": 1, "et": 1, "chien": 1}`.
+logs: |
+  [vocab] lecture du corpus : 12 408 lignes
+  [vocab] Traceback (most recent call last):
+  [vocab]   File "vocabulaire.py", line 6, in compter_mots
+  [vocab]     compteur[mot] += 1
+  [vocab] KeyError: 'le'
+hints:
+  - "La première fois qu'on rencontre un mot, existe-t-il déjà dans le dictionnaire ?"
+  - "compteur.get(mot, 0) renvoie 0 si le mot n'a encore jamais été vu."
+tests: tests/

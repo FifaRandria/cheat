@@ -1,0 +1,30 @@
+id: py-bases-01
+title: Le message d'accueil qui plante
+order: 1
+type: bug-hunt
+runtime: python
+difficulty: 1
+xp: 30
+blackout: false
+hintCost: 5
+bugType: type-mismatch
+entry: accueil.py
+lessons: [py-bases-02]
+brief: |
+  Le chatbot d'accueil devait saluer chaque nouvel inscrit par son prénom et son âge.
+  À la place, il plante pour **tous** les utilisateurs.
+
+  `message_accueil(prenom, age)` doit renvoyer exactement :
+
+  `"Bienvenue Ada ! Tu as 36 ans."`
+
+  (pour `prenom = "Ada"` et `age = 36`, l'âge étant un nombre entier).
+logs: |
+  [bot] nouvel utilisateur : prenom='Ada' age=36
+  [bot] Traceback (most recent call last):
+  [bot]   File "accueil.py", line 3, in message_accueil
+  [bot] TypeError: can only concatenate str (not "int") to str
+hints:
+  - "Lis la dernière ligne de l'erreur : on essaie de coller (concatenate) un texte et quoi d'autre ?"
+  - "Une f-string accepte n'importe quel type entre accolades : f\"Bienvenue {prenom} !\""
+tests: tests/

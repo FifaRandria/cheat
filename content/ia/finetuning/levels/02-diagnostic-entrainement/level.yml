@@ -1,0 +1,73 @@
+id: ia-ft-02
+title: Diagnostic d'un entraînement qui tourne mal
+order: 2
+type: quiz
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: concept-ia
+lessons: [ia-ft-01, ia-ft-02]
+brief: |
+  Tu reprends le projet de fine-tuning d'une équipe qui part en congés. Ils t'ont laissé
+  leurs relevés d'entraînement et quelques questions en suspens.
+
+  Pour chaque situation, choisis le **diagnostic** ou la **décision** la plus juste.
+  Toutes les réponses doivent être correctes pour valider.
+hints:
+  - "Pour les courbes, regarde uniquement la loss de validation : c'est elle qui dit si le modèle généralise."
+  - "Pour la mémoire : 16 bits = 2 octets par paramètre, 4 bits = 0,5 octet."
+questions:
+  - prompt: |
+      Relevé de l'entraînement :
+
+      | Epoch | Loss entraînement | Loss validation |
+      |---|---|---|
+      | 1 | 1.90 | 1.95 |
+      | 2 | 1.10 | 1.30 |
+      | 3 | 0.55 | 1.25 |
+      | 4 | 0.20 | 1.60 |
+      | 5 | 0.05 | 2.10 |
+
+      Quel modèle faut-il garder ?
+    choices:
+      - "Celui de l'epoch 5 : sa loss d'entraînement est la plus basse"
+      - "Celui de l'epoch 3 : sa loss de validation est la plus basse"
+      - Aucun, il faut doubler le nombre d'epochs
+    answer: 1
+    hint: "La loss d'entraînement mesure les révisions, la loss de validation mesure l'examen."
+    explain: "À partir de l'epoch 4, la validation remonte : le modèle sur-apprend. On garde le meilleur point de validation, c'est l'arrêt anticipé."
+  - prompt: |
+      Un autre essai affiche ceci dès les premières minutes :
+
+      `step 10 loss 2.31 · step 20 loss 5.87 · step 30 loss 41.2 · step 40 loss nan`
+
+      Quel réglage modifier en premier ?
+    choices:
+      - Diviser le learning rate par 10
+      - Augmenter le nombre d'epochs
+      - Augmenter le rang r de LoRA
+    answer: 0
+    hint: "Une loss qui explose jusqu'à NaN signe des corrections beaucoup trop violentes."
+    explain: "Une loss qui explose est le symptôme classique d'un learning rate trop grand : chaque correction dépasse la cible."
+  - prompt: L'équipe veut adapter un modèle de 13 milliards de paramètres sur une carte graphique de 16 Go. En 16 bits, combien occupent les poids seuls ?
+    choices: ["6,5 Go", "13 Go", "26 Go"]
+    answer: 2
+    hint: "16 bits = 2 octets par paramètre."
+    explain: "13 milliards × 2 octets = 26 Go : impossible sur 16 Go, même sans compter l'entraînement."
+  - prompt: Quelle approche rend ce projet faisable sur la carte de 16 Go ?
+    choices:
+      - Un full fine-tuning en 32 bits
+      - QLoRA, avec le modèle de base chargé en 4 bits et des adaptateurs LoRA
+      - LoRA avec un rang r = 1024
+    answer: 1
+    hint: "Il faut réduire la taille du modèle de base en mémoire, et n'entraîner qu'une petite partie."
+    explain: "En 4 bits, les poids du 13B occupent environ 6,5 Go, ce qui laisse de la place pour les adaptateurs et les calculs."
+  - prompt: Un collègue propose de passer r de 8 à 256 « pour que le modèle apprenne mieux ». Le dataset ne contient que 300 exemples. Ton avis ?
+    choices:
+      - Excellente idée, plus de paramètres donne toujours un meilleur modèle
+      - "Risqué : beaucoup plus de paramètres à entraîner pour très peu de données, donc un fort risque de sur-apprentissage et plus de mémoire"
+      - Sans effet, r ne change rien
+    answer: 1
+    hint: "Plus un adaptateur est grand, plus il lui est facile d'apprendre 300 exemples par cœur."
+    explain: "Avec peu de données, un petit rang (8 ou 16) est plus sûr. On n'augmente r que si le modèle n'arrive pas à apprendre la tâche."

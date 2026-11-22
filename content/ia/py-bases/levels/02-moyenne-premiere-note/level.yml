@@ -1,0 +1,29 @@
+id: py-bases-02
+title: La précision qui ne regarde qu'un exemple
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 50
+blackout: false
+hintCost: 10
+bugType: early-return
+entry: evaluation.py
+lessons: [py-bases-04, py-bases-03]
+brief: |
+  Ton équipe évalue un petit modèle de classification. Le script affiche une précision
+  absurde : **0,5 %** certains jours, **0 %** d'autres, alors qu'une vérification à la main
+  donne plus de 50 % de bonnes réponses.
+
+  `precision(predictions, attendus)` reçoit deux listes de même longueur et doit renvoyer
+  la **proportion** de prédictions correctes, entre `0.0` et `1.0`.
+
+  Exemple : `precision(["chat", "chien"], ["chat", "chat"])` doit renvoyer `0.5`.
+logs: |
+  [eval] jeu de test A : 200 exemples → précision = 0.005
+  [eval] jeu de test B : 200 exemples → précision = 0.0
+  [eval] vérification manuelle (A) : 112 bonnes réponses sur 200
+hints:
+  - "Ajoute un print(\"tour\", i) au début de la boucle. Combien de tours sont réellement faits ?"
+  - "Regarde l'indentation du return : est-il dans la boucle, ou après ?"
+tests: tests/
