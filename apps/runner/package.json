@@ -1,0 +1,24 @@
+{
+  "name": "@rustine/runner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
+    "build": "tsup src/index.ts src/escape-test.ts --format esm --target node22 --clean",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test:escape": "tsx --env-file-if-exists=../../.env src/escape-test.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@rustine/shared": "*",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.15.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}
