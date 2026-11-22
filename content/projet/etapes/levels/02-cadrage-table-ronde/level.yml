@@ -1,0 +1,57 @@
+id: gp-etapes-02
+title: Le cadrage de Table Ronde
+order: 2
+type: quiz
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 15
+bugType: gestion-projet
+lessons: [gp-etapes-02, gp-etapes-03]
+brief: |
+  Tu es chef de projet sur **Table Ronde**, le site de réservation du restaurant de Sofia.
+  Le budget couvre **six semaines** de développement pour une personne.
+
+  Sofia veut tout : réservation, paiement en ligne, fidélité, avis clients, appli mobile.
+  Son vrai problème : personne ne décroche le téléphone pendant le service, et 15 % des
+  clients qui réservent ne viennent pas.
+
+  Prends les bonnes décisions de cadrage.
+hints:
+  - "Repars toujours du problème réel : les appels manqués et les clients absents."
+  - "Un bon objectif contient un chiffre et une échéance."
+questions:
+  - prompt: Quel objectif inscrire dans le cahier des charges ?
+    choices:
+      - Avoir un site moderne et attractif
+      - Que 50 % des réservations passent par le site d'ici trois mois, et passer sous 8 % de clients absents
+      - Utiliser Next.js et PostgreSQL
+    answer: 1
+    hint: Un objectif décrit un résultat mesurable pour l'utilisateur, pas une technologie ni une impression.
+  - prompt: Quel périmètre proposer pour le MVP, en six semaines ?
+    choices:
+      - Tout ce que Sofia demande, en travaillant plus vite
+      - Réservation en ligne, confirmation par e-mail, rappel la veille et page des réservations pour le personnel
+      - L'appli mobile d'abord, car tout le monde a un téléphone
+    answer: 1
+    hint: "Le MVP résout le problème principal et rien d'autre. Lequel des choix vise les appels manqués et les absences ?"
+    explain: "Le rappel la veille s'attaque directement aux absences. Le paiement, la fidélité et l'appli sont repoussés en « Won't » pour cette version."
+  - prompt: "Dans la méthode MoSCoW, où classer le programme de fidélité ?"
+    choices: ["Must", "Should", "Won't (pour cette version)"]
+    answer: 2
+    hint: Est-ce qu'il aide à résoudre le problème des appels ou des absences ?
+  - prompt: Laquelle de ces user stories est prête à être développée ?
+    choices:
+      - Faire le module de réservation
+      - "En tant que client, je veux voir les créneaux libres d'une date, afin de ne pas choisir une heure complète. Critères : un créneau complet n'apparaît pas, impossible de réserver dans le passé."
+      - Le site doit être rapide
+    answer: 1
+    hint: Une story prête dit qui, quoi, pourquoi, et comment vérifier qu'elle est terminée.
+  - prompt: À la semaine 4, Sofia demande d'ajouter le paiement en ligne « vite fait ». Le développeur l'estime à deux semaines. Que réponds-tu ?
+    choices:
+      - "« D'accord », et l'équipe fera des heures supplémentaires"
+      - "« Non, ce n'est pas prévu », sans autre explication"
+      - "« C'est deux semaines : on peut décaler la mise en ligne, retirer autre chose, ou le prévoir en V2. Que préfères-tu ? »"
+    answer: 2
+    hint: Ni oui automatique, ni non sec. Rends le coût visible et fais choisir.
+    explain: "Rendre l'arbitrage visible protège le délai et la relation avec le client : c'est lui qui décide, en connaissance de cause."

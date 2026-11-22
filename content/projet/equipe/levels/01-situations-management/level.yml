@@ -1,0 +1,57 @@
+id: gp-equipe-01
+title: Première semaine comme lead
+order: 1
+type: quiz
+difficulty: 2
+xp: 90
+blackout: false
+hintCost: 15
+bugType: management
+lessons: [gp-equipe-01, gp-equipe-02, gp-equipe-03]
+brief: |
+  Tu viens d'être nommé·e **lead** d'une équipe de quatre développeurs sur le projet
+  Table Ronde. Ta première semaine est chargée.
+
+  Pour chaque situation, choisis la réaction la plus juste. Il n'y a pas de piège : seulement
+  des situations que tous les leads rencontrent.
+hints:
+  - "Ton rôle n'est plus de tout faire, mais de rendre l'équipe efficace."
+  - "Face à un problème humain, comprendre d'abord, juger ensuite, et jamais en public."
+questions:
+  - prompt: Lundi, un bug bloque la mise en production. Tu es le meilleur développeur de l'équipe et tu sais le corriger en une heure. Karim, plus junior, a commencé à le chercher. Que fais-tu ?
+    choices:
+      - Tu le corriges toi-même, c'est plus rapide
+      - Tu proposes à Karim de chercher ensemble, en le laissant aux commandes
+      - Tu attends qu'il trouve seul, quel que soit le temps que ça prend
+    answer: 1
+    hint: Le court terme compte, mais ton rôle est aussi de faire grandir l'équipe.
+    explain: "Le binôme résout le bug presque aussi vite, et Karim saura le faire la prochaine fois."
+  - prompt: Mardi, tu organises une réunion d'une heure « pour faire le point » avec toute l'équipe. À la fin, chacun repart sans savoir ce qui a été décidé. Que fallait-il ?
+    choices:
+      - Une réunion plus longue
+      - Un objectif précis dans l'invitation, une décision prise et un compte rendu écrit
+      - Inviter aussi la direction
+    answer: 1
+    hint: Une réunion utile a un objectif, un décideur et une trace écrite.
+  - prompt: Mercredi, Léa, développeuse confirmée, a fait une excellente démo au client. Comment le lui dire ?
+    choices:
+      - Tu ne dis rien, c'est son travail
+      - « Bravo, super boulot ! »
+      - "« Ta démo de ce matin, en montrant le parcours complet de réservation, a convaincu Sofia de valider la V1. Merci. »"
+    answer: 2
+    hint: Un bon feedback, même positif, est précis.
+    explain: "Un feedback positif précis dit exactement ce qu'il faut refaire. « Super boulot » fait plaisir, mais n'apprend rien."
+  - prompt: Jeudi, tu remarques que Tom, d'habitude rapide, a raté ses trois derniers délais et ne parle plus au daily. Que fais-tu ?
+    choices:
+      - Tu le lui fais remarquer devant l'équipe au daily
+      - Tu lui proposes un tête-à-tête pour comprendre ce qui se passe, faits à l'appui, sans jugement
+      - Tu réattribues ses tâches sans rien dire
+    answer: 1
+    hint: Comprendre d'abord, en privé.
+  - prompt: Vendredi, Léa et Karim s'opposent vivement sur l'outil d'envoi d'e-mails. La discussion tourne en rond depuis deux jours. Que fais-tu ?
+    choices:
+      - Tu ramènes la discussion aux critères du projet (coût, fiabilité, délai), puis tu tranches en expliquant ta décision
+      - Tu choisis l'outil que tu préfères sans explication
+      - Tu les laisses débattre jusqu'à ce qu'ils soient d'accord
+    answer: 0
+    hint: Revenir aux critères objectifs, puis décider quand le groupe ne converge pas.

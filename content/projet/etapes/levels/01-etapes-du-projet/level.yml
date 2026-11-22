@@ -1,0 +1,34 @@
+id: gp-etapes-01
+title: Le projet qui a commencé par la fin
+order: 1
+type: ordering
+difficulty: 1
+xp: 40
+blackout: false
+hintCost: 10
+bugType: gestion-projet
+lessons: [gp-etapes-01, gp-etapes-04]
+brief: |
+  Une agence a mené le projet d'un fleuriste… en commençant par coder, avant même de
+  savoir ce que le client voulait. Résultat : trois mois de retard et un site que personne
+  n'utilise.
+
+  Pour le prochain client, remets les étapes du projet dans le **bon ordre**, de la première
+  rencontre à la vie du site après son lancement.
+hints:
+  - "Avant de dessiner le moindre écran, il faut savoir quel problème on résout et ce qui est inclus."
+  - "Le client valide le produit (recette) avant qu'il soit ouvert au public."
+steps:
+  - label: Rencontrer le client et comprendre son problème
+    detail: Poser des questions avant de proposer des solutions.
+  - label: Rédiger le cahier des charges
+    detail: Objectifs mesurables, périmètre inclus et exclu, budget, délais.
+  - label: Concevoir les maquettes et l'architecture
+  - label: Découper en user stories et prioriser le backlog
+  - label: Développer par petits incréments
+    detail: Avec une démonstration au client à la fin de chaque sprint.
+  - label: Faire la recette avec le client
+    detail: Le client vérifie que le produit correspond à sa demande.
+  - label: Mettre en production
+    detail: Avec une sauvegarde et un plan de retour en arrière.
+  - label: Mesurer, corriger et faire évoluer
