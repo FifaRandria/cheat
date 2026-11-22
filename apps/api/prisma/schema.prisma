@@ -1,0 +1,148 @@
+// Modèle de données de Rustine (section 12 du cahier des charges).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  displayName  String
+  passwordHash String?
+  githubId     String?   @unique
+  avatarUrl    String?
+  xp           Int       @default(0)
+  streak       Int       @default(0)
+  bestStreak   Int       @default(0)
+  lastActiveOn DateTime? @db.Date
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  attempts Attempt[]
+  progress Progress[]
+  badges   UserBadge[]
+  museum   BugMuseumEntry[]
+}
+
+/// Synchronisé depuis levels/modules.yml
+model Module {
+  id      String   @id
+  code    String
+  title   String
+  tagline String
+  notions String[]
+  phase   String
+  order   Int
+
+  levels Level[]
+}
+
+/// Synchronisé depuis levels/<module>/<niveau>/level.yml
+model Level {
+  id         String  @id
+  moduleId   String
+  /// Chemin du dossier du niveau, relatif à LEVELS_DIR
+  path       String
+  title      String
+  order      Int
+  type       String
+  runtime    String
+  difficulty Int
+  xp         Int
+  blackout   Boolean @default(false)
+  hintCost   Int     @default(0)
+  hintsCount Int     @default(0)
+  bugType    String
+  /// false si le dossier a disparu du dépôt de contenu
+  active     Boolean @default(true)
+
+  module   Module           @relation(fields: [moduleId], references: [id])
+  attempts Attempt[]
+  progress Progress[]
+  museum   BugMuseumEntry[]
+
+  @@index([moduleId, order])
+}
+
+/// Une soumission d'un joueur sur un niveau
+model Attempt {
+  id          String   @id @default(cuid())
+  userId      String
+  levelId     String
+  files       Json
+  passed      Boolean
+  testsPassed Int
+  testsTotal  Int
+  durationMs  Int
+  hintsUsed   Int
+  createdAt   DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level Level @relation(fields: [levelId], references: [id])
+
+  @@index([userId, levelId])
+  @@index([userId, createdAt])
+}
+
+/// Avancement d'un joueur sur un niveau. L'avancement par module en est déduit.
+model Progress {
+  userId    String
+  levelId   String
+  /// in-progress | solved
+  status    String    @default("in-progress")
+  hintsUsed Int       @default(0)
+  attempts  Int       @default(0)
+  xpEarned  Int       @default(0)
+  lastCode  Json?
+  startedAt DateTime  @default(now())
+  solvedAt  DateTime?
+  updatedAt DateTime  @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level Level @relation(fields: [levelId], references: [id])
+
+  @@id([userId, levelId])
+}
+
+model Badge {
+  slug        String @id
+  name        String
+  description String
+  icon        String
+
+  owners UserBadge[]
+}
+
+model UserBadge {
+  userId    String
+  badgeSlug String
+  earnedAt  DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeSlug], references: [slug])
+
+  @@id([userId, badgeSlug])
+}
+
+/// Musée de bugs : erreurs commises, rejouées en répétition espacée (boîtes de Leitner)
+model BugMuseumEntry {
+  id           String   @id @default(cuid())
+  userId       String
+  levelId      String
+  bugType      String
+  occurrences  Int      @default(1)
+  box          Int      @default(0)
+  nextReviewAt DateTime
+  lastSeenAt   DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level Level @relation(fields: [levelId], references: [id])
+
+  @@unique([userId, levelId])
+  @@index([userId, nextReviewAt])
+}

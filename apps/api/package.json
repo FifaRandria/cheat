@@ -1,0 +1,41 @@
+{
+  "name": "@rustine/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=../../.env src/index.ts",
+    "build": "tsup src/index.ts src/content/sync-cli.ts src/content/check-cli.ts --format esm --target node22 --clean",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "db:migrate": "dotenv -e ../../.env -- prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:studio": "dotenv -e ../../.env -- prisma studio",
+    "levels:sync": "tsx --env-file-if-exists=../../.env src/content/sync-cli.ts",
+    "levels:check": "tsx --env-file-if-exists=../../.env src/content/check-cli.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.0",
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "yaml": "^2.8.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@rustine/shared": "*",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.15.0",
+    "dotenv-cli": "^8.0.0",
+    "prisma": "^6.16.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}
