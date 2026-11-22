@@ -1,6 +1,7 @@
 "use client";
 
 import type { LevelDetail } from "@rustine/shared";
+import Link from "next/link";
 import { useState } from "react";
 import { incidentCode } from "@/lib/format";
 import { Icon } from "../Icon";
@@ -50,6 +51,7 @@ export function BriefPanel({ level, onUnlockHint, canUseHints }: Props) {
           <>
             <Markdown>{level.brief}</Markdown>
             {level.logs && <LogsBlock logs={level.logs} />}
+            {level.lessons.length > 0 && <LessonLinks lessons={level.lessons} blackout={level.blackout} />}
           </>
         ) : level.blackout ? (
           <BlackoutNote />
@@ -58,6 +60,34 @@ export function BriefPanel({ level, onUnlockHint, canUseHints }: Props) {
         )}
       </div>
     </aside>
+  );
+}
+
+/** Renvoi vers les leçons qui expliquent la notion : on ne répare bien que ce qu'on comprend. */
+function LessonLinks({ lessons, blackout }: { lessons: LevelDetail["lessons"]; blackout: boolean }) {
+  return (
+    <div className="mt-6 rounded-xl border border-dashed border-line-strong p-4">
+      <p className="flex items-center gap-2 font-mono text-[0.68rem] tracking-[0.14em] text-ink-3 uppercase">
+        <Icon name="book" size={13} />
+        {blackout ? "Documentation" : "Besoin d'un rappel ?"}
+      </p>
+      <ul className="mt-2.5 space-y-1">
+        {lessons.map((l) => (
+          <li key={l.id}>
+            <Link
+              href={`/lecons/${l.id}`}
+              target="_blank"
+              className="group flex items-center gap-2 rounded-md py-1 text-sm text-ink-2 hover:text-ink"
+            >
+              <span className="h-px w-3 bg-line-strong transition-all group-hover:w-5 group-hover:bg-fix" />
+              {l.title}
+              <Icon name="arrowRight" size={13} className="opacity-0 transition group-hover:opacity-100" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2 text-xs text-ink-3">S'ouvre dans un nouvel onglet : ton code reste ici.</p>
+    </div>
   );
 }
 

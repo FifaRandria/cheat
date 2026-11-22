@@ -5,39 +5,53 @@ import { Icon, type IconName } from "@/components/Icon";
 const PROTOCOL: Array<{ code: string; title: string; text: string; icon: IconName }> = [
   {
     code: "01",
-    title: "Un système cassé",
-    text: "Chaque niveau commence en panne : une API qui renvoie undefined, un pipeline rouge, un conteneur qui ne joint pas sa base.",
-    icon: "bug",
+    title: "Apprendre",
+    text: "Une leçon courte et concrète, avec des exemples que tu exécutes et modifies dans la page. Puis un mini-quiz pour vérifier que c'est acquis.",
+    icon: "book",
   },
   {
     code: "02",
-    title: "Un diagnostic",
-    text: "Tu lis les logs, tu formules une hypothèse, tu l'isoles. Les tests te disent si ton correctif tient vraiment.",
-    icon: "logs",
+    title: "Réparer",
+    text: "Un système cassé t'attend : une API qui renvoie undefined, un calcul qui donne NaN. Tu lis les logs, tu formules une hypothèse, tu corriges.",
+    icon: "wrench",
   },
   {
     code: "03",
-    title: "Un post-mortem",
-    text: "Une fois au vert, tu découvres la cause racine et le réflexe à garder pour ne plus jamais tomber dans le piège.",
-    icon: "book",
+    title: "Comprendre",
+    text: "Une fois au vert, le post-mortem explique la cause racine et le réflexe à garder. Tes erreurs reviennent plus tard, pour devenir des automatismes.",
+    icon: "target",
   },
 ];
 
-const TRACK = [
-  ["M0", "Fondations", "MVP"],
-  ["M1", "JS & Node", "MVP"],
-  ["M2", "Express", "V1"],
-  ["M3", "PostgreSQL", "V1"],
-  ["M4", "React / Next", "V1"],
-  ["M5", "TypeScript", "V1"],
-  ["M6", "Docker", "V1"],
-  ["M7", "CI/CD", "V1"],
-  ["M8", "Python", "V2"],
-  ["M9", "Fine-tuning", "V2"],
-  ["M10", "RAG", "V2"],
-  ["M11", "n8n", "V2"],
-  ["M12", "Boss final", "V2"],
-] as const;
+const LINES: Array<{ id: string; title: string; text: string; icon: IconName; color: string; stops: string[]; first: string }> = [
+  {
+    id: "web",
+    title: "Développeur web fullstack",
+    text: "Des bases de JavaScript jusqu'à une app dockerisée avec un CI vert.",
+    icon: "code",
+    color: "var(--fix)",
+    stops: ["Bases JS", "Async", "Git & HTTP", "Express", "PostgreSQL", "React", "Docker", "CI/CD"],
+    first: "/lecons/js-bases-01",
+  },
+  {
+    id: "ia",
+    title: "Intelligence artificielle",
+    text: "Python depuis zéro, puis entraînement, LoRA, QLoRA, RAG et automatisation.",
+    icon: "spark",
+    color: "var(--info)",
+    stops: ["Bases Python", "Data", "Fine-tuning", "RAG", "n8n"],
+    first: "/lecons/py-bases-01",
+  },
+  {
+    id: "projet",
+    title: "Gestion de projet",
+    text: "Mener un projet web du cadrage à la livraison, et diriger une équipe.",
+    icon: "flag",
+    color: "var(--warn)",
+    stops: ["Étapes d'un projet", "Diriger une équipe", "Gérer les crises"],
+    first: "/lecons/gp-etapes-01",
+  },
+];
 
 export default function Home() {
   return (
@@ -66,31 +80,31 @@ export default function Home() {
             </h1>
 
             <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              Apprends le fullstack, Docker, le CI/CD et l&apos;IA en remettant des systèmes cassés au vert.
-              Logs, tests, hypothèses : <span className="text-ink">la compétence qui reste quand l&apos;IA n&apos;est plus là.</span>
+              Apprends le web fullstack, l&apos;IA et la gestion de projet : une leçon claire, puis un système cassé à
+              remettre au vert. <span className="text-ink">La compétence qui reste quand l&apos;IA n&apos;est plus là.</span>
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link
-                href="/niveau/m1-async-01"
+                href="/lecons/js-bases-01"
                 className="group inline-flex items-center gap-2.5 rounded-xl bg-fix px-5 py-3.5 font-semibold text-fix-ink shadow-[0_10px_30px_-10px_var(--fix)] transition hover:brightness-110"
               >
-                Ouvrir mon premier incident
+                Commencer par la première leçon
                 <Icon name="arrowRight" size={18} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/parcours"
                 className="inline-flex items-center gap-2 rounded-xl border border-line-strong px-5 py-3.5 font-medium text-ink transition hover:bg-raised"
               >
-                Voir le parcours
+                Voir les parcours
               </Link>
             </div>
 
             <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-line pt-6">
               {[
-                ["13", "modules"],
+                ["3", "parcours"],
+                ["0", "prérequis"],
                 ["0", "IA pour tricher"],
-                ["100 %", "dans le navigateur"],
               ].map(([n, label]) => (
                 <div key={label}>
                   <dt className="sr-only">{label}</dt>
@@ -112,7 +126,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
           <SectionLabel>Le protocole</SectionLabel>
           <h2 className="mt-3 max-w-2xl font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-            Le jeu n&apos;habille pas le cours. <span className="text-ink-3">Le jeu est l&apos;exercice.</span>
+            On ne répare bien que ce qu&apos;on comprend. <span className="text-ink-3">Alors on apprend d&apos;abord.</span>
           </h2>
 
           <ol className="mt-12 grid gap-4 md:grid-cols-3">
@@ -179,39 +193,49 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SectionLabel>La ligne</SectionLabel>
+            <SectionLabel>Trois lignes</SectionLabel>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
-              Du terminal au RAG, en 13 stations.
+              Choisis ta destination. Chacune part de zéro.
             </h2>
           </div>
           <Link href="/parcours" className="inline-flex items-center gap-1.5 text-sm text-fix hover:underline">
-            Explorer le parcours <Icon name="arrowRight" size={15} />
+            Plan complet <Icon name="arrowRight" size={15} />
           </Link>
         </div>
 
-        <ol className="relative mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-7">
-          {TRACK.map(([code, title, phase]) => {
-            const open = phase === "MVP";
-            return (
-              <li key={code} className="relative">
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`grid size-9 shrink-0 place-items-center rounded-full border-2 font-mono text-[0.68rem] font-bold ${
-                      open ? "border-fix bg-fix text-fix-ink" : "border-line-strong text-ink-3"
-                    }`}
-                  >
-                    {code}
-                  </span>
-                  <span className={`h-0.5 flex-1 ${open ? "bg-fix" : "bg-line"}`} aria-hidden="true" />
+        <div className="mt-12 space-y-4">
+          {LINES.map((line) => (
+            <Link
+              key={line.id}
+              href={line.first}
+              className="group grid gap-5 rounded-2xl border border-line bg-raised/50 p-5 transition hover:border-line-strong hover:bg-raised sm:p-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)_auto] lg:items-center"
+            >
+              <div className="flex items-start gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl" style={{ background: `color-mix(in srgb, ${line.color} 14%, transparent)`, color: line.color }}>
+                  <Icon name={line.icon} size={22} />
+                </span>
+                <div>
+                  <h3 className="font-display text-lg leading-tight font-semibold">{line.title}</h3>
+                  <p className="mt-1 text-sm text-ink-3">{line.text}</p>
                 </div>
-                <p className={`mt-3 text-sm font-medium ${open ? "text-ink" : "text-ink-2"}`}>{title}</p>
-                <p className="mt-0.5 font-mono text-[0.65rem] tracking-wider text-ink-3 uppercase">
-                  {open ? "ouvert" : `chantier ${phase}`}
-                </p>
-              </li>
-            );
-          })}
-        </ol>
+              </div>
+              <ol className="flex items-center overflow-x-auto pb-1" aria-label="Étapes">
+                {line.stops.map((stop, i) => (
+                  <li key={stop} className="flex shrink-0 items-center">
+                    <span className="flex flex-col items-center gap-1.5">
+                      <span className="size-3 rounded-full border-2" style={{ borderColor: line.color, background: i === 0 ? line.color : "transparent" }} />
+                      <span className={`whitespace-nowrap text-[0.7rem] ${i === 0 ? "text-ink" : "text-ink-3"}`}>{stop}</span>
+                    </span>
+                    {i < line.stops.length - 1 && <span className="mx-1 mb-5 h-0.5 w-8 sm:w-12" style={{ background: `color-mix(in srgb, ${line.color} 45%, var(--line))` }} />}
+                  </li>
+                ))}
+              </ol>
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: line.color }}>
+                Première leçon <Icon name="arrowRight" size={15} className="transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* ------------------------------------------------------------- CTA final */}
@@ -224,7 +248,7 @@ export default function Home() {
                 La prod est tombée. <span className="text-fix">On compte sur toi.</span>
               </h2>
               <p className="mt-3 max-w-xl text-ink-2">
-                Premier incident en moins de cinq minutes. Aucun prérequis pour le module M0.
+                Première leçon en moins de dix minutes. Aucun prérequis : on commence par les bases.
               </p>
             </div>
             <Link

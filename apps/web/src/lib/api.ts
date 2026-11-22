@@ -1,11 +1,14 @@
 import type {
   HintResponse,
+  LessonCompleteResponse,
+  LessonDetail,
   LevelDetail,
-  ModuleSummary,
   ProfileResponse,
   PublicUser,
   SourceFile,
+  Submission,
   SubmitResponse,
+  TrackSummary,
 } from "@rustine/shared";
 
 export class ApiError extends Error {
@@ -53,12 +56,15 @@ export const api = {
     request<{ user: PublicUser }>("/auth/login", { method: "POST", body: json(data) }),
   logout: () => request<void>("/auth/logout", { method: "POST" }),
 
-  modules: () => request<ModuleSummary[]>("/modules"),
+  tracks: () => request<TrackSummary[]>("/tracks"),
+  lesson: (id: string) => request<LessonDetail>(`/lessons/${encodeURIComponent(id)}`),
+  completeLesson: (id: string) =>
+    request<LessonCompleteResponse>(`/lessons/${encodeURIComponent(id)}/complete`, { method: "POST" }),
   level: (id: string) => request<LevelDetail>(`/levels/${encodeURIComponent(id)}`),
   starter: (id: string) => request<SourceFile[]>(`/levels/${encodeURIComponent(id)}/starter`),
   saveDraft: (id: string, files: SourceFile[]) =>
     request<void>(`/levels/${encodeURIComponent(id)}/draft`, { method: "PUT", body: json({ files }) }),
   unlockHint: (id: string) => request<HintResponse>(`/levels/${encodeURIComponent(id)}/hints`, { method: "POST" }),
-  submit: (id: string, files: SourceFile[]) =>
-    request<SubmitResponse>(`/levels/${encodeURIComponent(id)}/submit`, { method: "POST", body: json({ files }) }),
+  submit: (id: string, submission: Submission) =>
+    request<SubmitResponse>(`/levels/${encodeURIComponent(id)}/submit`, { method: "POST", body: json(submission) }),
 };

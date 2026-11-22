@@ -27,6 +27,7 @@
   --warn: #ffb938;
   --warn-soft: rgb(255 185 56 / 0.12);
   --info: #7fc8f8;
+  --info-soft: rgb(127 200 248 / 0.12);
 
   --grain-opacity: 0.05;
   --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 20px 40px -24px rgb(0 0 0 / 0.8);
@@ -53,6 +54,7 @@
   --warn: #9a6200;
   --warn-soft: rgb(154 98 0 / 0.1);
   --info: #1f6fa8;
+  --info-soft: rgb(31 111 168 / 0.1);
 
   --grain-opacity: 0.035;
   --shadow: 0 1px 0 rgb(255 255 255 / 0.6) inset, 0 18px 36px -24px rgb(60 50 20 / 0.35);
@@ -78,6 +80,7 @@
   --warn: #d8ff6a;
   --warn-soft: rgb(216 255 106 / 0.08);
   --info: #9dff8a;
+  --info-soft: rgb(157 255 138 / 0.08);
   --shadow: none;
 }
 
@@ -100,6 +103,7 @@
   --color-warn: var(--warn);
   --color-warn-soft: var(--warn-soft);
   --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
@@ -350,4 +354,225 @@ body::before {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ----------------------------------------------------------------------------
+   Code dans les leçons et post-mortems
+   ---------------------------------------------------------------------------- */
+.prose-rustine .code-figure {
+  margin-block: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-sunken);
+  overflow: hidden;
+}
+.prose-rustine .code-figure figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem 0.4rem 0.9rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.prose-rustine .code-pre {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  overflow-x: auto;
+  color: var(--ink);
+  white-space: pre;
+}
+.prose-rustine .code-runnable {
+  border-color: color-mix(in srgb, var(--fix) 35%, var(--line));
+}
+.prose-rustine .code-textarea {
+  resize: vertical;
+  outline: none;
+  background: color-mix(in srgb, var(--fix) 4%, transparent);
+  caret-color: var(--fix);
+  tab-size: 2;
+}
+.prose-rustine .code-output {
+  background: var(--bg);
+  border-style: dashed;
+}
+.prose-rustine .code-output .code-pre {
+  color: var(--ink-2);
+}
+.prose-rustine .code-console {
+  border-top: 1px solid var(--line);
+  padding: 0.7rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  background: var(--bg);
+}
+.prose-rustine .code-console::before {
+  content: "console";
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  transition: background 0.15s, color 0.15s;
+}
+.code-btn:hover {
+  background: var(--bg-hover);
+  color: var(--ink);
+}
+.code-btn-run {
+  background: var(--fix);
+  color: var(--fix-ink);
+  font-weight: 700;
+}
+.code-btn-run:hover {
+  background: var(--fix);
+  color: var(--fix-ink);
+  filter: brightness(1.1);
+}
+.code-btn:disabled {
+  opacity: 0.6;
+}
+
+/* Encadrés */
+.prose-rustine .callout {
+  display: flex;
+  gap: 0.8rem;
+  margin-block: 1.4rem;
+  padding: 0.95rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.prose-rustine .callout > div > * + * {
+  margin-top: 0.6em;
+}
+.prose-rustine .callout-icon {
+  flex: none;
+  margin-top: 0.2rem;
+}
+.prose-rustine .callout-key {
+  background: var(--fix-soft);
+  border-color: color-mix(in srgb, var(--fix) 35%, transparent);
+}
+.prose-rustine .callout-key .callout-icon,
+.prose-rustine .callout-key strong:first-child {
+  color: var(--fix);
+}
+.prose-rustine .callout-warn {
+  background: var(--break-soft);
+  border-color: color-mix(in srgb, var(--break) 35%, transparent);
+}
+.prose-rustine .callout-warn .callout-icon,
+.prose-rustine .callout-warn strong:first-child {
+  color: var(--break);
+}
+.prose-rustine .callout-tip {
+  background: var(--warn-soft);
+  border-color: color-mix(in srgb, var(--warn) 35%, transparent);
+}
+.prose-rustine .callout-tip .callout-icon,
+.prose-rustine .callout-tip strong:first-child {
+  color: var(--warn);
+}
+.prose-rustine blockquote {
+  border-left: 3px solid var(--line-strong);
+  padding-left: 1rem;
+  color: var(--ink-2);
+}
+
+/* Tableaux */
+.prose-rustine .table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.prose-rustine table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.prose-rustine th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: var(--bg-sunken);
+  font-weight: 500;
+}
+.prose-rustine th,
+.prose-rustine td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+.prose-rustine tr:last-child td {
+  border-bottom: 0;
+}
+.prose-rustine td code {
+  white-space: nowrap;
+}
+
+/* Manuel d'atelier : sections numérotées dans les leçons */
+.prose-lesson {
+  counter-reset: section;
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.prose-lesson h2 {
+  counter-increment: section;
+  font-size: 1.45rem;
+  margin-top: 2.6em;
+  scroll-margin-top: 6rem;
+}
+.prose-lesson h2::before {
+  content: counter(section, decimal-leading-zero);
+  width: auto;
+  height: auto;
+  background: none;
+  transform: none;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--fix);
+  border: 1px solid color-mix(in srgb, var(--fix) 40%, transparent);
+  padding: 0.15rem 0.4rem;
+  border-radius: 5px;
+}
+
+/* Pas de ligatures dans le code : un débutant doit voir les caractères qu'il tape (<= et non ≤). */
+code,
+pre,
+kbd,
+textarea,
+.font-mono {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
 }

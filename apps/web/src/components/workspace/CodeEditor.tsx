@@ -144,7 +144,8 @@ export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEdito
         fontFamily: "var(--font-jetbrains), ui-monospace, monospace",
         fontSize: 14,
         lineHeight: 22,
-        fontLigatures: true,
+        // Pas de ligatures : on veut voir <= et =>, pas ≤ et ⇒.
+        fontLigatures: false,
         minimap: { enabled: false },
         scrollBeyondLastLine: false,
         padding: { top: 16, bottom: 16 },

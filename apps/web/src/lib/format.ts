@@ -23,6 +23,16 @@ const BUG_TYPES: Record<string, string> = {
   "async-await": "await oublié",
   "async-loop": "Boucle async",
   "promise-all": "Échec en cascade",
+  "const-reassign": "Constante modifiée",
+  "assign-vs-compare": "= au lieu de ===",
+  "missing-return": "return oublié",
+  "type-mismatch": "Types incompatibles",
+  "early-return": "return trop tôt",
+  "key-error": "Clé absente",
+  "concept-ia": "Concepts d'IA",
+  "pipeline": "Ordre des étapes",
+  "gestion-projet": "Gestion de projet",
+  management: "Management",
 };
 export const bugTypeLabel = (t: string) => BUG_TYPES[t] ?? t;
 

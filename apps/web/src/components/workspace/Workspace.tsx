@@ -53,7 +53,7 @@ export function Workspace({ initial }: { initial: LevelDetail }) {
     }
     setPanel({ kind: "running" });
     try {
-      const res = await api.submit(level.id, files);
+      const res = await api.submit(level.id, { files });
       setPanel({ kind: "result", result: res.result });
       if (res.user) setUser(res.user);
       setLevel((l) => ({
@@ -109,12 +109,12 @@ export function Workspace({ initial }: { initial: LevelDetail }) {
       {/* Barre d'outils */}
       <div className="flex flex-wrap items-center gap-3 border-b border-line px-4 py-2.5">
         <Link
-          href="/parcours"
+          href={`/parcours/${level.track.id}`}
           className="flex items-center gap-1.5 rounded-md py-1 pr-2 text-sm text-ink-3 hover:text-ink"
           aria-label="Retour au parcours"
         >
           <Icon name="arrowLeft" size={16} />
-          <span className="hidden sm:inline">Parcours</span>
+          <span className="hidden sm:inline">{level.track.title}</span>
         </Link>
         <span className="h-4 w-px bg-line" aria-hidden="true" />
         <span className="font-mono text-xs text-ink-3">{incident}</span>

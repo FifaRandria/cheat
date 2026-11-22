@@ -61,8 +61,9 @@ export default function ProfilePage() {
       </header>
 
       {/* Compteurs */}
-      <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+      <dl className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-5">
         <Stat label="XP totale" value={u.xp} accent />
+        <Stat label="Leçons terminées" value={stats.lessonsDone} />
         <Stat label="Incidents réparés" value={stats.solved} />
         <Stat label="Tentatives" value={stats.attempts} />
         <Stat label="Résolus en Blackout" value={stats.blackoutSolved} />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
+import { InteractiveWorkspace } from "@/components/workspace/InteractiveWorkspace";
 import { Workspace } from "@/components/workspace/Workspace";
 import { api, ApiError } from "@/lib/api";
 import { useSession } from "@/lib/session";
@@ -52,7 +53,8 @@ export default function LevelPage() {
 
   if (!level) return <WorkspaceSkeleton />;
   // La clé force un état neuf quand on passe d'un niveau à l'autre.
-  return <Workspace key={`${level.id}:${user?.id ?? "anon"}`} initial={level} />;
+  const key = `${level.id}:${user?.id ?? "anon"}`;
+  return level.interactive ? <InteractiveWorkspace key={key} initial={level} /> : <Workspace key={key} initial={level} />;
 }
 
 function WorkspaceSkeleton() {
