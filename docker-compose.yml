@@ -1,0 +1,75 @@
+# Environnement complet : docker compose up --build
+# Pour développer, tu peux aussi ne lancer que la base : docker compose up -d db
+name: rustine
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: rustine
+      POSTGRES_PASSWORD: rustine
+      POSTGRES_DB: rustine
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rustine"]
+      interval: 5s
+      retries: 10
+
+  runner:
+    build:
+      context: .
+      dockerfile: apps/runner/Dockerfile
+    environment:
+      RUNNER_PORT: 4100
+      RUNNER_TOKEN: ${RUNNER_TOKEN:-change-moi-aussi}
+      RUNNER_MODE: docker
+      RUNNER_IMAGE: node:22-alpine
+      # Le runner crée les conteneurs via le démon Docker de l'hôte :
+      # le dossier des jobs doit avoir le même chemin dans le runner et sur l'hôte.
+      RUNNER_JOBS_DIR: /tmp/rustine-jobs
+    volumes:
+      # ATTENTION : accès au socket Docker = accès root à l'hôte.
+      # Le runner ne doit jamais être exposé publiquement (voir docs/securite-runner.md).
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/rustine-jobs:/tmp/rustine-jobs
+    expose:
+      - "4100"
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+      runner:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql://rustine:rustine@db:5432/rustine?schema=public
+      API_PORT: 4000
+      WEB_URL: ${WEB_URL:-http://localhost:3000}
+      JWT_SECRET: ${JWT_SECRET:-dev-secret-a-remplacer-en-production}
+      LEVELS_DIR: /app/levels
+      RUNNER_URL: http://runner:4100
+      RUNNER_TOKEN: ${RUNNER_TOKEN:-change-moi-aussi}
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+    expose:
+      - "4000"
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        API_INTERNAL_URL: http://api:4000
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+volumes:
+  db-data:

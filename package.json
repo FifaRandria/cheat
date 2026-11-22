@@ -1,0 +1,24 @@
+{
+  "name": "rustine",
+  "private": true,
+  "description": "Plateforme gamifiée pour apprendre le fullstack et l'IA en réparant des systèmes cassés.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:web": "npm run dev -w @rustine/web",
+    "dev:api": "npm run dev -w @rustine/api",
+    "dev:runner": "npm run dev -w @rustine/runner",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @rustine/api",
+    "levels:sync": "npm run levels:sync -w @rustine/api",
+    "levels:check": "npm run levels:check -w @rustine/api",
+    "test:escape": "npm run test:escape -w @rustine/runner"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
