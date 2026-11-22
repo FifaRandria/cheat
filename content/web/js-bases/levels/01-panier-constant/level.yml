@@ -1,0 +1,28 @@
+id: js-bases-01
+title: Le panier qui refuse de compter
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 30
+blackout: false
+hintCost: 5
+bugType: const-reassign
+entry: panier.js
+lessons: [js-bases-02, js-bases-04]
+brief: |
+  La boutique en ligne plante dès qu'un client a **au moins un article** dans son panier.
+  Les paniers vides, eux, fonctionnent.
+
+  `totalPanier(prix)` reçoit la liste des prix des articles et doit renvoyer leur **somme**.
+
+  Exemple : `totalPanier([10, 5, 2.5])` doit renvoyer `17.5`.
+logs: |
+  [shop] GET /panier (vide)        → 200
+  [shop] GET /panier (3 articles)  → 500
+  [shop] TypeError: Assignment to constant variable.
+             at totalPanier (panier.js:6:11)
+hints:
+  - "Relis le message d'erreur mot à mot : « Assignment to constant variable ». Quelle variable est modifiée à la ligne 6 ?"
+  - "Une variable qui doit changer à chaque tour de boucle ne peut pas être déclarée avec const."
+tests: tests/

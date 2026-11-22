@@ -3,12 +3,13 @@ title: La pagination décalée
 order: 5
 type: bug-hunt
 runtime: node
-difficulty: 1
+difficulty: 2
 xp: 40
 blackout: false
 hintCost: 10
 bugType: off-by-one
 entry: pagination.js
+lessons: [js-bases-06, js-bases-04]
 brief: |
   Le blog vient de passer à la pagination, et le support reçoit deux plaintes :
 

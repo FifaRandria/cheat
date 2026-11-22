@@ -9,6 +9,7 @@ blackout: false
 hintCost: 10
 bugType: async-await
 entry: profile.js
+lessons: [js-async-02]
 brief: |
   La page profil affiche un avatar vide et plante côté navigateur.
   L'API répond pourtant `200 OK`… avec un corps vide.

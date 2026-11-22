@@ -9,6 +9,7 @@ blackout: false
 hintCost: 15
 bugType: async-loop
 entry: notify.js
+lessons: [js-async-02, js-async-03]
 brief: |
   Le tableau de bord de l'équipe marketing affiche **« 0 e-mail envoyé »**
   après chaque campagne, alors que les clients reçoivent bien leurs e-mails…

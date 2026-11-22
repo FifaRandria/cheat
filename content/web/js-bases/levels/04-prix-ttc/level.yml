@@ -1,0 +1,26 @@
+id: js-bases-04
+title: Le prix TTC a disparu
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 50
+blackout: false
+hintCost: 10
+bugType: missing-return
+entry: prix.js
+lessons: [js-bases-05]
+brief: |
+  La page produit plante à l'affichage du prix. Le calcul de la TVA a pourtant été
+  vérifié par la comptabilité : `prixHT * 1.2` est correct.
+
+  - `prixTTC(prixHT)` doit renvoyer le prix TTC (TVA à 20 %).
+  - `etiquette(prixHT)` doit renvoyer un texte comme `"120.00 € TTC"`.
+logs: |
+  [shop] GET /produits/clavier → 500
+  [shop] TypeError: Cannot read properties of undefined (reading 'toFixed')
+             at etiquette (prix.js:9:26)
+hints:
+  - "L'erreur est dans etiquette, à la ligne 9, mais la valeur undefined vient d'ailleurs. Que renvoie prixTTC(100) ?"
+  - "Calculer une valeur dans une fonction ne suffit pas : il faut la rendre au code qui appelle."
+tests: tests/

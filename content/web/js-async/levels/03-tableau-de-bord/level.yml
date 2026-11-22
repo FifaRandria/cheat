@@ -9,6 +9,7 @@ blackout: true
 hintCost: 0
 bugType: promise-all
 entry: dashboard.js
+lessons: [js-async-03]
 brief: |
   **Incident en cours.** Le service boursier ne répond plus, et depuis, le
   tableau de bord est **entièrement vide** pour tous les utilisateurs, alors

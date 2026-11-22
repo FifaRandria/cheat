@@ -1,0 +1,27 @@
+id: js-bases-03
+title: La moyenne qui affiche NaN
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 50
+blackout: false
+hintCost: 10
+bugType: off-by-one
+entry: notes.js
+lessons: [js-bases-04, js-bases-06]
+brief: |
+  Le bulletin en ligne affiche **« Moyenne : NaN »** pour tous les élèves.
+  Les notes sont pourtant bien enregistrées.
+
+  `moyenne(notes)` reçoit un tableau de notes et doit renvoyer leur moyenne.
+  Pour un tableau vide, elle doit renvoyer `0`.
+logs: |
+  [bulletin] élève=ada  notes=[12,15,9,18]  moyenne=NaN
+  [bulletin] élève=bob  notes=[10]          moyenne=NaN
+  [bulletin] élève=eve  notes=[]            moyenne=NaN
+hints:
+  - "Ajoute console.log(i, notes[i]) dans la boucle. Que vaut la dernière ligne affichée ?"
+  - "Un tableau de 4 éléments a des index de 0 à 3. Combien de tours fait la boucle ?"
+  - "Le tableau vide donne aussi NaN : que vaut 0 / 0 ?"
+tests: tests/

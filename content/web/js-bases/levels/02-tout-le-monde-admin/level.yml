@@ -1,0 +1,26 @@
+id: js-bases-02
+title: Tout le monde est administrateur
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 40
+blackout: false
+hintCost: 10
+bugType: assign-vs-compare
+entry: acces.js
+lessons: [js-bases-03]
+brief: |
+  **Faille de sécurité.** N'importe quel visiteur peut supprimer des articles du blog,
+  et les comptes « invité » apparaissent comme « admin » dans le back-office.
+
+  `peutSupprimer(utilisateur)` doit renvoyer `true` **uniquement** si
+  `utilisateur.role` vaut `"admin"`, et ne doit **jamais modifier** l'utilisateur.
+logs: |
+  [blog] DELETE /articles/42  user=invite-17  role=invite  → 204 (supprimé !)
+  [blog] audit: user invite-17 role=admin
+  [blog] audit: user lecteur-3 role=admin
+hints:
+  - "Les logs montrent que le rôle change après l'appel. Quelle ligne pourrait modifier utilisateur.role ?"
+  - "Dans une condition, un seul = range une valeur. Pour comparer, il en faut trois."
+tests: tests/
