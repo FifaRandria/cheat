@@ -5,6 +5,7 @@ import { loadUser } from "./auth/session.js";
 import { errorHandler, notFound } from "./http.js";
 import { authRouter } from "./routes/auth.js";
 import { catalogRouter } from "./routes/catalog.js";
+import { lessonsRouter } from "./routes/lessons.js";
 import { meRouter } from "./routes/me.js";
 import { playRouter } from "./routes/play.js";
 
@@ -25,6 +26,7 @@ export function createApp() {
   app.use("/api/me", meRouter);
   app.use("/api", catalogRouter);
   app.use("/api", playRouter);
+  app.use("/api", lessonsRouter);
 
   app.use((_req, _res) => {
     throw notFound("Route");

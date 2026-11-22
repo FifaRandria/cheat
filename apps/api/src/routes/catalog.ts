@@ -1,55 +1,91 @@
-import type { LevelDetail, LevelStatus, ModuleSummary, SourceFile } from "@rustine/shared";
+import type { LevelDetail, LevelStatus, SourceFile, TrackSummary } from "@rustine/shared";
 import { Router } from "express";
 import { z } from "zod";
 import { currentUser, requireUser } from "../auth/session.js";
-import { getLoadedLevel, readLevelFiles, readPostmortem } from "../content/loader.js";
+import { interactivePayload, interactivePostmortem } from "../content/interactive.js";
+import { getContent, getLoadedLevel, type LoadedLevel, readLevelFiles, readPostmortem } from "../content/loader.js";
 import { asJson, db } from "../db.js";
 import { rewardFor } from "../game/progression.js";
 import { HttpError, notFound } from "../http.js";
 
 export const catalogRouter = Router();
 
-catalogRouter.get("/modules", async (req, res) => {
-  const [modules, progress] = await Promise.all([
-    db.module.findMany({
+/** Tous les parcours, avec leurs modules, leçons et niveaux, et l'avancement du joueur. */
+catalogRouter.get("/tracks", async (req, res) => {
+  const userId = req.user?.id;
+  const [tracks, progress, lessonsDone] = await Promise.all([
+    db.track.findMany({
+      where: { active: true },
       orderBy: { order: "asc" },
-      include: { levels: { where: { active: true }, orderBy: { order: "asc" } } },
+      include: {
+        modules: {
+          where: { active: true },
+          orderBy: { order: "asc" },
+          include: {
+            levels: { where: { active: true }, orderBy: { order: "asc" } },
+            lessons: { where: { active: true }, orderBy: { order: "asc" } },
+          },
+        },
+      },
     }),
-    req.user ? db.progress.findMany({ where: { userId: req.user.id } }) : Promise.resolve([]),
+    userId ? db.progress.findMany({ where: { userId } }) : Promise.resolve([]),
+    userId ? db.lessonProgress.findMany({ where: { userId } }) : Promise.resolve([]),
   ]);
   const status = new Map(progress.map((p) => [p.levelId, p.status as LevelStatus]));
+  const done = new Set(lessonsDone.map((l) => l.lessonId));
 
-  const body: ModuleSummary[] = modules.map((m) => {
-    const levels = m.levels.map((l) => ({
-      id: l.id,
-      title: l.title,
-      order: l.order,
-      type: l.type as LevelDetail["type"],
-      difficulty: l.difficulty,
-      xp: l.xp,
-      blackout: l.blackout,
-      bugType: l.bugType,
-      status: status.get(l.id) ?? ("todo" as const),
-    }));
-    return {
-      id: m.id,
-      code: m.code,
-      title: m.title,
-      tagline: m.tagline,
-      notions: m.notions,
-      phase: m.phase as ModuleSummary["phase"],
-      order: m.order,
-      levels,
-      solvedCount: levels.filter((l) => l.status === "solved").length,
-    };
-  });
+  const body: TrackSummary[] = tracks.map((t) => ({
+    id: t.id,
+    title: t.title,
+    tagline: t.tagline,
+    description: t.description,
+    icon: t.icon,
+    order: t.order,
+    modules: t.modules.map((m) => {
+      const levels = m.levels.map((l) => ({
+        id: l.id,
+        title: l.title,
+        order: l.order,
+        type: l.type as LevelDetail["type"],
+        difficulty: l.difficulty,
+        xp: l.xp,
+        blackout: l.blackout,
+        bugType: l.bugType,
+        status: status.get(l.id) ?? ("todo" as const),
+      }));
+      const lessons = m.lessons.map((l) => ({
+        id: l.id,
+        title: l.title,
+        order: l.order,
+        minutes: l.minutes,
+        summary: l.summary,
+        completed: done.has(l.id),
+      }));
+      return {
+        id: m.id,
+        trackId: t.id,
+        code: m.code,
+        title: m.title,
+        tagline: m.tagline,
+        notions: m.notions,
+        phase: m.phase as TrackSummary["modules"][number]["phase"],
+        order: m.order,
+        lessons,
+        levels,
+        lessonsDone: lessons.filter((l) => l.completed).length,
+        solvedCount: levels.filter((l) => l.status === "solved").length,
+      };
+    }),
+  }));
   res.json(body);
 });
 
-/** Niveau suivant : le suivant dans le module, sinon le premier du module suivant qui en a. */
+/** Niveau suivant dans le même parcours. */
 export async function findNextLevel(levelId: string) {
+  const level = await db.level.findUnique({ where: { id: levelId }, include: { module: true } });
+  if (!level?.module.trackId) return null;
   const levels = await db.level.findMany({
-    where: { active: true },
+    where: { active: true, module: { trackId: level.module.trackId, active: true } },
     orderBy: [{ module: { order: "asc" } }, { order: "asc" }],
     select: { id: true, title: true },
   });
@@ -59,11 +95,16 @@ export async function findNextLevel(levelId: string) {
 
 export async function requireLevel(id: string) {
   const [row, loaded] = await Promise.all([
-    db.level.findFirst({ where: { id, active: true }, include: { module: true } }),
+    db.level.findFirst({ where: { id, active: true }, include: { module: { include: { track: true } } } }),
     getLoadedLevel(id),
   ]);
   if (!row || !loaded) throw notFound("Niveau");
   return { row, loaded };
+}
+
+export async function levelPostmortem(loaded: LoadedLevel) {
+  const written = await readPostmortem(loaded);
+  return loaded.config.type === "bug-hunt" ? written : interactivePostmortem(loaded.config, written);
 }
 
 const filesSchema = z
@@ -72,7 +113,7 @@ const filesSchema = z
 
 /** Seuls les fichiers du code de départ peuvent être modifiés : on ignore tout le reste. */
 export function sanitizeFiles(input: unknown, starter: SourceFile[]): SourceFile[] {
-  const files = filesSchema.parse(input);
+  const files = filesSchema.parse(input ?? []);
   const allowed = new Set(starter.map((f) => f.path));
   const byPath = new Map(files.filter((f) => allowed.has(f.path)).map((f) => [f.path, f.content]));
   return starter.map((f) => ({ path: f.path, content: byPath.get(f.path) ?? f.content }));
@@ -84,10 +125,17 @@ catalogRouter.get("/levels/:id", async (req, res) => {
     ? await db.progress.findUnique({ where: { userId_levelId: { userId: req.user.id, levelId: row.id } } })
     : null;
 
-  const starter = await readLevelFiles(loaded, "starter");
-  const files = progress?.lastCode ? sanitizeFiles(progress.lastCode, starter) : starter;
+  const isCode = loaded.config.type === "bug-hunt";
+  const starter = isCode ? await readLevelFiles(loaded, "starter") : [];
+  const files = isCode && progress?.lastCode ? sanitizeFiles(progress.lastCode, starter) : starter;
   const hintsUsed = progress?.hintsUsed ?? 0;
   const solved = progress?.status === "solved";
+
+  const content = await getContent();
+  const lessons = loaded.config.lessons
+    .map((id) => content.lessons.get(id))
+    .filter((l) => l !== undefined)
+    .map((l) => ({ id: l.meta.id, title: l.meta.title }));
 
   const body: LevelDetail = {
     id: row.id,
@@ -100,16 +148,20 @@ catalogRouter.get("/levels/:id", async (req, res) => {
     bugType: row.bugType,
     status: (progress?.status as LevelStatus | undefined) ?? "todo",
     module: { id: row.module.id, code: row.module.code, title: row.module.title },
+    track: { id: row.module.track?.id ?? "", title: row.module.track?.title ?? "" },
     brief: loaded.config.brief,
     logs: loaded.config.logs ?? null,
     entry: loaded.config.entry,
+    runtime: loaded.config.runtime,
     files,
+    interactive: interactivePayload(loaded.config),
+    lessons,
     hintCost: row.hintCost,
     hintsTotal: row.hintsCount,
     hintsUnlocked: loaded.config.hints.slice(0, hintsUsed),
     reward: solved ? (progress?.xpEarned ?? 0) : rewardFor(row.xp, hintsUsed, row.hintCost),
     attempts: progress?.attempts ?? 0,
-    postmortem: solved ? await readPostmortem(loaded) : null,
+    postmortem: solved ? await levelPostmortem(loaded) : null,
     next: await findNextLevel(row.id),
   };
   res.json(body);
@@ -124,6 +176,7 @@ catalogRouter.get("/levels/:id/starter", async (req, res) => {
 catalogRouter.put("/levels/:id/draft", requireUser, async (req, res) => {
   const user = currentUser(req);
   const { row, loaded } = await requireLevel(String(req.params.id));
+  if (loaded.config.type !== "bug-hunt") throw new HttpError(400, "Ce niveau n'a pas de code à enregistrer.");
   const files = sanitizeFiles(req.body?.files, await readLevelFiles(loaded, "starter"));
   await db.progress.upsert({
     where: { userId_levelId: { userId: user.id, levelId: row.id } },

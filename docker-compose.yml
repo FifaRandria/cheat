@@ -53,7 +53,7 @@ services:
       API_PORT: 4000
       WEB_URL: ${WEB_URL:-http://localhost:3000}
       JWT_SECRET: ${JWT_SECRET:-dev-secret-a-remplacer-en-production}
-      LEVELS_DIR: /app/levels
+      CONTENT_DIR: /app/content
       RUNNER_URL: http://runner:4100
       RUNNER_TOKEN: ${RUNNER_TOKEN:-change-moi-aussi}
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}

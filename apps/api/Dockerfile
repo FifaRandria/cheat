@@ -15,6 +15,6 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/apps/api/dist ./dist
 COPY --from=build /app/apps/api/prisma ./prisma
-COPY levels ./levels
+COPY content ./content
 ENV NODE_ENV=production
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/index.js"]

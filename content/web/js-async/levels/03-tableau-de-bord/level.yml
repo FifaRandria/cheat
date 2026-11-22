@@ -1,6 +1,5 @@
-id: m1-async-03
+id: js-async-03
 title: Un service tombe, tout tombe
-module: m1-async
 order: 3
 type: bug-hunt
 runtime: node

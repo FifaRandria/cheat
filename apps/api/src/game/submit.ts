@@ -1,4 +1,4 @@
-import type { Badge, RunResult, SourceFile } from "@rustine/shared";
+import type { Badge, RunResult } from "@rustine/shared";
 import type { Level, Progress, User } from "@prisma/client";
 import { asJson, db } from "../db.js";
 import { BADGES, moduleBadgeSlug } from "./badges.js";
@@ -18,8 +18,11 @@ interface Outcome {
 export async function recordAttempt(
   user: User,
   level: Level,
-  files: SourceFile[],
+  /** Code soumis, réponses du quiz ou ordre proposé */
+  submission: unknown,
   result: RunResult,
+  /** true pour un niveau de code : la soumission devient le brouillon courant */
+  keepAsDraft: boolean,
 ): Promise<Outcome> {
   const key = { userId_levelId: { userId: user.id, levelId: level.id } };
   const before = await db.progress.findUnique({ where: key });
@@ -35,7 +38,7 @@ export async function recordAttempt(
       data: {
         userId: user.id,
         levelId: level.id,
-        files: asJson(files),
+        files: asJson(submission),
         passed: result.ok,
         testsPassed: result.passed,
         testsTotal: result.total,
@@ -49,12 +52,12 @@ export async function recordAttempt(
         userId: user.id,
         levelId: level.id,
         attempts: 1,
-        lastCode: asJson(files),
+        ...(keepAsDraft && { lastCode: asJson(submission) }),
         ...(firstSolve && { status: "solved", solvedAt: now, xpEarned: xpGained }),
       },
       update: {
         attempts: { increment: 1 },
-        lastCode: asJson(files),
+        ...(keepAsDraft && { lastCode: asJson(submission) }),
         ...(firstSolve && { status: "solved", solvedAt: now, xpEarned: xpGained }),
       },
     }),
@@ -111,6 +114,15 @@ async function awardBadges(user: User, level: Level, progress: Progress): Promis
   if (moduleLevels > 0 && moduleSolved === moduleLevels) slugs.push(moduleBadgeSlug(level.moduleId));
 
   return grant(user, [...slugs, ...streakSlugs(user)]);
+}
+
+/** Badges liés aux leçons, appelés quand une leçon est terminée. */
+export async function awardLessonBadges(user: User): Promise<Badge[]> {
+  const done = await db.lessonProgress.count({ where: { userId: user.id } });
+  const slugs = [...streakSlugs(user)];
+  if (done >= 1) slugs.push("premiere-lecon");
+  if (done >= 10) slugs.push("studieux");
+  return grant(user, slugs);
 }
 
 async function awardStreakBadges(user: User) {

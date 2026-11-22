@@ -27,26 +27,77 @@ model User {
   progress Progress[]
   badges   UserBadge[]
   museum   BugMuseumEntry[]
+  lessons  LessonProgress[]
 }
 
-/// Synchronisé depuis levels/modules.yml
+/// Synchronisé depuis content/parcours.yml
+model Track {
+  id          String  @id
+  title       String
+  tagline     String
+  description String
+  icon        String
+  order       Int
+  active      Boolean @default(true)
+
+  modules Module[]
+}
+
+/// Synchronisé depuis content/parcours.yml
 model Module {
   id      String   @id
+  /// Nullable pour rester compatible avec les bases créées avant les parcours
+  trackId String?
   code    String
   title   String
   tagline String
   notions String[]
   phase   String
   order   Int
+  active  Boolean  @default(true)
 
-  levels Level[]
+  track   Track?   @relation(fields: [trackId], references: [id])
+  levels  Level[]
+  lessons Lesson[]
+
+  @@index([trackId, order])
 }
 
-/// Synchronisé depuis levels/<module>/<niveau>/level.yml
+/// Synchronisé depuis content/<parcours>/<module>/lessons/*.md
+model Lesson {
+  id       String  @id
+  moduleId String
+  /// Chemin du fichier, relatif à CONTENT_DIR
+  path     String
+  title    String
+  order    Int
+  minutes  Int
+  summary  String
+  xp       Int     @default(10)
+  active   Boolean @default(true)
+
+  module   Module           @relation(fields: [moduleId], references: [id])
+  progress LessonProgress[]
+
+  @@index([moduleId, order])
+}
+
+model LessonProgress {
+  userId      String
+  lessonId    String
+  completedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@id([userId, lessonId])
+}
+
+/// Synchronisé depuis content/<parcours>/<module>/levels/<niveau>/level.yml
 model Level {
   id         String  @id
   moduleId   String
-  /// Chemin du dossier du niveau, relatif à LEVELS_DIR
+  /// Chemin du dossier du niveau, relatif à CONTENT_DIR
   path       String
   title      String
   order      Int

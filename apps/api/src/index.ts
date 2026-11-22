@@ -4,8 +4,8 @@ import { db } from "./db.js";
 import { env } from "./env.js";
 
 try {
-  const { modules, levels } = await syncContent();
-  console.log(`[api] contenu synchronisé : ${modules} modules, ${levels} niveaux (${env.levelsDir})`);
+  const r = await syncContent();
+  console.log(`[api] contenu synchronisé : ${r.tracks} parcours, ${r.modules} modules, ${r.lessons} leçons, ${r.levels} niveaux (${env.contentDir})`);
 } catch (err) {
   console.error("[api] échec de la synchronisation du contenu :", err instanceof Error ? err.message : err);
   console.error("      La base est-elle migrée ? Lance : npm run db:migrate");

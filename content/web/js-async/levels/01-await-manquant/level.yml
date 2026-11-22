@@ -1,6 +1,5 @@
-id: m1-async-01
+id: js-async-01
 title: Le await oublié
-module: m1-async
 order: 1
 type: bug-hunt
 runtime: node

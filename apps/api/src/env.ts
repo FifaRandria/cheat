@@ -11,7 +11,7 @@ const schema = z.object({
   DATABASE_URL: z.string().min(1, "DATABASE_URL est requis"),
   WEB_URL: z.string().url().default("http://localhost:3000"),
   JWT_SECRET: z.string().min(16, "JWT_SECRET doit faire au moins 16 caractères"),
-  LEVELS_DIR: z.string().default("../../levels"),
+  CONTENT_DIR: z.string().default("../../content"),
   RUNNER_URL: z.string().url().default("http://localhost:4100"),
   RUNNER_TOKEN: z.string().default(""),
   GITHUB_CLIENT_ID: z.string().default(""),
@@ -29,6 +29,6 @@ if (!parsed.success) {
 export const env = {
   ...parsed.data,
   isProd: parsed.data.NODE_ENV === "production",
-  levelsDir: path.resolve(apiRoot, parsed.data.LEVELS_DIR),
+  contentDir: path.resolve(apiRoot, parsed.data.CONTENT_DIR),
   githubEnabled: Boolean(parsed.data.GITHUB_CLIENT_ID && parsed.data.GITHUB_CLIENT_SECRET),
 };

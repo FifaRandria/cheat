@@ -1,6 +1,5 @@
-id: m1-async-02
+id: js-async-02
 title: Les e-mails fantômes
-module: m1-async
 order: 2
 type: bug-hunt
 runtime: node

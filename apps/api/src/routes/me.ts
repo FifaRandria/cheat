@@ -13,7 +13,7 @@ meRouter.get("/", (req, res) => {
 
 meRouter.get("/profile", async (req, res) => {
   const user = currentUser(req);
-  const [badges, owned, progress, attempts, museum, recent] = await Promise.all([
+  const [badges, owned, progress, attempts, museum, recent, lessonsDone] = await Promise.all([
     db.badge.findMany(),
     db.userBadge.findMany({ where: { userId: user.id } }),
     db.progress.findMany({ where: { userId: user.id }, include: { level: { select: { blackout: true } } } }),
@@ -30,6 +30,7 @@ meRouter.get("/profile", async (req, res) => {
       include: { level: { select: { title: true } } },
       take: 8,
     }),
+    db.lessonProgress.count({ where: { userId: user.id } }),
   ]);
   const earned = new Map(owned.map((b) => [b.badgeSlug, b.earnedAt]));
   const solved = progress.filter((p) => p.status === "solved");
@@ -44,6 +45,7 @@ meRouter.get("/profile", async (req, res) => {
       attempts,
       hintsUsed: progress.reduce((n, p) => n + p.hintsUsed, 0),
       blackoutSolved: solved.filter((p) => p.level.blackout).length,
+      lessonsDone,
     },
     museum: museum.map((m) => ({
       levelId: m.levelId,

@@ -1,7 +1,6 @@
-id: m0-fondations-01
+id: js-bases-05
 title: La pagination décalée
-module: m0-fondations
-order: 1
+order: 5
 type: bug-hunt
 runtime: node
 difficulty: 1

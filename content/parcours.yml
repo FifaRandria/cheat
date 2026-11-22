@@ -1,0 +1,144 @@
+# Carte des parcours de Rustine.
+#
+# Chaque module correspond au dossier content/<parcours>/<module>/, qui contient :
+#   lessons/NN-titre.md          les leçons, dans l'ordre des numéros
+#   levels/NN-titre/level.yml    les niveaux (incidents)
+# Un module sans leçon ni niveau apparaît « en chantier ».
+
+- id: web
+  title: Développeur web fullstack
+  tagline: Du premier console.log à une application dockerisée avec un CI vert.
+  description: >
+    Tu commences par les bases de JavaScript, sans aucun prérequis, puis tu
+    construis et répares un vrai backend, une base de données, un frontend,
+    et tout ce qu'il faut pour les mettre en production.
+  icon: code
+  modules:
+    - id: js-bases
+      code: W0
+      title: Bases de JavaScript
+      tagline: Variables, conditions, boucles, fonctions. Le point de départ.
+      notions: [Variables, Conditions, Boucles, Fonctions, Tableaux, Objets]
+      phase: MVP
+    - id: js-async
+      code: W1
+      title: JavaScript asynchrone
+      tagline: Promesses, async/await, et les bugs qui vont avec.
+      notions: [Callbacks, Promesses, async/await, Promise.all]
+      phase: MVP
+    - id: outils
+      code: W2
+      title: Terminal, Git et HTTP
+      tagline: Les outils du diagnostic au quotidien.
+      notions: [Terminal, Git, git bisect, HTTP]
+      phase: V1
+    - id: express
+      code: W3
+      title: Backend Express et API REST
+      tagline: Routes, middlewares, validation, JWT.
+      notions: [Routes, Middlewares, Validation, JWT]
+      phase: V1
+    - id: postgres
+      code: W4
+      title: PostgreSQL et Prisma
+      tagline: Modélisation, migrations, index, N+1.
+      notions: [Modélisation, Migrations, Requêtes, Index]
+      phase: V1
+    - id: frontend
+      code: W5
+      title: Frontend et frameworks JS
+      tagline: React, Next.js, puis un second framework.
+      notions: [React, Next.js, SSR, Hydratation]
+      phase: V1
+    - id: typescript
+      code: W6
+      title: TypeScript et qualité
+      tagline: Types, tests, lint, en finir avec any.
+      notions: [Types, Tests, Lint]
+      phase: V1
+    - id: docker
+      code: W7
+      title: Docker
+      tagline: Images, volumes, réseaux, compose.
+      notions: [Images, Dockerfile, Volumes, Réseaux]
+      phase: V1
+    - id: cicd
+      code: W8
+      title: CI/CD
+      tagline: Pipelines, GitHub Actions, déploiement.
+      notions: [Pipelines, GitHub Actions, Déploiement]
+      phase: V1
+    - id: web-boss
+      code: W9
+      title: Projet final web
+      tagline: Une app fullstack dockerisée avec un CI vert.
+      notions: [Intégration, Déploiement]
+      phase: V2
+
+- id: ia
+  title: Intelligence artificielle
+  tagline: Python, entraînement, fine-tuning, RAG et automatisation.
+  description: >
+    Tu apprends Python depuis zéro, puis tu comprends comment on entraîne et
+    adapte un modèle (LoRA, QLoRA), comment on lui donne accès à tes documents
+    (RAG) et comment l'intégrer dans des automatisations.
+  icon: spark
+  modules:
+    - id: py-bases
+      code: IA0
+      title: Bases de Python
+      tagline: print, variables, conditions, boucles, fonctions, listes.
+      notions: [Variables, Conditions, Boucles, Fonctions, Listes, Dictionnaires]
+      phase: MVP
+    - id: py-data
+      code: IA1
+      title: Python pour la data
+      tagline: venv, numpy, pandas, notebooks.
+      notions: [venv, numpy, pandas, Notebooks]
+      phase: V2
+    - id: finetuning
+      code: IA2
+      title: Entraînement et fine-tuning
+      tagline: Loss, overfitting, LoRA, QLoRA, VRAM.
+      notions: [Dataset, Epochs, Loss, Overfitting, LoRA, QLoRA]
+      phase: MVP
+    - id: rag
+      code: IA3
+      title: RAG
+      tagline: Embeddings, chunking, recherche, prompt.
+      notions: [Embeddings, Chunking, Base vectorielle]
+      phase: V2
+    - id: n8n
+      code: IA4
+      title: Automatisation n8n
+      tagline: Webhooks, nœuds, credentials, erreurs.
+      notions: [Webhooks, Nœuds, Credentials]
+      phase: V2
+
+- id: projet
+  title: Gestion de projet
+  tagline: Mener un projet web du cadrage à la livraison, et diriger une équipe.
+  description: >
+    Coder ne suffit pas : il faut savoir quoi construire, dans quel ordre, avec
+    qui, et comment garder une équipe motivée et efficace. Ce parcours couvre
+    les étapes d'un projet web et le métier de lead.
+  icon: flag
+  modules:
+    - id: etapes
+      code: GP0
+      title: Les étapes d'un projet web
+      tagline: Cadrer, planifier, construire, livrer, maintenir.
+      notions: [Cycle de vie, Cahier des charges, MVP, Backlog, Scrum]
+      phase: MVP
+    - id: equipe
+      code: GP1
+      title: Diriger une équipe
+      tagline: Le rôle du lead, la communication, le feedback.
+      notions: [Rôle du lead, Rituels, Déléguer, Feedback, Conflits]
+      phase: MVP
+    - id: crises
+      code: GP2
+      title: Risques et gestion de crise
+      tagline: Anticiper, réagir à un incident, écrire un post-mortem.
+      notions: [Risques, Incident, Communication de crise, Post-mortem]
+      phase: V1

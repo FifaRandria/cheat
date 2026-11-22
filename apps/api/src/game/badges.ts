@@ -1,6 +1,18 @@
 /** Badges disponibles. Synchronisés en base au démarrage de l'API. */
 export const BADGES = [
   {
+    slug: "premiere-lecon",
+    name: "Premier cours",
+    description: "Terminer ta première leçon. On ne répare bien que ce qu'on comprend.",
+    icon: "book",
+  },
+  {
+    slug: "studieux",
+    name: "Studieux",
+    description: "Terminer dix leçons.",
+    icon: "book",
+  },
+  {
     slug: "premier-correctif",
     name: "Premier correctif",
     description: "Réparer ton tout premier système cassé.",
