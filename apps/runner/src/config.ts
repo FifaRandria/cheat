@@ -13,6 +13,9 @@ export const config = {
   token: process.env.RUNNER_TOKEN ?? "",
   mode,
   image: process.env.RUNNER_IMAGE ?? "node:22-alpine",
+  pythonImage: process.env.RUNNER_PYTHON_IMAGE ?? "python:3.12-alpine",
+  /** Interpréteur Python utilisé en mode unsafe-local */
+  pythonBin: process.env.RUNNER_PYTHON_BIN ?? (process.platform === "win32" ? "python" : "python3"),
   timeoutMs: Number(process.env.RUNNER_TIMEOUT_MS ?? 8000),
   concurrency: Number(process.env.RUNNER_CONCURRENCY ?? 4),
   maxQueue: Number(process.env.RUNNER_MAX_QUEUE ?? 50),

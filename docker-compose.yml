@@ -27,6 +27,7 @@ services:
       RUNNER_TOKEN: ${RUNNER_TOKEN:-change-moi-aussi}
       RUNNER_MODE: docker
       RUNNER_IMAGE: node:22-alpine
+      RUNNER_PYTHON_IMAGE: python:3.12-alpine
       # Le runner crée les conteneurs via le démon Docker de l'hôte :
       # le dossier des jobs doit avoir le même chemin dans le runner et sur l'hôte.
       RUNNER_JOBS_DIR: /tmp/rustine-jobs

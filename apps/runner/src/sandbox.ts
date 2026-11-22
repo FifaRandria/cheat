@@ -4,6 +4,7 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { RunRequest, RunResult, SourceFile } from "@rustine/shared";
 import { config } from "./config.js";
+import { PYTHON_HARNESS } from "./python-harness.js";
 import { parseTap } from "./tap.js";
 
 const SAFE_PATH = /^[a-zA-Z0-9_-][a-zA-Z0-9_.-]*(\/[a-zA-Z0-9_-][a-zA-Z0-9_.-]*)*$/;
@@ -41,10 +42,6 @@ function checkFiles(value: unknown, field: string): SourceFile[] {
 
 /** Exécute les tests d'un niveau dans un bac à sable et renvoie un résultat structuré. */
 export async function runJob(req: RunRequest): Promise<RunResult> {
-  if (req.runtime === "python") {
-    return failure("Le runtime Python arrive avec le module M8 (V2).");
-  }
-
   const id = randomUUID();
   const dir = path.join(config.jobsDir, id);
   const started = Date.now();
@@ -52,18 +49,13 @@ export async function runJob(req: RunRequest): Promise<RunResult> {
   try {
     await mkdir(path.join(dir, "src"), { recursive: true });
     await mkdir(path.join(dir, "tests"), { recursive: true });
-    await writeFile(path.join(dir, "package.json"), '{ "type": "module" }\n');
     for (const f of req.files) await writeInside(dir, "src", f);
     for (const f of req.tests) await writeInside(dir, "tests", f);
 
-    const testFiles = req.tests
-      .map((t) => `tests/${t.path}`)
-      .filter((p) => /\.test\.(m?js)$/.test(p))
-      .sort();
-    if (testFiles.length === 0) return failure("Aucun fichier *.test.js fourni.");
+    const command = await prepareRuntime(req, dir);
+    if (typeof command === "string") return failure(command);
 
-    const exec =
-      config.mode === "docker" ? await execDocker(id, dir, testFiles) : await execLocal(dir, testFiles);
+    const exec = config.mode === "docker" ? await execDocker(id, dir, command) : await execLocal(dir, command);
 
     const { tests, logs } = parseTap(hidePaths(exec.output, dir));
     const passed = tests.filter((t) => t.ok).length;
@@ -100,7 +92,40 @@ interface ExecResult {
   timedOut: boolean;
 }
 
-function execDocker(id: string, dir: string, testFiles: string[]): Promise<ExecResult> {
+/** Commande à lancer selon le langage du niveau. */
+interface RuntimeCommand {
+  image: string;
+  /** argv dans le conteneur (chemins relatifs à /work) */
+  argv: string[];
+  /** argv en mode unsafe-local */
+  localArgv: [string, ...string[]];
+  env: Record<string, string>;
+}
+
+async function prepareRuntime(req: RunRequest, dir: string): Promise<RuntimeCommand | string> {
+  if (req.runtime === "python") {
+    const tests = req.tests.filter((t) => /^test_[\w-]*\.py$/.test(path.basename(t.path)));
+    if (tests.length === 0) return "Aucun fichier tests/test_*.py fourni.";
+    await writeFile(path.join(dir, "harness.py"), PYTHON_HARNESS);
+    return {
+      image: config.pythonImage,
+      argv: ["python", "harness.py"],
+      localArgv: [config.pythonBin, "harness.py"],
+      env: { PYTHONDONTWRITEBYTECODE: "1", PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" },
+    };
+  }
+
+  const testFiles = req.tests
+    .map((t) => `tests/${t.path}`)
+    .filter((p) => /\.test\.(m?js)$/.test(p))
+    .sort();
+  if (testFiles.length === 0) return "Aucun fichier *.test.js fourni.";
+  await writeFile(path.join(dir, "package.json"), '{ "type": "module" }\n');
+  const args = ["--test", "--test-reporter=tap", ...testFiles];
+  return { image: config.image, argv: ["node", ...args], localArgv: [process.execPath, ...args], env: {} };
+}
+
+function execDocker(id: string, dir: string, command: RuntimeCommand): Promise<ExecResult> {
   const name = `rustine-job-${id}`;
   const args = [
     "run", "--rm", "--name", name,
@@ -115,20 +140,22 @@ function execDocker(id: string, dir: string, testFiles: string[]): Promise<ExecR
     "--user", "1000:1000",
     "-v", `${dir}:/work:ro`,
     "-w", "/work",
-    config.image,
-    "node", "--test", "--test-reporter=tap", ...testFiles,
+    ...Object.entries(command.env).flatMap(([k, v]) => ["-e", `${k}=${v}`]),
+    command.image,
+    ...command.argv,
   ];
   return execProcess("docker", args, {}, () => {
     spawnSync("docker", ["kill", name], { stdio: "ignore" });
   });
 }
 
-function execLocal(dir: string, testFiles: string[]): Promise<ExecResult> {
+function execLocal(dir: string, command: RuntimeCommand): Promise<ExecResult> {
   // DEV UNIQUEMENT : aucune isolation. Le code tourne avec les droits du runner.
+  const [bin, ...args] = command.localArgv;
   return execProcess(
-    process.execPath,
-    ["--test", "--test-reporter=tap", ...testFiles],
-    { cwd: dir, env: { PATH: process.env.PATH ?? "", SYSTEMROOT: process.env.SYSTEMROOT ?? "" } },
+    bin,
+    args,
+    { cwd: dir, env: { PATH: process.env.PATH ?? "", SYSTEMROOT: process.env.SYSTEMROOT ?? "", ...command.env } },
     () => undefined,
   );
 }
