@@ -15,10 +15,12 @@ interface Props {
   postmortem: string | null;
   next: { id: string; title: string } | null;
   onClose: () => void;
+  /** Libellé du bouton de fermeture */
+  closeLabel?: string;
 }
 
 /** Rapport d'incident tamponné « RÉSOLU », affiché quand tous les tests passent. */
-export function PostMortem({ incident, title, xpGained, firstSolve, badges, postmortem, next, onClose }: Props) {
+export function PostMortem({ incident, title, xpGained, firstSolve, badges, postmortem, next, onClose, closeLabel = "Relire mon code" }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const xp = useCountUp(xpGained);
 
@@ -100,7 +102,7 @@ export function PostMortem({ incident, title, xpGained, firstSolve, badges, post
 
         <footer className="flex flex-col-reverse gap-2 border-t border-line bg-bg/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <button type="button" onClick={onClose} className="rounded-lg px-3 py-2.5 text-sm text-ink-2 hover:text-ink">
-            Relire mon code
+            {closeLabel}
           </button>
           {next ? (
             <Link

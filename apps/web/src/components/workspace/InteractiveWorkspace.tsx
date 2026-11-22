@@ -191,6 +191,7 @@ export function InteractiveWorkspace({ initial }: { initial: LevelDetail }) {
           postmortem={report.postmortem}
           next={report.next}
           onClose={() => setReport(null)}
+          closeLabel={payload.kind === "quiz" ? "Relire mes réponses" : "Revoir l'ordre"}
         />
       )}
     </div>

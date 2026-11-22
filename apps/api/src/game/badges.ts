@@ -15,7 +15,7 @@ export const BADGES = [
   {
     slug: "premier-correctif",
     name: "Premier correctif",
-    description: "Réparer ton tout premier système cassé.",
+    description: "Réussir ton tout premier niveau.",
     icon: "wrench",
   },
   {
