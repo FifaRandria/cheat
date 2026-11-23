@@ -1,0 +1,46 @@
+id: cicd-04
+title: La mise en production automatique a cassé le site
+order: 4
+type: quiz
+difficulty: 4
+xp: 120
+blackout: true
+hintCost: 0
+bugType: cicd
+lessons: [cicd-03, crises-02]
+brief: |
+  **Mode Blackout.** 14 h 05 : le déploiement continu vient de mettre en production la
+  version `v3.8.0`. 14 h 07 : le taux d'erreurs passe de 0,2 % à 35 %. Tu es d'astreinte.
+  Pas d'indice. La [documentation de GitHub Actions](https://docs.github.com/actions) est
+  ouverte.
+hints: []
+questions:
+  - prompt: Quelle est la première action ?
+    choices:
+      - Revenir à la version précédente (v3.7.2), puis analyser
+      - Lire tout le code de la v3.8.0 avant d'agir
+      - Désactiver la supervision qui affiche trop d'erreurs
+    answer: 0
+  - prompt: "La v3.8.0 contenait une migration qui supprime la colonne `telephone`. Le retour à la v3.7.2 échoue, car cette version lit encore cette colonne. Quelle leçon pour l'avenir ?"
+    choices:
+      - Ne jamais faire de migration
+      - Faire des migrations compatibles avec la version précédente, par exemple arrêter d'utiliser la colonne dans une version, puis la supprimer dans une suivante
+      - Supprimer la base à chaque déploiement
+    answer: 1
+  - prompt: Les tests de la v3.8.0 étaient tous verts. Que faut-il en conclure ?
+    choices:
+      - Les tests sont inutiles
+      - Aucun test ne couvrait ce cas ; il faut ajouter un test qui reproduit l'incident, en plus de la correction
+    answer: 1
+  - prompt: Quelle étape aurait probablement détecté le problème avant les vrais utilisateurs ?
+    choices:
+      - Un déploiement en préproduction, avec des données et des tests réalistes, avant la production
+      - Un build plus rapide
+      - Un nom de version différent
+    answer: 0
+  - prompt: Pour que le retour arrière prenne deux minutes la prochaine fois, que faut-il garder ?
+    choices:
+      - Les images Docker versionnées des versions précédentes, redéployables d'une commande
+      - Seulement le code source de la dernière version
+      - Rien de particulier
+    answer: 0
