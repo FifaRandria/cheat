@@ -1,0 +1,59 @@
+id: machine-03
+title: Le front et le back qui ne se parlent pas
+order: 3
+type: quiz
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 0
+bugType: integration
+lessons: [machine-04, web-boss-04, navigateur-03]
+brief: |
+  L'API répond bien à `curl`, la page React s'affiche, mais les deux ne se parlent pas. Pour
+  chaque situation, trouve la cause.
+hints: []
+questions:
+  - prompt: |
+      La page appelle `fetch("/api/outils")`. L'onglet Réseau montre :
+
+      ```output
+      GET http://localhost:5173/api/outils   404
+      ```
+    choices:
+      - "L'API est en panne"
+      - "La requête arrive au serveur de Vite au lieu de l'API : le proxy /api n'est pas configuré dans vite.config.js (ou Vite n'a pas été relancé)"
+    answer: 1
+  - prompt: |
+      La page appelle `fetch("http://localhost:4000/api/outils")` et la console affiche une
+      erreur CORS. Quelle est la solution la plus simple en développement ?
+    choices:
+      - "Appeler /api/outils et laisser le proxy de Vite relayer : même origine, plus de CORS"
+      - Désactiver la sécurité du navigateur
+    answer: 0
+  - prompt: |
+      En production, la page essaie d'appeler `http://localhost:4000/api/outils` et échoue chez
+      tous les visiteurs. Pourquoi ?
+    choices:
+      - "localhost désigne l'ordinateur du visiteur, pas ton serveur : il faut des adresses relatives (/api/…)"
+      - Le serveur est trop lent
+    answer: 0
+  - prompt: |
+      Après l'ajout du composant, la console affiche des milliers de requêtes vers
+      `/api/outils`, et l'API ralentit.
+
+      ```jsx
+      useEffect(() => {
+        charger();
+      });
+      ```
+    choices:
+      - "Il manque le tableau de dépendances [] : l'effet se relance après chaque rendu, et chaque chargement provoque un rendu"
+      - Il faut charger dans un setInterval
+    answer: 0
+  - prompt: |
+      `POST /api/prets` répond 400 « outilId doit être un entier positif ». La requête envoie
+      `body: JSON.stringify({ outilId: "3" })`. D'où vient `"3"` ?
+    choices:
+      - "D'un attribut data-id ou d'un champ de formulaire : ce sont toujours des chaînes. Convertir avec Number() avant l'envoi"
+      - Du serveur
+    answer: 0

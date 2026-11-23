@@ -1,0 +1,37 @@
+id: machine-02
+title: Le dépôt qui passe à PostgreSQL
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 15
+bugType: postgresql
+entry: depot.js
+lessons: [machine-03, securite-03, js-async-02]
+brief: |
+  Tu portes le dépôt de la Boîte à outils de SQLite (le bac à sable) vers PostgreSQL et le
+  pilote `pg`. Le premier essai donne des erreurs SQL, des `undefined` et des promesses à la
+  place des données.
+
+  Corrige `depot.js`. Chaque fonction reçoit `pool` (un `pg.Pool` : `await pool.query(texte,
+  valeurs)` renvoie `{ rows, rowCount }`) :
+
+  - `listerOutils(pool, categorie)` : les outils `{ id, nom, categorie }` triés par id,
+    filtrés par catégorie si elle est fournie ;
+  - `trouverOutil(pool, id)` : l'outil, ou `null` ;
+  - `emprunter(pool, membreId, outilId, debut, finPrevue)` : insère le prêt et renvoie son
+    `id` (avec `RETURNING id`).
+
+  Toujours des paramètres `$1`, `$2`… : jamais de valeur collée dans le texte SQL.
+  `faux-pg.js` imite `pg` dans les tests et n'est pas en cause.
+logs: |
+  [api] error: syntax error at or near "?"
+  [api] GET /api/outils/3 → {}                    (au lieu de l'outil)
+  [api] TypeError: Cannot read properties of undefined (reading '0')
+hints:
+  - "PostgreSQL numérote ses paramètres : $1, $2… à la place de chaque ?."
+  - "pool.query est asynchrone : sans await, tu obtiens une promesse, qui n'a pas de propriété rows."
+  - "Le résultat est un objet : les lignes sont dans .rows. Un seul outil : rows[0] ?? null. Et trouverOutil colle l'id dans le texte : injection SQL."
+tests: tests/

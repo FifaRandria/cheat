@@ -1,0 +1,25 @@
+id: machine-04
+title: L'ordre d'une première mise en ligne
+order: 4
+type: ordering
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 10
+bugType: deploiement
+lessons: [machine-06, machine-05]
+brief: |
+  Ton projet tourne en local, avec ses tests. Remets dans l'ordre les étapes de sa première
+  mise en ligne : un mauvais ordre donne une application qui démarre sans base, ou une base sans
+  tables.
+hints:
+  - "On ne déploie que du code dont la CI est verte, et qu'on sait construire."
+  - "Le service a besoin de l'adresse de la base avant de démarrer, et des tables avant la première requête."
+steps:
+  - label: Faire passer la CI au vert sur la branche main
+  - label: Vérifier que l'image Docker se construit et démarre en local
+  - label: Créer la base PostgreSQL chez l'hébergeur
+  - label: Renseigner DATABASE_URL et les autres variables d'environnement du service
+  - label: Appliquer les migrations (créer les tables)
+  - label: Déployer le service
+  - label: Vérifier la page, l'API et un emprunt à l'adresse publique, puis lire les journaux

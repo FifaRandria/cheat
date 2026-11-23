@@ -39,6 +39,7 @@ const LANG: Record<string, string> = {
   html: "markup",
   markup: "markup",
   css: "css",
+  jsx: "jsx",
 };
 const LABEL: Record<string, string> = {
   javascript: "JavaScript",
@@ -52,6 +53,7 @@ const LABEL: Record<string, string> = {
   http: "HTTP",
   markup: "HTML",
   css: "CSS",
+  jsx: "React (JSX)",
 };
 
 export function CodeBlock({ code, language, runnable }: { code: string; language: string; runnable: boolean }) {

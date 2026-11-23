@@ -165,6 +165,19 @@
         - Tests
         - Mise en production
       phase: MVP
+    - id: sur-ta-machine
+      code: W14
+      title: Ton projet sur ta machine
+      tagline: Installer, construire, tester, déployer la Boîte à outils pour de vrai, et y brancher l'IA.
+      notions:
+        - Poste de travail
+        - Git et GitHub
+        - Express et PostgreSQL
+        - React avec Vite
+        - Tests et CI
+        - Mise en ligne
+        - Assistant IA
+      phase: MVP
 
 - id: ia
   title: Intelligence artificielle

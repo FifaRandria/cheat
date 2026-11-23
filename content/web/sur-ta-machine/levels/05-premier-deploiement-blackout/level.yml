@@ -1,0 +1,57 @@
+id: machine-05
+title: Le premier déploiement
+order: 5
+type: quiz
+difficulty: 4
+xp: 130
+blackout: true
+hintCost: 0
+bugType: deploiement
+lessons: [machine-06, machine-05, machine-07]
+brief: |
+  **Mode Blackout.** Vendredi soir, tu mets la Boîte à outils en ligne pour la première fois.
+  L'hébergeur affiche ses journaux. Pour chaque problème, trouve la cause. Seule la
+  documentation de l'hébergeur est ouverte.
+hints: []
+questions:
+  - prompt: |
+      ```output
+      ==> No open ports detected, continuing to scan...
+      API prête sur http://localhost:4000
+      ==> Port scan timeout reached, failed to detect open port
+      ```
+    choices:
+      - "L'hébergeur attend que l'application écoute sur le port de la variable PORT : utiliser process.env.PORT"
+      - Le serveur est trop lent à démarrer
+    answer: 0
+  - prompt: |
+      ```output
+      error: relation "outils" does not exist
+      ```
+    choices:
+      - "Les migrations n'ont pas été appliquées sur la base de production : lancer migrer.js (idéalement à chaque déploiement)"
+      - La base est pleine
+    answer: 0
+  - prompt: |
+      La page d'accueil s'affiche, mais recharger `https://…/outils/3` donne :
+
+      ```output
+      Cannot GET /outils/3
+      ```
+    choices:
+      - "Le serveur ne renvoie pas index.html pour les adresses gérées par React : ajouter la route de repli après les fichiers statiques"
+      - Il faut supprimer le routeur de React
+    answer: 0
+  - prompt: |
+      GitHub t'envoie un e-mail : « Secret detected: Anthropic API key in api/.env ».
+    choices:
+      - Supprimer le fichier et faire un nouveau commit
+      - "Révoquer la clé immédiatement dans la console du fournisseur, en créer une nouvelle dans les variables de l'hébergeur, retirer .env du dépôt et l'ajouter au .gitignore"
+    answer: 1
+  - prompt: |
+      Tout fonctionne. Le lendemain matin, tous les prêts d'hier ont disparu. Le service a
+      redémarré dans la nuit.
+    choices:
+      - "La base tournait dans le conteneur de l'application (ou en SQLite dans son disque éphémère) : il faut la base gérée de l'hébergeur, persistante"
+      - Un utilisateur a tout supprimé
+    answer: 0
