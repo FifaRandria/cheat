@@ -1,0 +1,34 @@
+id: n8n-02
+title: La facture d'API qui explose pendant la nuit
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 20
+bugType: retry
+entry: reessai.py
+lessons: [n8n-02]
+brief: |
+  Un nœud Code appelle l'API d'un LLM. Cette nuit, l'API a renvoyé des erreurs `400` (requête
+  invalide) : le code a réessayé **42 000 fois**, sans pause. La facture d'API a explosé, et
+  le workflow est resté bloqué.
+
+  `politique(tentative, statut)` décide quoi faire après un échec. Elle reçoit le numéro de la
+  tentative qui vient d'échouer (à partir de 1) et le code HTTP reçu, et renvoie :
+
+  - `("reessayer", delai)` pour une erreur **passagère** (429, ou de 500 à 599), avec un délai
+    exponentiel : 1 s après l'échec n°1, puis 2 s, 4 s, 8 s ;
+  - `("abandonner", 0)` pour une erreur **définitive** (tout autre code), ou si
+    `MAX_TENTATIVES` est atteint.
+logs: |
+  [n8n] Code · appel LLM · tentative 1 → 400 Bad Request
+  [n8n] Code · appel LLM · tentative 2 → 400 Bad Request
+  [n8n] Code · appel LLM · tentative 3 → 400 Bad Request
+  [n8n] … (41 997 tentatives plus loin)
+  [factu] dépassement de quota : 312 €
+hints:
+  - "Une erreur 400 réussira-t-elle un jour si on renvoie exactement la même requête ?"
+  - "Le nombre maximal de tentatives est-il vérifié ? Et que vaut le délai ?"
+tests: tests/

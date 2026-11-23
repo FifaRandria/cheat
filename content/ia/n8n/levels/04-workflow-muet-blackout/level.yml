@@ -1,0 +1,47 @@
+id: n8n-04
+title: Le workflow qui ne se déclenche pas
+order: 4
+type: quiz
+difficulty: 4
+xp: 120
+blackout: true
+hintCost: 0
+bugType: pipeline
+lessons: [n8n-01, n8n-02, n8n-03]
+brief: |
+  **Mode Blackout.** Le workflow « webhook → LLM → base de données → message à l'équipe »
+  fonctionnait en test. Depuis sa mise en service, rien ne se passe, ou presque. Pour chaque
+  observation, trouve le nœud ou le réglage en cause. Seule la
+  [documentation de n8n](https://docs.n8n.io/) est ouverte.
+hints: []
+questions:
+  - prompt: "Le formulaire du site appelle `https://n8n.exemple.com/webhook-test/contact`. L'historique des exécutions est vide depuis la mise en service. Cause la plus probable ?"
+    choices:
+      - Le formulaire appelle l'URL de test, active seulement pendant une écoute manuelle, au lieu de l'URL de production
+      - Le LLM est en panne
+      - La base de données est pleine
+    answer: 0
+  - prompt: Après correction, les exécutions apparaissent, mais échouent toutes au nœud LLM avec « 401 Unauthorized ». Où regarder ?
+    choices:
+      - Le credential de l'API du LLM (clé expirée, révoquée ou mal copiée)
+      - Le nœud Webhook
+      - La messagerie de l'équipe
+    answer: 0
+  - prompt: "Les messages à l'équipe arrivent, mais affichent « Nouvelle demande de undefined ». Le nœud Webhook reçoit bien `{ \"email\": \"ada@ex.com\" }`. Cause probable ?"
+    choices:
+      - "Une expression qui lit un champ mal nommé, par exemple `$json.mail` au lieu de `$json.email`"
+      - Le webhook est désactivé
+      - Le LLM a inventé la réponse
+    answer: 0
+  - prompt: Comment localiser précisément le nœud où une donnée devient vide ?
+    choices:
+      - Ouvrir une exécution dans l'historique et regarder les données d'entrée et de sortie de chaque nœud, dans l'ordre
+      - Recréer tout le workflow
+      - Augmenter le nombre de réessais
+    answer: 0
+  - prompt: Un workflow échoue parfois la nuit, et personne ne s'en rend compte avant le lendemain midi. Que mettre en place ?
+    choices:
+      - Un Error Workflow qui envoie une alerte avec le nom du workflow et l'erreur
+      - Des réessais infinis
+      - Rien, c'est normal
+    answer: 0
