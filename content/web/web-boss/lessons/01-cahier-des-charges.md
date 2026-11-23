@@ -79,15 +79,19 @@ La connexion se fait avec un en-tête `Authorization: Bearer <jeton>`.
 
 ## Le plan de construction
 
-Le projet se construit en sept étapes, une par niveau :
+Le projet se construit en huit étapes, une par niveau :
 
 1. **Planifier** : l'ordre des étapes d'un projet.
 2. **Le dépôt de données** : écrire les requêtes SQL.
 3. **L'API REST** : écrire les routes.
-4. **L'audit de sécurité** : corriger les failles trouvées par un auditeur.
-5. **Les tests de non-régression** : écrire les tests qui protègent les règles.
-6. **L'incident de production** : en mode Blackout.
-7. **La mise en production** : Docker, CI et retour arrière.
+4. **L'interface** : la page qui affiche le catalogue et appelle l'API.
+5. **L'audit de sécurité** : corriger les failles trouvées par un auditeur.
+6. **Les tests de non-régression** : écrire les tests qui protègent les règles.
+7. **L'incident de production** : en mode Blackout.
+8. **La mise en production** : Docker, CI et retour arrière.
+
+Ensuite, le module « Ton projet sur ta machine » te fera reconstruire la Boîte à outils en
+vrai, sur ton ordinateur, jusqu'à sa mise en ligne.
 
 ## Ce que tu sais faire maintenant
 

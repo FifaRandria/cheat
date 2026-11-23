@@ -24,6 +24,7 @@ steps:
   - label: Concevoir le modèle de données (membres, outils, prêts)
   - label: Écrire le dépôt de données et ses règles métier
   - label: Exposer l'API REST
+  - label: Construire l'interface qui appelle l'API
   - label: Faire auditer la sécurité et corriger les failles
   - label: Écrire les tests de non-régression
   - label: Conteneuriser l'application et configurer la CI

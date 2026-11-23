@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>La Boîte à outils</title>
+  </head>
+  <body>
+    <main>
+      <h1>La Boîte à outils</h1>
+      <p id="etat" role="status"></p>
+      <p id="message" role="alert"></p>
+      <ul id="outils"></ul>
+    </main>
+    <script type="module">
+      import { monterBoite } from "./interface.js";
+      monterBoite(document, fetch, localStorage.getItem("jeton"));
+    </script>
+  </body>
+</html>

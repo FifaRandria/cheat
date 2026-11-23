@@ -1,6 +1,6 @@
 id: web-boss-04
-title: "Étape 4 : l'audit de sécurité"
-order: 4
+title: "Étape 5 : l'audit de sécurité"
+order: 5
 type: bug-hunt
 runtime: node
 difficulty: 4

@@ -1,0 +1,45 @@
+id: web-boss-08
+title: "Étape 4 : l'interface"
+order: 4
+type: write
+runtime: node
+difficulty: 4
+xp: 150
+blackout: false
+hintCost: 20
+bugType: ecrire
+entry: interface.js
+lessons: [web-boss-04, navigateur-03, navigateur-04]
+brief: |
+  **Exercice d'écriture.** L'API fonctionne : il faut maintenant l'interface que les membres
+  utiliseront. Écris `monterBoite(document, fetch, jeton)` dans `interface.js` (la page est dans
+  `page.html`). Les tests branchent ton `fetch` sur **la vraie API** des étapes précédentes, avec
+  sa base de données : c'est elle qui répond.
+
+  **Au chargement** (`monterBoite` renvoie une promesse qui se termine quand le catalogue est
+  affiché) :
+
+  - `#etat` affiche `Chargement…`, puis se vide ; en cas d'échec : `Impossible de charger le
+    catalogue.` ;
+  - `#outils` contient un `li` par outil, qui commence par son **nom** ;
+  - un outil disponible a un bouton `Emprunter` portant `data-id` (son id) ; un outil prêté
+    affiche `Prêté` dans un `span` ; sans `jeton` (visiteur non connecté), aucun bouton.
+
+  **Un clic sur Emprunter** envoie `POST /api/prets` avec le jeton (`Authorization: Bearer …`) et
+  le corps JSON `{ "outilId": … }`, puis met `#message` à jour et **recharge** le catalogue :
+
+  | Réponse | `#message` |
+  |---|---|
+  | 201 | `Perceuse empruntée, à rendre le 2026-11-27.` (nom de l'outil et `finPrevue`) |
+  | 409 | `Cet outil vient d'être emprunté par quelqu'un d'autre.` |
+  | 401 | `Connecte-toi pour emprunter.` |
+  | autre | `Une erreur est survenue.` |
+
+  Organise ton code comme dans le module « JavaScript dans le navigateur » : un état, une
+  fonction de rendu. C'est l'organisation d'un composant React, que tu réécriras en React dans
+  le module « Ton projet sur ta machine ».
+hints:
+  - "Commence par le chargement : une fonction async charger() qui fait fetch(\"/api/outils\"), vérifie ok, range les outils dans l'état et appelle afficher()."
+  - "Pour les boutons, un seul écouteur click sur #outils, et event.target.closest(\"button[data-id]\") (la délégation)."
+  - "Le POST : fetch(\"/api/prets\", { method: \"POST\", headers: { \"Content-Type\": \"application/json\", Authorization: `Bearer ${jeton}` }, body: JSON.stringify({ outilId }) }). Puis un message selon reponse.status, et await charger()."
+tests: tests/

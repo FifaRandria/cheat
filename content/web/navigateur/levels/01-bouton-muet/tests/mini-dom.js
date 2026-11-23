@@ -108,6 +108,12 @@ class Element {
   hasAttribute(n) {
     return n.toLowerCase() in this.attrs;
   }
+  get type() {
+    return this.attrs.type ?? (this.tag === "button" ? "submit" : this.tag === "input" ? "text" : "");
+  }
+  set type(v) {
+    this.attrs.type = String(v);
+  }
   get value() {
     return this._value;
   }

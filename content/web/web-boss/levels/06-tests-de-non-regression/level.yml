@@ -1,6 +1,6 @@
 id: web-boss-05
-title: "Étape 5 : les tests de non-régression"
-order: 5
+title: "Étape 6 : les tests de non-régression"
+order: 6
 type: write
 runtime: node
 difficulty: 4
