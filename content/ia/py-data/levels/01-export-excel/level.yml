@@ -1,0 +1,31 @@
+id: data-01
+title: L'export Excel qui ne s'additionne pas
+order: 1
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: data-cleaning
+entry: ventes.py
+lessons: [data-01]
+brief: |
+  La direction envoie chaque lundi l'export Excel des ventes de la semaine. Le script qui
+  calcule le chiffre d'affaires plante depuis que la comptable a changé d'ordinateur : son
+  Excel est maintenant **en français**.
+
+  `chiffre_affaires(texte_csv)` reçoit le contenu du fichier et doit renvoyer la somme des
+  `quantite × prix`, arrondie au centime. Il doit accepter les deux formats :
+
+  - anglais : séparateur `,` et point décimal (`49.90`) ;
+  - français : séparateur `;` et virgule décimale (`49,90`).
+logs: |
+  [import] ventes-semaine-47.csv : 3 lignes
+  [import] première ligne lue : {'produit;quantite;prix': 'Clavier;2;49', None: ['90']}
+  [import] KeyError: 'quantite'
+hints:
+  - "Lis la première ligne affichée dans les logs. Combien de colonnes le module csv a-t-il reconnues ?"
+  - "Regarde la première ligne du texte : contient-elle un « ; » ? C'est un bon moyen de choisir le séparateur."
+  - "float(\"49,90\") échoue : que faut-il remplacer avant de convertir ?"
+tests: tests/

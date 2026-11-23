@@ -1,0 +1,45 @@
+id: outils-04
+title: La page blanche du lundi matin
+order: 4
+type: quiz
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: http
+lessons: [outils-04, express-01]
+brief: |
+  Lundi matin, la page « Mes commandes » reste blanche pour certains clients. Tu ouvres les
+  outils de développement du navigateur pour comprendre, avant de toucher au code.
+hints:
+  - "Le premier chiffre du code de statut dit si le problème vient du client (4) ou du serveur (5)."
+questions:
+  - prompt: Où regarder en premier pour savoir si l'API répond ?
+    choices:
+      - Dans l'onglet Réseau (Network) des outils de développement
+      - Dans le CSS de la page
+      - Dans les paramètres du navigateur
+    answer: 0
+  - prompt: "La requête `GET /api/commandes` est en rouge avec le code 401. Qu'en déduis-tu ?"
+    choices:
+      - Le serveur a planté
+      - Le serveur ne sait pas qui est l'utilisateur, le jeton est absent ou expiré
+      - La ressource n'existe pas
+    answer: 1
+  - prompt: "Dans les en-têtes de la requête, il n'y a pas d'en-tête `Authorization`. Où est probablement le bug ?"
+    choices:
+      - Côté frontend, qui n'envoie pas le jeton
+      - Côté base de données
+      - Côté DNS
+    answer: 0
+  - prompt: Comment rejouer cette requête depuis un terminal, avec un jeton valide, pour vérifier que l'API fonctionne ?
+    choices:
+      - "`curl -i -H \"Authorization: Bearer <jeton>\" https://api.exemple.com/api/commandes`"
+      - "`curl -X DELETE https://api.exemple.com/api/commandes`"
+      - "`ping api.exemple.com`"
+    answer: 0
+  - prompt: "Avec curl et un jeton valide, l'API répond 200 avec les commandes. Conclusion ?"
+    choices:
+      - "L'API fonctionne : le problème vient de la façon dont le frontend envoie (ou n'envoie pas) le jeton"
+      - L'API est cassée
+    answer: 0

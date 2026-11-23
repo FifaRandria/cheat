@@ -19,8 +19,33 @@ const theme: PrismTheme = {
   ],
 };
 
-const LANG: Record<string, string> = { js: "javascript", javascript: "javascript", py: "python", python: "python", ts: "typescript" };
-const LABEL: Record<string, string> = { javascript: "JavaScript", python: "Python", typescript: "TypeScript" };
+const LANG: Record<string, string> = {
+  js: "javascript",
+  javascript: "javascript",
+  py: "python",
+  python: "python",
+  ts: "typescript",
+  sql: "sql",
+  json: "json",
+  yaml: "yaml",
+  yml: "yaml",
+  bash: "bash",
+  sh: "bash",
+  shell: "bash",
+  dockerfile: "dockerfile",
+  http: "http",
+};
+const LABEL: Record<string, string> = {
+  javascript: "JavaScript",
+  python: "Python",
+  typescript: "TypeScript",
+  sql: "SQL",
+  json: "JSON",
+  yaml: "YAML",
+  bash: "Terminal",
+  dockerfile: "Dockerfile",
+  http: "HTTP",
+};
 
 export function CodeBlock({ code, language, runnable }: { code: string; language: string; runnable: boolean }) {
   if (language === "output") return <OutputBlock text={code} />;

@@ -1,0 +1,35 @@
+id: express-05
+title: La pile d'appels exposée au monde
+order: 5
+type: bug-hunt
+runtime: node
+difficulty: 4
+xp: 150
+blackout: true
+hintCost: 0
+bugType: error-handling
+entry: app.js
+lessons: [express-03, express-04]
+brief: |
+  **Mode Blackout. Rapport d'audit de sécurité :** quand une erreur survient, l'API renvoie
+  au client une page HTML contenant la **pile d'appels complète** : chemins des fichiers sur
+  le serveur, noms des modules, numéros de lignes. L'équipe affirme pourtant avoir écrit un
+  gestionnaire d'erreurs.
+
+  Comportement attendu :
+
+  - une erreur qui porte un `status` (par exemple 404) renvoie ce code avec
+    `{ "error": message }` ;
+  - toute autre erreur renvoie `500` avec `{ "error": "Erreur interne" }`, sans aucun détail ;
+  - **jamais** de pile d'appels dans la réponse.
+
+  Pas d'indice. La [documentation d'Express sur la gestion des erreurs](https://expressjs.com/en/guide/error-handling.html)
+  est ta seule alliée.
+logs: |
+  [audit] GET /commandes/abc → 500 text/html
+  [audit] <pre>Error: Connexion à la base perdue
+  [audit]     at /srv/api/src/app.js:21:11
+  [audit]     at /srv/api/node_modules/express/lib/router/layer.js:95:5 …</pre>
+  [audit] le gestionnaire d'erreurs n'apparaît jamais dans la trace d'exécution
+hints: []
+tests: tests/

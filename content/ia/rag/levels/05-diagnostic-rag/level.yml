@@ -1,0 +1,49 @@
+id: rag-05
+title: Le chatbot répond à côté, mais où est le bug ?
+order: 5
+type: quiz
+difficulty: 4
+xp: 130
+blackout: true
+hintCost: 0
+bugType: concept-ia
+lessons: [rag-04, rag-03, rag-02]
+brief: |
+  **Mode Blackout.** Le chatbot documentaire de l'entreprise répond mal, mais pas toujours de
+  la même façon. Pour chaque symptôme, observé en affichant les passages retrouvés et le prompt
+  envoyé, identifie l'**étape** du pipeline RAG à corriger en premier.
+
+  Pas d'indice : seulement ta connaissance du pipeline (découpage, embeddings et similarité,
+  recherche, prompt).
+hints: []
+questions:
+  - prompt: "Question : « Quel est le délai de préavis ? ». Le passage retrouvé s'arrête sur « Le délai de préavis est de », et le passage suivant commence par « deux mois pour les cadres »."
+    choices:
+      - Le prompt
+      - Le découpage (taille et chevauchement des morceaux)
+      - Le modèle de langage
+    answer: 1
+  - prompt: Quelle que soit la question, les trois passages retrouvés viennent toujours du même document de 200 pages.
+    choices:
+      - La similarité (produit scalaire non normalisé, par exemple)
+      - Le prompt
+      - Le nombre k
+    answer: 0
+  - prompt: Les bons passages sont bien dans le prompt, numérotés, mais le modèle répond avec un chiffre qui n'y figure nulle part.
+    choices:
+      - Le découpage
+      - La consigne du prompt (répondre uniquement à partir des documents)
+      - La base vectorielle
+    answer: 1
+  - prompt: À une question sur un sujet absent de la documentation, le chatbot répond avec assurance à partir de passages sans rapport (scores de 0,12 à 0,18).
+    choices:
+      - Il manque un seuil de pertinence, et la consigne « je ne sais pas »
+      - Il faut augmenter k
+      - Il faut des morceaux plus grands
+    answer: 0
+  - prompt: Avant de modifier quoi que ce soit, quelle est la première chose à faire face à un RAG qui répond mal ?
+    choices:
+      - Changer de modèle de langage
+      - Afficher les passages retrouvés et le prompt réellement envoyé, pour localiser l'étape fautive
+      - Réindexer tous les documents
+    answer: 1

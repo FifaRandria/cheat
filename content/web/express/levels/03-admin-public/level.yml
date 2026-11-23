@@ -1,0 +1,30 @@
+id: express-03
+title: Les statistiques secrètes accessibles à tous
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 15
+bugType: auth
+entry: app.js
+lessons: [express-03, express-04]
+brief: |
+  **Faille de sécurité signalée par un client.** En tapant directement l'adresse
+  `/admin/stats` dans son navigateur, sans être connecté, il a vu le chiffre d'affaires de
+  l'entreprise. Pourtant, un middleware d'authentification existe bien.
+
+  Règles attendues :
+
+  - `GET /catalogue` reste **public** ;
+  - `GET /admin/stats` exige un en-tête `authorization` valide (`"Bearer jeton-admin"`) :
+    sans en-tête → `401`, avec un autre jeton → `403`, avec le bon → `200`.
+logs: |
+  [api] GET /admin/stats  authorization=(absent)  → 200  {"chiffreAffaires":128400}
+  [api] GET /catalogue    authorization=(absent)  → 200
+  [audit] exigerAdmin() n'a jamais été appelé pour /admin/stats
+hints:
+  - "Les logs disent que le middleware n'est jamais appelé pour /admin/stats. Dans quel ordre Express parcourt-il les déclarations ?"
+  - "Le middleware doit être déclaré avant la route qu'il protège… mais sans bloquer /catalogue."
+tests: tests/

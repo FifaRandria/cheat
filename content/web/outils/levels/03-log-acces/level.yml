@@ -1,0 +1,30 @@
+id: outils-03
+title: Le tableau de bord qui ne voit pas les erreurs 500
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: http
+entry: analyse.js
+lessons: [outils-04]
+brief: |
+  Cette nuit, l'API a renvoyé des centaines d'erreurs 500. Pourtant, le tableau de bord de
+  supervision n'en a compté presque aucune, et personne n'a été alerté.
+
+  `erreursServeur(lignes)` reçoit les lignes d'un log d'accès (format :
+  `date méthode url statut durée`) et doit renvoyer un objet `{ route: nombre }` qui compte les
+  erreurs **serveur** (codes 500 à 599) par route. La route est l'URL **sans** la query
+  (`/api/panier?page=2` compte pour `/api/panier`).
+logs: |
+  [acces] 2026-11-23T21:02:15 POST /api/commandes 500 88ms
+  [acces] 2026-11-23T21:02:15 POST /api/commandes 500 91ms
+  [acces] 2026-11-23T21:02:16 GET /api/panier?page=2 503 1204ms
+  [acces] 2026-11-23T21:02:16 GET /api/panier?page=3 503 1187ms
+  [supervision] erreurs serveur cette nuit : {"/api/panier?page=2":1,"/api/panier?page=3":1}
+hints:
+  - "Les deux erreurs sur /api/commandes ont disparu. Quel est leur code, et que teste la condition ?"
+  - "Pourquoi /api/panier apparaît-il deux fois sous deux noms différents ?"
+tests: tests/

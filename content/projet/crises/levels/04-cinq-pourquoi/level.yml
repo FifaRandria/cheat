@@ -1,0 +1,26 @@
+id: crises-04
+title: Remonter jusqu'à la vraie cause
+order: 4
+type: ordering
+difficulty: 3
+xp: 80
+blackout: false
+hintCost: 15
+bugType: risques
+lessons: [crises-04]
+brief: |
+  Le premier brouillon du post-mortem conclut : « Cause racine : erreur humaine de Tom. » Tu
+  refuses cette conclusion et tu animes un atelier des **5 pourquoi**.
+
+  Remets les éléments dans l'ordre, du **symptôme** observé par les clients jusqu'à la
+  **cause racine** sur laquelle on peut agir.
+hints:
+  - "Commence par ce que les clients ont vu, puis demande « pourquoi ? » à chaque étape."
+  - "La cause racine décrit le système, pas une personne."
+steps:
+  - label: Les paiements échouent pour tous les clients
+  - label: La clé de l'API de paiement est invalide
+  - label: La production utilise la clé de test
+  - label: Le fichier de configuration de production a été écrasé par celui de test
+  - label: Le déploiement se fait par copie manuelle de fichiers, sans vérification
+  - label: Le déploiement automatisé n'a jamais été priorisé dans le backlog

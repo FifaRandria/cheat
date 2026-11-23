@@ -1,0 +1,33 @@
+id: py-bases-06
+title: L'âge moyen qui refuse de se calculer
+order: 6
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: debug-method
+entry: stats.py
+lessons: [py-bases-06, py-bases-02]
+brief: |
+  Le rapport mensuel calcule l'âge moyen des inscrits. Depuis l'import d'un nouveau fichier
+  CSV, il plante. Certains âges ont été saisis comme du texte, parfois avec des espaces, et
+  quelques lignes n'ont pas d'âge du tout.
+
+  `age_moyen(personnes)` reçoit une liste de dictionnaires et doit :
+
+  - accepter un âge sous forme de nombre **ou** de texte (`36`, `"41"`, `" 28 "`) ;
+  - **ignorer** les personnes dont l'âge est absent, vide ou non numérique ;
+  - renvoyer la moyenne des âges valides, ou `0` s'il n'y en a aucun.
+logs: |
+  [rapport] import inscrits.csv : 4 812 lignes
+  [rapport] Traceback (most recent call last):
+  [rapport]   File "stats.py", line 5, in age_moyen
+  [rapport]     total += p["age"]
+  [rapport] TypeError: unsupported operand type(s) for +=: 'int' and 'str'
+hints:
+  - "Affiche chaque âge avec repr : print(repr(p.get('age'))). Quels types vois-tu ?"
+  - "int(\" 28 \") fonctionne-t-il ? Et int(\"\") ? Essaie avec un try / except ValueError."
+  - "Une personne sans clé age : p[\"age\"] ou p.get(\"age\") ?"
+tests: tests/

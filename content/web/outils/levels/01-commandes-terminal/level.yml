@@ -1,0 +1,38 @@
+id: outils-01
+title: Trois minutes pour lire les logs
+order: 1
+type: quiz
+difficulty: 1
+xp: 40
+blackout: false
+hintCost: 5
+bugType: http
+lessons: [outils-01]
+brief: |
+  Ton collègue t'ouvre un terminal sur le serveur de production : « Les paiements échouent, je
+  te laisse regarder les logs, je reviens. » Pas d'interface graphique, pas de souris.
+
+  Choisis la bonne commande pour chaque besoin.
+hints:
+  - "grep filtre les lignes, wc -l les compte, tail montre la fin, et le | les enchaîne."
+questions:
+  - prompt: Voir les nouvelles lignes du fichier `app.log` s'afficher en direct ?
+    choices: ["`cat app.log`", "`tail -f app.log`", "`head app.log`"]
+    answer: 1
+  - prompt: Afficher seulement les lignes qui contiennent `payment` ?
+    choices: ["`grep payment app.log`", "`ls payment app.log`", "`cd payment`"]
+    answer: 0
+  - prompt: Compter le nombre de lignes contenant `ERROR` ?
+    choices: ["`grep ERROR app.log | wc -l`", "`wc -l ERROR`", "`count ERROR app.log`"]
+    answer: 0
+  - prompt: "Chercher `invalid API key` sans tenir compte des majuscules, avec le numéro de chaque ligne ?"
+    choices:
+      - "`grep -i -n \"invalid api key\" app.log`"
+      - "`grep \"invalid api key\"`"
+      - "`tail -n \"invalid api key\" app.log`"
+    answer: 0
+  - prompt: Tu dois supprimer le dossier `tmp/` du projet. Que fais-tu avant `rm -rf tmp/` ?
+    choices:
+      - Rien, c'est sans danger
+      - Vérifier où tu es avec pwd, et ce que contient le dossier avec ls
+    answer: 1

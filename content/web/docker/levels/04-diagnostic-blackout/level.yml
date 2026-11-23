@@ -1,0 +1,64 @@
+id: docker-04
+title: Trois conteneurs, trois pannes
+order: 4
+type: quiz
+difficulty: 4
+xp: 120
+blackout: true
+hintCost: 0
+bugType: docker
+lessons: [docker-01, docker-02, docker-03]
+brief: |
+  **Mode Blackout.** La mise en production du vendredi soir a mal tourné. Pour chaque
+  observation, identifie la cause la plus probable. Seuls le terminal et la
+  [documentation Docker](https://docs.docker.com/) sont à ta disposition.
+hints: []
+questions:
+  - prompt: |
+      ```output
+      $ docker compose ps
+      web   Up      0.0.0.0:80->3000/tcp
+      $ curl http://localhost:3000
+      curl: (7) Failed to connect to localhost port 3000
+      ```
+
+      Pourquoi curl échoue-t-il depuis la machine hôte ?
+    choices:
+      - Le port 3000 du conteneur est publié sur le port 80 de l'hôte, il faut appeler http://localhost:80
+      - Le conteneur est en panne
+      - curl n'est pas installé
+    answer: 0
+  - prompt: |
+      ```output
+      $ docker compose logs api
+      api | Error: Cannot find module 'express'
+      ```
+
+      L'image a été construite avec un `.dockerignore` contenant `node_modules`, et le Dockerfile
+      contient `COPY . .` mais **aucun** `RUN npm ci`. Cause ?
+    choices:
+      - Les dépendances ne sont jamais installées dans l'image
+      - Express n'existe plus
+      - Le port est mauvais
+    answer: 0
+  - prompt: |
+      ```output
+      $ docker compose logs api
+      api | Error: JWT_SECRET est requis
+      ```
+
+      Le fichier `.env` existe sur la machine du développeur, mais pas sur le serveur. Que faire ?
+    choices:
+      - Commiter le .env dans Git
+      - Définir la variable sur le serveur (fichier .env non versionné, ou secrets de la plateforme)
+      - Supprimer la vérification dans le code
+    answer: 1
+  - prompt: Un conteneur s'arrête aussitôt démarré, sans que tu saches pourquoi. Quelle est la toute première commande à lancer ?
+    choices: ["docker compose logs <service>", "docker system prune", "docker compose down -v"]
+    answer: 0
+  - prompt: "Tu veux vérifier, de l'intérieur du conteneur `api`, qu'il arrive à joindre la base. Quelle commande ?"
+    choices:
+      - "`docker exec -it <conteneur api> sh`, puis tester la connexion vers db:5432"
+      - "`docker build api`"
+      - "`docker pull api`"
+    answer: 0

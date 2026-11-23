@@ -1,0 +1,52 @@
+id: crises-01
+title: Les risques du lancement de Table Ronde
+order: 1
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: risques
+lessons: [crises-01]
+brief: |
+  Le lancement de **Table Ronde** est dans trois semaines. Sofia te demande : « Qu'est-ce qui
+  pourrait mal tourner, et qu'est-ce qu'on fait ? ». Tu construis le registre des risques
+  avec l'équipe.
+
+  Probabilité et impact sont notés de 1 (faible) à 3 (fort).
+hints:
+  - "Criticité = probabilité × impact. On traite d'abord les plus fortes."
+  - "Réduire, c'est agir pour que le risque arrive moins, ou fasse moins mal."
+questions:
+  - prompt: |
+      Quel risque traiter en priorité ?
+
+      | Risque | Probabilité | Impact |
+      |---|---|---|
+      | A · Le logo change au dernier moment | 2 | 1 |
+      | B · Le serveur ne tient pas le pic du soir du lancement | 3 | 3 |
+      | C · Le prestataire d'e-mails ferme | 1 | 2 |
+    choices: ["Le risque A", "Le risque B", "Le risque C"]
+    answer: 1
+    hint: Calcule la criticité de chacun.
+  - prompt: Karim est le seul à connaître la configuration du serveur, et il sera en congés la semaine du lancement. Quelle réponse choisir ?
+    choices:
+      - Accepter le risque
+      - "Réduire : documenter la configuration et faire une passation à Tom avant son départ"
+      - Transférer le risque à Sofia
+    answer: 1
+  - prompt: Le paiement en ligne passe par un prestataire externe. Souscrire à son offre avec garantie de disponibilité et pénalités, c'est…
+    choices: ["Éviter le risque", "Transférer le risque", "Accepter le risque"]
+    answer: 1
+  - prompt: L'équipe propose d'utiliser un tout nouveau framework que personne ne connaît, « pour apprendre ». Le délai est serré. La meilleure réponse au risque ?
+    choices:
+      - Éviter, en utilisant une technologie que l'équipe maîtrise
+      - Accepter, ça ira
+      - Transférer à un stagiaire
+    answer: 0
+  - prompt: "Que manque-t-il à cette ligne du registre ? « Risque de pic de trafic · probabilité 3 · impact 3 · réponse : test de charge »"
+    choices:
+      - Rien, elle est complète
+      - Un responsable (et idéalement une échéance)
+      - Le nom du serveur
+    answer: 1

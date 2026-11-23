@@ -1,0 +1,33 @@
+id: express-04
+title: L'inscription qui plante au lieu de dire non
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 20
+bugType: validation
+entry: app.js
+lessons: [express-04, express-02]
+brief: |
+  Le formulaire d'inscription du site valide bien les champs. Mais un partenaire appelle
+  directement l'API, et il reçoit des **erreurs 500** dès qu'un champ manque. Pire : une fois,
+  un compte a été créé avec un mot de passe de 2 caractères.
+
+  `POST /inscriptions` doit :
+
+  - répondre `400` avec `{ "error": "Données invalides", "details": [...] }` si l'e-mail est
+    absent ou sans `@`, ou si le mot de passe fait moins de 8 caractères ;
+  - lister **toutes** les erreurs dans `details`, pas seulement la première ;
+  - répondre `201` avec `{ "email": … }` (sans le mot de passe !) si tout est valide.
+logs: |
+  [api] POST /inscriptions {"email":"ada@ex.com","motDePasse":"s3cret-long"}  → 201
+  [api] POST /inscriptions {"motDePasse":"abc"}                               → 500
+  [api] TypeError: Cannot read properties of undefined (reading 'includes')
+  [api] POST /inscriptions {"email":"bob@ex.com","motDePasse":"ab"}           → 201 (!)
+hints:
+  - "Que vaut req.body.email quand le champ est absent ? Et que fait .includes sur cette valeur ?"
+  - "La longueur du mot de passe est-elle vérifiée quelque part ?"
+  - "Construis une liste d'erreurs, puis réponds 400 si elle n'est pas vide, avant de créer le compte."
+tests: tests/

@@ -1,0 +1,29 @@
+id: cicd-01
+title: Le pipeline qui prévient trop tard
+order: 1
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: cicd
+lessons: [cicd-01, cicd-03]
+brief: |
+  Le pipeline actuel lance le build complet (5 minutes) avant de vérifier les types. Une simple
+  faute de frappe met donc 6 minutes à être signalée. Pire : le déploiement en production se
+  lance parfois avant les tests.
+
+  Remets les étapes dans l'ordre : les vérifications rapides d'abord, et la production en
+  dernier, uniquement si tout le reste est vert.
+hints:
+  - "Rien ne peut tourner avant que le code soit récupéré et les dépendances installées."
+  - "Les étapes les plus rapides et les plus susceptibles d'échouer passent en premier."
+steps:
+  - label: Récupérer le code (checkout)
+  - label: Installer les dépendances (npm ci)
+  - label: Lint et vérification des types
+    detail: Quelques secondes.
+  - label: Tests unitaires
+  - label: Build de production
+  - label: Déployer en préproduction et lancer les tests de bout en bout
+  - label: Déployer en production

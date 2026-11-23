@@ -1,0 +1,31 @@
+id: react-01
+title: Le panier qui ne se met pas à jour
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: mutation
+entry: panier.js
+lessons: [react-02]
+brief: |
+  Sur la boutique, cliquer sur « Ajouter au panier » ne change **rien** à l'écran. En
+  rechargeant la page, les articles apparaissent pourtant. Les développeurs React ont isolé la
+  logique du panier dans des fonctions pures, appelées par `setPanier`.
+
+  Ces fonctions doivent **toujours renvoyer un nouveau panier**, sans jamais modifier celui
+  qu'elles reçoivent :
+
+  - `ajouter(panier, produit)` : ajoute le produit avec `qte: 1`, ou augmente sa quantité de 1
+    s'il est déjà présent ;
+  - `retirer(panier, id)` : enlève le produit.
+logs: |
+  [react] setPanier(ajouter(panier, clavier))
+  [react] ancien panier === nouveau panier : true → rendu ignoré
+  [devtools] state.panier : [{ id: 1, nom: "Clavier", qte: 3 }] (affiché : qte 1)
+hints:
+  - "Les logs disent que l'ancien et le nouveau panier sont le même objet. Quelle méthode modifie un tableau sur place ?"
+  - "Pour augmenter une quantité, il faut aussi un NOUVEL objet pour l'article, pas seulement un nouveau tableau."
+tests: tests/

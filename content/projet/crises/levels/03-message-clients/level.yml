@@ -1,0 +1,48 @@
+id: crises-03
+title: Le message qui a déclenché une deuxième crise
+order: 3
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: risques
+lessons: [crises-03]
+brief: |
+  Pendant la dernière panne, quelqu'un a publié : « Problème du load balancer, réparé dans
+  5 minutes, c'est la faute de l'hébergeur. » La panne a duré deux heures. Les clients étaient
+  furieux, et l'hébergeur aussi.
+
+  Cette fois, c'est toi qui communiques. Choisis les bons messages.
+hints:
+  - "Un bon message dit quoi, depuis quand, ce qu'on fait et quand viendra la prochaine information."
+  - "Pas de promesse de délai, pas de jargon, pas d'accusation."
+questions:
+  - prompt: Premier message, 5 minutes après le début de la panne, cause inconnue. Lequel publier ?
+    choices:
+      - Ne rien publier tant que la cause n'est pas connue
+      - « Depuis 21 h 02, les réservations en ligne sont indisponibles. Nos équipes sont mobilisées. Prochain point à 21 h 30. »
+      - « Panne, réparé dans 10 minutes. »
+    answer: 1
+  - prompt: L'équipe technique pense que l'hébergeur est en cause, sans certitude. Que dire aux clients ?
+    choices:
+      - « C'est la faute de notre hébergeur. »
+      - Décrire l'impact et ce qu'on fait, sans désigner de responsable
+      - Ne plus rien dire
+    answer: 1
+  - prompt: Comment décrire la panne aux clients du restaurant ?
+    choices:
+      - « Erreur 502 sur le reverse proxy nginx. »
+      - « Le site de réservation ne répond plus. Vous pouvez réserver par téléphone au 01 23 45 67 89. »
+    answer: 1
+    hint: Parle de ce que voit l'utilisateur, et de ce qu'il peut faire en attendant.
+  - prompt: Il est 21 h 30, le service n'est pas encore rétabli. Que faire ?
+    choices:
+      - Ne rien publier, puisqu'il n'y a rien de nouveau
+      - Publier quand même un point, comme promis, avec un nouveau rendez-vous
+    answer: 1
+  - prompt: Le service est rétabli à 22 h 10. Quel dernier message ?
+    choices:
+      - Aucun, les clients verront bien que ça remarche
+      - Annoncer le retour à la normale, rappeler l'impact et s'excuser pour la gêne
+    answer: 1

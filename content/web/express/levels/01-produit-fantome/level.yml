@@ -1,0 +1,31 @@
+id: express-01
+title: Le produit fantôme qui répond 200
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 50
+blackout: false
+hintCost: 10
+bugType: http-status
+entry: app.js
+lessons: [express-01, express-02]
+brief: |
+  L'application mobile affiche une fiche produit **vide** au lieu du message « Produit
+  introuvable ». L'équipe mobile est formelle : l'API répond `200 OK` même pour un produit
+  qui n'existe pas, et l'application ne peut pas faire la différence.
+
+  `GET /produits/:id` doit répondre :
+
+  - `200` avec le produit s'il existe ;
+  - `404` avec `{ "error": "Produit introuvable" }` sinon.
+
+  `mini-express.js` simule Express : il n'est pas en cause.
+logs: |
+  [api] GET /produits/1    → 200  {"id":1,"nom":"Clavier","prix":49}
+  [api] GET /produits/999  → 200  (corps vide)
+  [mobile] fiche produit : nom=undefined prix=undefined
+hints:
+  - "Affiche le résultat de produits.find(...) pour /produits/1. Que vaut-il ? Compare le type de p.id et de req.params.id."
+  - "Les paramètres de chemin arrivent toujours en texte. Et que se passe-t-il quand le produit n'est pas trouvé ?"
+tests: tests/

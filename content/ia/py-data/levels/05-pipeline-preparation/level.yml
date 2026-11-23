@@ -1,0 +1,31 @@
+id: data-05
+title: Le modèle trop beau pour être vrai
+order: 5
+type: ordering
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: pipeline
+lessons: [data-04, data-03, data-02]
+brief: |
+  Un stagiaire annonce 99 % de précision sur la validation. En production, le modèle ne
+  dépasse pas 70 %. En relisant son notebook, tu découvres qu'il a normalisé **tout** le
+  dataset avant de le séparer, et dédoublonné **après** la séparation : certains exemples se
+  retrouvent à la fois en entraînement et en validation.
+
+  Remets dans le bon ordre les étapes de préparation des données, pour que la validation
+  mesure vraiment la performance sur des données jamais vues.
+hints:
+  - "Le dédoublonnage et le nettoyage se font avant la séparation : sinon, un même exemple peut se retrouver des deux côtés."
+  - "Les paramètres de normalisation (min, max) se calculent sur l'entraînement seulement, donc après la séparation."
+steps:
+  - label: Charger et explorer les données
+    detail: Première ligne lue, types, nombre de lignes.
+  - label: Nettoyer et dédoublonner
+    detail: Espaces, casse, doublons, valeurs aberrantes.
+  - label: Traiter les valeurs manquantes
+  - label: Séparer entraînement et validation
+  - label: Calculer min et max sur l'entraînement seulement
+  - label: Normaliser l'entraînement et la validation avec ces paramètres
+  - label: Entraîner le modèle, puis l'évaluer sur la validation

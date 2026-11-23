@@ -1,0 +1,31 @@
+id: sql-05
+title: L'argent disparu entre deux comptes
+order: 5
+type: bug-hunt
+runtime: node
+difficulty: 4
+xp: 150
+blackout: true
+hintCost: 0
+bugType: transaction
+entry: virement.js
+lessons: [sql-04]
+brief: |
+  **Mode Blackout. Incident financier.** Plusieurs clients signalent que de l'argent a été
+  débité de leur compte, mais n'est jamais arrivé sur le compte destinataire. La somme des
+  soldes de la banque **diminue** au fil des jours.
+
+  `virement(db, de, vers, montant)` doit :
+
+  - débiter `de` et créditer `vers` du même montant ;
+  - lever une erreur si le compte destinataire n'existe pas, si le solde est insuffisant, ou
+    si le montant n'est pas strictement positif ;
+  - en cas d'erreur, ne **rien** modifier : tout ou rien.
+
+  Pas d'indice. Documentation : [transactions SQLite](https://www.sqlite.org/lang_transaction.html).
+logs: |
+  [banque] virement 1 → 99 de 50 € : erreur « compte 99 introuvable »
+  [banque] solde du compte 1 après l'erreur : 450 € (avant : 500 €)
+  [audit]  somme des soldes : 600 € hier, 550 € aujourd'hui
+hints: []
+tests: tests/

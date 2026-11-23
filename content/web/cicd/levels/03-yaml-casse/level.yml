@@ -1,0 +1,64 @@
+id: cicd-03
+title: Le workflow qui déploie sans tester
+order: 3
+type: quiz
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: cicd
+lessons: [cicd-02, cicd-03]
+brief: |
+  Voici le workflow de l'équipe. Hier, un commit dont les tests échouaient a quand même été
+  déployé en production.
+
+  ```yaml
+  name: CI
+  on:
+    push:
+      branches: [main]
+  jobs:
+    tests:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - run: npm ci
+        - run: npm test
+    deployer:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - run: ./deployer.sh
+          env:
+            CLE_SERVEUR: ab12-cd34-secret-de-prod
+  ```
+hints:
+  - "Par défaut, les jobs d'un workflow tournent en parallèle."
+  - "Une clé en clair dans un fichier versionné est visible par toute personne qui a accès au dépôt."
+questions:
+  - prompt: Pourquoi le déploiement a-t-il eu lieu malgré des tests rouges ?
+    choices:
+      - Les deux jobs tournent en parallèle, deployer n'attend pas le résultat de tests
+      - npm test ne renvoie pas d'erreur
+      - GitHub ignore les tests
+    answer: 0
+  - prompt: Quelle ligne ajouter au job deployer ?
+    choices: ["`needs: tests`", "`after: tests`", "`depends: tests`"]
+    answer: 0
+  - prompt: Quel autre problème grave contient ce fichier ?
+    choices:
+      - La clé de production est écrite en clair dans un fichier versionné
+      - Il manque un nom au workflow
+      - ubuntu-latest est trop récent
+    answer: 0
+  - prompt: Comment corriger ce second problème ?
+    choices:
+      - "Créer un secret CLE_SERVEUR dans le dépôt, utiliser `${{ secrets.CLE_SERVEUR }}`, et révoquer l'ancienne clé, déjà exposée"
+      - Supprimer la ligne et espérer que le script fonctionne
+      - Mettre le dépôt en privé, cela suffit
+    answer: 0
+  - prompt: "Le job tests n'installe pas de version précise de Node. Que risque-t-on ?"
+    choices:
+      - Rien
+      - Que la CI utilise une version de Node différente de la production ; il faut ajouter actions/setup-node avec la bonne version
+    answer: 1

@@ -1,0 +1,43 @@
+id: pilotage-05
+title: Le comité de pilotage de vendredi
+order: 5
+type: quiz
+difficulty: 4
+xp: 130
+blackout: true
+hintCost: 0
+bugType: pilotage
+lessons: [pilotage-01, pilotage-02, pilotage-03, pilotage-04]
+brief: |
+  **Mode Blackout.** Vendredi, comité de pilotage avec le client. Tu as les chiffres, et
+  personne pour t'aider.
+
+  | Indicateur | Valeur |
+  |---|---|
+  | Budget vendu (forfait) | 60 jours |
+  | Jours consommés | 36 |
+  | Travail terminé | 45 % |
+  | Reste à faire estimé par l'équipe | 40 jours |
+  | Vélocité moyenne | 20 points par sprint de 2 semaines |
+  | Points restants | 120 |
+  | Date de fin contractuelle | dans 8 semaines |
+hints: []
+questions:
+  - prompt: Quelle est la prévision à terminaison ?
+    choices: ["60 jours", "76 jours", "96 jours"]
+    answer: 1
+  - prompt: Combien de semaines faut-il encore, avec la vélocité actuelle ?
+    choices: ["6 semaines", "8 semaines", "12 semaines"]
+    answer: 2
+  - prompt: Quelle météo afficher au comité ?
+    choices: ["🟢 Vert", "🟠 Orange", "🔴 Rouge, une décision est nécessaire"]
+    answer: 2
+  - prompt: Le projet est au forfait. Qui supporte le dépassement si rien n'est décidé ?
+    choices: ["Le client", "L'agence (le prestataire)"]
+    answer: 1
+  - prompt: Pendant le comité, le client demande en plus un export comptable « vite fait ». Que réponds-tu ?
+    choices:
+      - Oui, sans rien changer d'autre, pour calmer la situation
+      - Tu l'estimes, et tu proposes de l'échanger contre une fonctionnalité de taille équivalente, ou de le chiffrer en avenant
+      - Non, catégoriquement
+    answer: 1

@@ -1,0 +1,33 @@
+id: n8n-03
+title: Les clients facturés deux fois
+order: 3
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 20
+bugType: idempotence
+entry: paiements.py
+lessons: [n8n-03]
+brief: |
+  Plusieurs clients ont reçu **deux factures** pour un seul paiement. Le prestataire de paiement
+  explique qu'il renvoie un webhook quand il n'obtient pas de réponse dans les 3 secondes, ce
+  qui arrive aux heures de pointe.
+
+  `traiter_evenements(evenements)` reçoit la liste des webhooks reçus (dans l'ordre d'arrivée).
+  Chaque événement a un `id` unique fourni par le prestataire, un `client` et un `montant`. La
+  fonction doit renvoyer la liste des factures à créer, `{"client", "montant"}`, en traitant
+  **chaque événement une seule fois**, même s'il est reçu plusieurs fois.
+
+  Attention : un même client peut légitimement payer deux fois le même montant, avec deux
+  événements différents.
+logs: |
+  [webhook] evt_7a1 client=ada montant=49 reçu à 18:02:01.120
+  [webhook] evt_7a1 client=ada montant=49 reçu à 18:02:04.310   ← réémission
+  [factu]   facture F-1021 ada 49 €
+  [factu]   facture F-1022 ada 49 €   ← doublon
+hints:
+  - "Les deux webhooks ont le même identifiant d'événement. Le code le regarde-t-il ?"
+  - "Dédoublonner sur (client, montant) bloquerait aussi deux achats légitimes. Sur quoi faut-il dédoublonner ?"
+tests: tests/

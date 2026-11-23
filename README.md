@@ -88,12 +88,16 @@ Trois parcours indépendants, qui commencent tous par les bases :
 
 | Parcours | Modules ouverts | Leçons | Niveaux |
 |---|---|---|---|
-| **Développeur web fullstack** | W0 Bases de JavaScript, W1 JavaScript asynchrone | 9 | 10 |
-| **Intelligence artificielle** | IA0 Bases de Python, IA2 Entraînement et fine-tuning | 7 | 10 |
-| **Gestion de projet** | GP0 Étapes d'un projet web, GP1 Diriger une équipe | 7 | 10 |
+| **Développeur web fullstack** | Bases JS, JS asynchrone, Terminal/Git/HTTP, Express, SQL, React, Docker, CI/CD | 32 | 38 |
+| **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, RAG, n8n | 19 | 25 |
+| **Gestion de projet** | Étapes d'un projet, diriger une équipe, risques et crises, piloter un projet | 15 | 20 |
 
-Les autres modules (Express, Docker, CI/CD, RAG, n8n, gestion de crise…) sont visibles sur
-la carte, « en chantier ».
+Au total : 66 leçons et 83 niveaux, répartis dans 17 modules ouverts sur 19. Restent « en
+chantier » : TypeScript (W6) et le projet final web (W9).
+
+Les exercices de code tournent dans le bac à sable sans aucune dépendance externe : un
+mini-framework fidèle à Express pour les API, SQLite intégré à Node (`node:sqlite`) pour le
+SQL, et la bibliothèque standard de Python pour la data et le RAG.
 
 Chaque module suit la même méthode :
 
@@ -115,8 +119,7 @@ Chaque module suit la même méthode :
 
 ## Prochaines étapes
 
-- Compléter les modules ouverts, puis ouvrir W2 (Terminal, Git, HTTP) et IA1 (Python pour
-  la data).
+- Ouvrir W6 (TypeScript) et W9 (projet final), et ajouter des boss de module.
 - Simulations interactives pour l'IA : courbes de loss, calculateur de VRAM.
 - Terminal simulé pour Docker et CI/CD (xterm.js et scénarios scriptés).
 - File d'attente BullMQ et Redis si plusieurs runners sont nécessaires.

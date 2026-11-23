@@ -1,0 +1,73 @@
+id: cicd-02
+title: Pipeline rouge, lis le log
+order: 2
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: cicd
+lessons: [cicd-02]
+brief: |
+  Quatre pull requests ont un CI rouge. Les développeurs ont relancé le pipeline trois fois
+  chacune « au cas où ». Pour chaque extrait de log, identifie la cause et la bonne réaction.
+hints:
+  - "Le message utile est presque toujours dans les dernières lignes avant l'erreur."
+questions:
+  - prompt: |
+      ```output
+      Run npm test
+        ✖ applique le code promo
+          AssertionError: 80 !== 79.99
+      Error: Process completed with exit code 1.
+      ```
+
+      Que faire ?
+    choices:
+      - Relancer le pipeline
+      - "Un test a détecté un bug (ou une attente de test fausse) : reproduire en local avec npm test et corriger"
+      - Supprimer le test
+    answer: 1
+  - prompt: |
+      ```output
+      Invalid workflow file: .github/workflows/ci.yml#L14
+      You have an error in your yaml syntax on line 14
+      ```
+
+      Cause la plus probable ?
+    choices:
+      - Un problème d'indentation ou un caractère mal placé dans le YAML, ligne 14
+      - Un test qui échoue
+      - GitHub est en panne
+    answer: 0
+  - prompt: |
+      ```output
+      Run npm ci
+      npm ERR! `npm ci` can only install packages when your package.json and
+      package-lock.json are in sync.
+      ```
+
+      Que s'est-il passé ?
+    choices:
+      - Une dépendance a été ajoutée au package.json sans commiter le package-lock.json mis à jour
+      - Le serveur de npm est en panne
+      - Node est mal installé
+    answer: 0
+  - prompt: |
+      ```output
+      Run ./deployer.sh
+      Erreur : CLE_SERVEUR n'est pas définie
+      ```
+
+      Le workflow contient `CLE_SERVEUR: ${{ secrets.CLE_SERVEUR }}`. Que vérifier ?
+    choices:
+      - Que le secret CLE_SERVEUR existe bien dans les paramètres du dépôt
+      - Qu'il faut écrire la clé en clair dans le YAML
+      - Rien, il faut relancer
+    answer: 0
+  - prompt: Un même test échoue une fois sur cinq, sans changement de code. Que faire ?
+    choices:
+      - L'ignorer, c'est le test qui est instable
+      - Le traiter comme un vrai bug à corriger (souvent un problème d'ordre ou de délai), car un CI qu'on ignore ne protège plus
+      - Relancer jusqu'à ce que ça passe
+    answer: 1

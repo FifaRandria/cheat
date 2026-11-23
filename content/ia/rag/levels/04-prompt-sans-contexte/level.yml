@@ -1,0 +1,34 @@
+id: rag-04
+title: Le chatbot qui invente des tarifs
+order: 4
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 20
+bugType: prompt
+entry: prompt.py
+lessons: [rag-04]
+brief: |
+  Le chatbot commercial annonce des tarifs **qui n'existent pas**. Pourtant, la recherche
+  fonctionne : les bons passages sont trouvés. L'équipe soupçonne la construction du prompt.
+
+  `construire_prompt(question, passages)` doit renvoyer un texte qui contient, **dans cet
+  ordre** :
+
+  1. une consigne qui contient le mot `uniquement` (répondre seulement à partir des
+     documents) et l'expression `je ne sais pas` (que dire si la réponse n'y figure pas) ;
+  2. chaque passage, numéroté `[1]`, `[2]`… pour pouvoir citer les sources ;
+  3. la question, à la toute fin.
+
+  Sans aucun passage, le prompt doit tout de même inclure la consigne et indiquer
+  `Aucun document pertinent.` à la place des passages.
+logs: |
+  [rag] passages trouvés : [Tarifs 2026 : offre Pro à 29 €/mois] [Offre Équipe à 79 €/mois]
+  [llm] prompt envoyé (89 caractères) : « Tu es un assistant commercial. Question : combien coûte l'offre Pro ? »
+  [llm] réponse : « L'offre Pro coûte 19 € par mois. »
+hints:
+  - "Regarde le prompt réellement envoyé dans les logs. Les passages trouvés y figurent-ils ?"
+  - "Il manque aussi une consigne pour empêcher le modèle d'inventer."
+tests: tests/

@@ -1,0 +1,29 @@
+id: react-02
+title: La case cochée qui coche aussi l'historique
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: mutation
+entry: taches.js
+lessons: [react-02]
+brief: |
+  L'application de tâches propose un bouton « Annuler » qui revient à l'état précédent. Problème :
+  après avoir coché une tâche, « Annuler » ne la décoche pas. L'historique semble modifié en même
+  temps que l'état actuel.
+
+  `basculer(taches, id)` doit renvoyer une **nouvelle** liste où la tâche `id` a sa propriété
+  `fait` inversée, sans modifier ni la liste reçue, ni **aucune** des tâches qu'elle contient.
+  `trierParTitre(taches)` doit renvoyer une nouvelle liste triée, sans toucher à l'originale.
+logs: |
+  [historique] étape 1 : [{ id: 1, titre: "Courses", fait: false }]
+  [action] basculer(1)
+  [historique] étape 1 : [{ id: 1, titre: "Courses", fait: true }]  ← modifiée !
+  [historique] étape 2 : [{ id: 1, titre: "Courses", fait: true }]
+hints:
+  - "Le tableau renvoyé est bien nouveau… mais qu'en est-il des objets tâche qu'il contient ?"
+  - "Et sort() : trie-t-il une copie, ou le tableau d'origine ?"
+tests: tests/

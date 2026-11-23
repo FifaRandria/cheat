@@ -151,6 +151,20 @@ def test_ada():
 ```
 
 Le message de l'assertion est affiché au joueur en cas d'échec : utilise-le pour guider.
+
+### Modules communs et dépendances
+
+Le bac à sable n'a **pas accès à npm ni à pip**. Pour des exercices réalistes :
+
+- **API** : `content/web/express/_shared/mini-express.js` reproduit Express (routes,
+  middlewares, `next()`, gestionnaires d'erreurs à quatre paramètres). Copie-le dans
+  `starter/` **et** `solution/`, et précise dans l'énoncé qu'il n'est pas en cause ;
+- **SQL** : `content/web/postgres/_shared/base.js` crée une base SQLite en mémoire avec
+  `node:sqlite`, et compte les requêtes (`db.requetes`) pour détecter un problème N+1 ;
+- **Python** : uniquement la bibliothèque standard (`csv`, `statistics`, `math`, `sqlite3`…).
+
+Le loader ignore les dossiers `_shared` : ils ne servent qu'aux auteurs. Si tu modifies un
+module commun, recopie-le dans tous les niveaux qui l'utilisent.
 Quand une exception survient, le joueur voit aussi la ligne fautive de **son** fichier.
 
 ### 2. `quiz` : des mises en situation

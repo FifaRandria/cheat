@@ -1,0 +1,27 @@
+id: pilotage-04
+title: Le devis écrit en dix minutes
+order: 4
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: pilotage
+lessons: [pilotage-04]
+brief: |
+  Un commercial a envoyé un devis « au feeling » à un fleuriste : 15 jours, sans détail. Le
+  projet en a demandé 32, au forfait. L'agence a perdu de l'argent, et le client conteste tout
+  ce qui n'était pas « évident ».
+
+  Remets dans l'ordre les étapes pour construire un devis solide.
+hints:
+  - "On ne chiffre pas ce qu'on n'a pas compris et découpé."
+  - "La marge pour risques s'ajoute après l'estimation détaillée, avant le prix final."
+steps:
+  - label: Comprendre le besoin et les objectifs du client
+  - label: Découper en fonctionnalités puis en tâches
+  - label: Estimer chaque tâche avec l'équipe qui la réalisera
+  - label: Ajouter gestion de projet, tests, recette et mise en production
+  - label: Ajouter une marge pour risques selon les incertitudes
+  - label: Chiffrer (jours × TJM) et rédiger le périmètre inclus, exclu et les hypothèses
+  - label: Envoyer, puis faire signer le devis avant de commencer

@@ -1,0 +1,28 @@
+id: express-02
+title: Toutes les requêtes restent pendues
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: missing-next
+entry: app.js
+lessons: [express-03]
+brief: |
+  Depuis le déploiement du nouveau middleware de journalisation, **toutes** les pages
+  tournent dans le vide, puis affichent une erreur de délai dépassé. Aucune erreur dans les
+  logs du serveur : il a l'air de fonctionner normalement.
+
+  Remets l'API en état : `GET /sante` doit répondre `{ "ok": true }` et `GET /produits` la liste
+  des produits, et chaque requête doit toujours être journalisée.
+logs: |
+  [api] GET /sante
+  [api] GET /produits
+  [lb]  upstream timed out (504) while reading response header from api:4000
+  [lb]  upstream timed out (504) while reading response header from api:4000
+hints:
+  - "Les requêtes sont bien journalisées, puis plus rien. Que doit faire un middleware après son travail ?"
+  - "Un middleware doit soit répondre, soit appeler next(). Regarde chaque branche du journaliseur."
+tests: tests/

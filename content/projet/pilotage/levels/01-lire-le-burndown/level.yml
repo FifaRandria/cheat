@@ -1,0 +1,56 @@
+id: pilotage-01
+title: Le sprint qui ne finira pas à temps
+order: 1
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: pilotage
+lessons: [pilotage-01]
+brief: |
+  Tu reprends le pilotage du projet Table Ronde en cours de route. L'ancien chef de projet
+  t'a laissé les chiffres de l'équipe. À toi de dire où en est vraiment le projet.
+hints:
+  - "La vélocité se calcule sur les points TERMINÉS, en moyenne sur plusieurs sprints."
+  - "Sur un burndown, comparer le restant réel au restant prévu."
+questions:
+  - prompt: |
+      Points terminés lors des derniers sprints :
+
+      | Sprint | 4 | 5 | 6 |
+      |---|---|---|---|
+      | Points | 24 | 18 | 21 |
+
+      Quelle vélocité retenir pour prévoir la suite ?
+    choices: ["24, le meilleur sprint", "21, la moyenne", "18, le dernier sprint"]
+    answer: 1
+  - prompt: Il reste 84 points au backlog, avec cette vélocité et des sprints de 2 semaines. Quand finira-t-on, environ ?
+    choices: ["Dans 4 semaines", "Dans 8 semaines", "Dans 16 semaines"]
+    answer: 1
+    hint: 84 / 21 sprints, puis × 2 semaines.
+  - prompt: |
+      Burndown du sprint en cours (10 jours, 40 points) :
+
+      | Jour | 1 | 3 | 5 | 7 |
+      |---|---|---|---|---|
+      | Prévu | 40 | 32 | 24 | 16 |
+      | Réel | 40 | 38 | 37 | 36 |
+
+      Que montre-t-il ?
+    choices:
+      - Un sprint bien parti
+      - "Un quasi-plateau depuis le jour 3 : un blocage, ou des stories commencées mais jamais terminées"
+      - Du travail ajouté en cours de sprint
+    answer: 1
+  - prompt: Au jour 7, que fais-tu ?
+    choices:
+      - Rien, on verra en fin de sprint
+      - Tu demandes à l'équipe ce qui bloque, et tu vois avec le Product Owner quelles stories retirer du sprint
+      - Tu demandes à l'équipe de faire des heures supplémentaires
+    answer: 1
+  - prompt: Le directeur veut comparer ta vélocité (21) à celle de l'équipe voisine (45) pour savoir laquelle travaille le mieux. Ta réponse ?
+    choices:
+      - L'autre équipe est deux fois plus productive
+      - La comparaison n'a pas de sens, chaque équipe a sa propre échelle de points
+    answer: 1

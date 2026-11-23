@@ -1,0 +1,33 @@
+id: data-03
+title: L'hiver en plein mois de juillet
+order: 3
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: missing-values
+entry: meteo.py
+lessons: [data-03]
+brief: |
+  Le tableau de bord météo affiche une température moyenne de **9 °C en juillet** à
+  Antananarivo. Les capteurs fonctionnent… sauf quelques-uns, qui envoient des relevés
+  vides ou `NA` pendant les coupures de courant.
+
+  `resume(releves)` reçoit une liste de relevés (textes ou nombres) et doit renvoyer un
+  dictionnaire :
+
+  - `moyenne` : la moyenne des relevés **valides**, arrondie à 0,1 (ou `None` s'il n'y en a
+    aucun) ;
+  - `manquantes` : le nombre de relevés manquants (`""`, `"NA"`, `"N/A"`, `None`, avec ou
+    sans espaces, en majuscules ou minuscules).
+
+  Attention : `"0"` est une **vraie** mesure, pas une valeur manquante.
+logs: |
+  [capteurs] relevés reçus : 744 · dont vides ou NA : 412
+  [meteo] moyenne de juillet : 9.4 °C (attendu : environ 21 °C)
+hints:
+  - "Que fait le code d'un relevé vide ? Par quoi est-il remplacé dans la somme ?"
+  - "Une valeur inventée, même zéro, fausse la moyenne. Il faut ignorer les manquantes, et les compter."
+tests: tests/

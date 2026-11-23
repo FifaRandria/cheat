@@ -1,0 +1,31 @@
+id: data-04
+title: La normalisation qui fait planter l'entraînement
+order: 4
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 120
+blackout: true
+hintCost: 0
+bugType: normalization
+entry: preparation.py
+lessons: [data-04]
+brief: |
+  **Mode Blackout.** Le pipeline d'entraînement plante une nuit sur deux, et quand il
+  aboutit, le modèle donne des résultats incohérents. Les valeurs normalisées sortent parfois
+  de l'intervalle [0, 1].
+
+  `normaliser(valeurs)` doit appliquer la normalisation **min-max** :
+
+  - chaque valeur devient `(v - min) / (max - min)`, entre 0 et 1 ;
+  - si toutes les valeurs sont égales, renvoyer une liste de `0.0` ;
+  - une liste vide donne une liste vide.
+
+  Pas d'indice. Seulement les logs et la formule.
+logs: |
+  [prep] colonne surface : [20, 65, 110, 200] → [0.1, 0.325, 0.55, 1.0]
+  [prep] colonne nb_pieces : [3, 3, 3, 3]
+  [prep] ZeroDivisionError: division by zero
+            at normaliser (preparation.py:4)
+hints: []
+tests: tests/

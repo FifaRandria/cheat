@@ -1,0 +1,29 @@
+id: outils-02
+title: Retrouver le commit qui a cassé le site
+order: 2
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: git
+lessons: [outils-03, outils-02]
+brief: |
+  La page de paiement marchait avec la version `v1.4`, il y a deux semaines. Elle est cassée
+  aujourd'hui, et 180 commits ont été faits depuis. Personne ne sait lequel est en cause.
+
+  Remets dans l'ordre les étapes pour trouver le commit fautif avec **git bisect**.
+hints:
+  - "On démarre, on indique d'abord la version cassée et la version saine, puis on teste à chaque étape."
+  - "On n'oublie pas de revenir à son point de départ à la fin."
+steps:
+  - label: git bisect start
+  - label: "git bisect bad"
+    detail: La version actuelle est cassée.
+  - label: "git bisect good v1.4"
+    detail: La version v1.4 fonctionnait.
+  - label: Tester la page de paiement sur le commit proposé par Git
+  - label: Répondre git bisect good ou git bisect bad, et recommencer jusqu'au commit fautif
+  - label: Lire le commit indiqué avec git show
+  - label: git bisect reset
+    detail: Revenir où on était avant de commencer.

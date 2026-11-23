@@ -1,0 +1,28 @@
+id: sql-01
+title: Une annulation qui annule tout
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 50
+blackout: false
+hintCost: 10
+bugType: sql-where
+entry: commandes.js
+lessons: [sql-02]
+brief: |
+  **Incident critique.** Un client a annulé sa commande… et **toutes** les commandes de la
+  boutique sont passées au statut « annulée ». Le service comptable est en panique.
+
+  `annulerCommande(db, id)` doit annuler **uniquement** la commande demandée, et renvoyer
+  `true` si elle existait, `false` sinon.
+
+  `base.js` crée la base de démonstration : il n'est pas en cause.
+logs: |
+  [shop] POST /commandes/3/annuler  client=Bob
+  [db]   UPDATE commandes SET statut = 'annulee'   → 4 lignes modifiées
+  [compta] 4 commandes annulées en 1 seconde : alerte fraude ?
+hints:
+  - "Regarde le nombre de lignes modifiées dans les logs. Combien en attendais-tu ?"
+  - "Un UPDATE s'applique à toutes les lignes qui vérifient son WHERE. Et s'il n'y a pas de WHERE ?"
+tests: tests/

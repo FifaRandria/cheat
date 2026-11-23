@@ -1,0 +1,42 @@
+id: outils-05
+title: Git, un vendredi soir
+order: 5
+type: quiz
+difficulty: 3
+xp: 110
+blackout: true
+hintCost: 0
+bugType: git
+lessons: [outils-02, outils-03]
+brief: |
+  **Mode Blackout.** Vendredi, 18 h. Une série de petites catastrophes Git s'abat sur l'équipe.
+  Pas d'indice, seulement ce que tu sais de Git. La
+  [documentation officielle](https://git-scm.com/docs) est ouverte dans un onglet.
+hints: []
+questions:
+  - prompt: Un commit poussé sur main ce midi casse la production. Plusieurs collègues ont déjà récupéré main. Comment l'annuler proprement ?
+    choices:
+      - "git reset --hard HEAD~1 puis git push --force"
+      - git revert sur ce commit, puis git push
+      - Supprimer le dépôt et le recloner
+    answer: 1
+  - prompt: "Tu as fait trois commits sur main au lieu de ta branche de fonctionnalité, sans les pousser. Que fais-tu ?"
+    choices:
+      - Les pousser quand même
+      - Créer ta branche à partir de l'état actuel, puis remettre main au niveau du dépôt distant, avant tout push
+      - Tout recommencer à la main
+    answer: 1
+  - prompt: "Un conflit apparaît dans `config.js` entre ta version et celle de Léa, et tu ne sais pas laquelle est la bonne. Que fais-tu ?"
+    choices:
+      - Tu gardes ta version, c'est ta branche
+      - Tu demandes à Léa, puis tu combines les deux si nécessaire et tu retires les marqueurs
+      - Tu supprimes les deux versions
+    answer: 1
+  - prompt: "`git status` montre un fichier `.env` contenant des mots de passe, prêt à être commité. Que fais-tu ?"
+    choices:
+      - Le commiter, le dépôt est privé
+      - Le retirer de l'index et l'ajouter au .gitignore
+    answer: 1
+  - prompt: Le site marchait avec la v2.0, il est cassé sur main, et 400 commits les séparent. Combien d'étapes faudra-t-il environ à git bisect ?
+    choices: ["9", "200", "400"]
+    answer: 0
