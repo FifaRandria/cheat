@@ -1,0 +1,46 @@
+id: gp-etapes-05
+title: Le vendredi de la mise en production
+order: 5
+type: quiz
+difficulty: 3
+xp: 120
+blackout: true
+hintCost: 0
+bugType: gestion-projet
+lessons: [gp-etapes-04, gp-etapes-02]
+brief: |
+  **Mode Blackout.** C'est la semaine du lancement de Table Ronde. Les décisions s'enchaînent,
+  et personne n'est là pour te souffler la réponse.
+
+  Pour chaque situation, choisis la décision d'un chef de projet expérimenté.
+hints: []
+questions:
+  - prompt: Vendredi, 17 h. Le développeur propose de mettre en ligne « maintenant, comme ça c'est fait avant le week-end ». Le restaurant ouvre à 19 h. Que décides-tu ?
+    choices:
+      - On met en ligne tout de suite, c'est prêt
+      - On reporte à mardi matin, en dehors des heures de service, avec un plan de retour en arrière
+      - On met en ligne à 23 h, après le service, sans prévenir personne
+    answer: 1
+  - prompt: La recette n'a pas encore été faite par Sofia, mais l'équipe affirme que « tout marche ». Que fais-tu ?
+    choices:
+      - On s'en passe, l'équipe est compétente
+      - On organise la recette avec Sofia, sur l'environnement de test, avant toute mise en production
+      - On met en ligne et Sofia testera en production
+    answer: 1
+  - prompt: Une story est « finie à 95 % », il manque juste les tests. Peut-on la compter comme terminée dans ce sprint ?
+    choices:
+      - Oui, 95 %, c'est presque fini
+      - "Non, elle ne respecte pas la définition du terminé : elle repart dans le sprint suivant"
+    answer: 1
+  - prompt: L'équipe de maintenance reçoit des demandes en continu, et a douze tickets « en cours » en même temps. Que proposes-tu ?
+    choices:
+      - Un tableau Kanban avec une limite de tâches « en cours », pour finir avant de commencer
+      - Des sprints d'une journée
+      - Recruter douze personnes
+    answer: 0
+  - prompt: Trois mois après le lancement, comment savoir si le projet a réussi ?
+    choices:
+      - Les développeurs sont contents du code
+      - On mesure les objectifs du cadrage, par exemple la part de réservations en ligne et le taux de clients absents
+      - Le site n'a pas planté
+    answer: 1

@@ -1,0 +1,49 @@
+id: gp-etapes-03
+title: Le backlog qui ne veut rien dire
+order: 3
+type: quiz
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 15
+bugType: gestion-projet
+lessons: [gp-etapes-03]
+brief: |
+  Le cadrage de **Table Ronde** est validé. Ton prédécesseur a laissé un backlog… plein de
+  tickets comme « Faire la base de données » ou « Le site doit être bien ». Les développeurs
+  ne savent pas par où commencer.
+
+  Aide-les à transformer ce backlog en travail réellement faisable.
+hints:
+  - "Une bonne user story dit qui, quoi, et surtout pourquoi."
+  - "Plus une tâche est grosse, plus son estimation est fausse."
+questions:
+  - prompt: Comment réécrire le ticket « Faire la base de données » ?
+    choices:
+      - Le laisser tel quel, les développeurs comprendront
+      - "En user stories orientées utilisateur, par exemple « En tant que client, je veux réserver une table, afin de ne pas avoir à appeler » ; la base de données sera une tâche technique à l'intérieur"
+      - « Faire la base de données rapidement »
+    answer: 1
+    hint: Une user story part d'un besoin utilisateur, pas d'un composant technique.
+  - prompt: "Quels critères d'acceptation conviennent à la story « Le client voit les créneaux libres » ?"
+    choices:
+      - Le site est rapide et joli
+      - Un créneau complet n'apparaît pas ; on ne peut pas réserver dans le passé ; au-delà de 8 personnes, le site affiche « Appelez-nous »
+      - Les développeurs sont satisfaits
+    answer: 1
+    hint: Un critère d'acceptation se vérifie par oui ou par non.
+  - prompt: Un développeur estime la story « Rappel automatique la veille » à trois semaines. Que faire ?
+    choices:
+      - La découper en morceaux de quelques jours (envoi d'un e-mail, planification de la tâche, gabarit du message) et estimer chacun
+      - Accepter, et planifier trois semaines
+      - Demander de l'estimer à une semaine pour tenir les délais
+    answer: 0
+  - prompt: Quelle est la bonne façon d'estimer ?
+    choices:
+      - Le chef de projet estime seul, il connaît le planning
+      - Ceux qui feront le travail estiment, par comparaison avec des tâches déjà faites, et on garde 20 à 30 % de marge
+      - On prend l'estimation la plus optimiste pour motiver l'équipe
+    answer: 1
+  - prompt: Impossible d'envoyer l'e-mail de confirmation tant que la réservation n'est pas enregistrée. Comment appelle-t-on ce lien entre deux tâches ?
+    choices: ["Une dépendance", "Une rétrospective", "Une recette"]
+    answer: 0

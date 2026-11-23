@@ -1,0 +1,38 @@
+id: ia-ft-05
+title: Le budget VRAM, sans calculatrice ni indice
+order: 5
+type: quiz
+difficulty: 4
+xp: 130
+blackout: true
+hintCost: 0
+bugType: concept-ia
+lessons: [ia-ft-02]
+brief: |
+  **Mode Blackout.** La direction veut une réponse avant ce soir : quels modèles peut-on
+  adapter avec le matériel disponible ? Pas d'indice, seulement tes connaissances et la règle
+  de calcul.
+
+  Rappel de la règle : **mémoire des poids = nombre de paramètres × octets par paramètre**,
+  avec 4 octets en 32 bits, 2 en 16 bits, 1 en 8 bits et 0,5 en 4 bits.
+hints: []
+questions:
+  - prompt: Combien de mémoire occupent les poids d'un modèle de 7 milliards de paramètres en 32 bits ?
+    choices: ["7 Go", "14 Go", "28 Go"]
+    answer: 2
+    explain: "7 milliards × 4 octets = 28 Go."
+  - prompt: Et ce même modèle de 7 milliards, chargé en 4 bits ?
+    choices: ["3,5 Go", "7 Go", "1,75 Go"]
+    answer: 0
+    explain: "7 milliards × 0,5 octet = 3,5 Go."
+  - prompt: L'entreprise dispose d'une carte de 24 Go. Peut-on y charger les poids d'un modèle de 70 milliards de paramètres en 4 bits ?
+    choices:
+      - Oui, il reste même de la marge
+      - Non, les poids seuls occupent environ 35 Go
+      - Oui, à condition d'utiliser LoRA
+    answer: 1
+    explain: "70 milliards × 0,5 octet = 35 Go : plus que les 24 Go disponibles, avant même de compter l'entraînement. LoRA ne réduit pas la taille du modèle de base."
+  - prompt: "Une couche de 4 096 × 4 096 reçoit un adaptateur LoRA de rang 16. Combien de paramètres l'adaptateur ajoute-t-il ? (rappel : r × (4 096 + 4 096))"
+    choices: ["65 536", "131 072", "16 777 216"]
+    answer: 1
+    explain: "16 × 8 192 = 131 072, soit moins de 1 % des 16,7 millions de poids de la couche."

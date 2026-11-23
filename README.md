@@ -72,8 +72,15 @@ docker compose up --build
 | `npm run levels:check` | vérifie tout le contenu : leçons, quiz, et niveaux de code via le runner |
 | `npm run levels:sync` | recopie `content/` en base (automatique en développement) |
 | `npm run test:escape` | tentatives d'évasion du bac à sable : toutes doivent être contenues |
+| `npm test` | tests unitaires (Vitest) de l'API et du runner |
 | `npm run typecheck` | vérifie les types de tout le monorepo |
 | `npm run build` | build de production de tous les paquets |
+
+## Intégration continue
+
+À chaque push sur `main` et à chaque pull request, GitHub Actions lance le typecheck, les
+tests unitaires et le build, puis vérifie tout le contenu avec le runner en **mode Docker**
+et exécute les tests d'évasion du bac à sable (`.github/workflows/ci.yml`).
 
 ## Le contenu
 
@@ -81,9 +88,9 @@ Trois parcours indépendants, qui commencent tous par les bases :
 
 | Parcours | Modules ouverts | Leçons | Niveaux |
 |---|---|---|---|
-| **Développeur web fullstack** | W0 Bases de JavaScript, W1 JavaScript asynchrone | 9 | 8 |
-| **Intelligence artificielle** | IA0 Bases de Python, IA2 Entraînement et fine-tuning | 7 | 5 |
-| **Gestion de projet** | GP0 Étapes d'un projet web, GP1 Diriger une équipe | 7 | 3 |
+| **Développeur web fullstack** | W0 Bases de JavaScript, W1 JavaScript asynchrone | 9 | 10 |
+| **Intelligence artificielle** | IA0 Bases de Python, IA2 Entraînement et fine-tuning | 7 | 10 |
+| **Gestion de projet** | GP0 Étapes d'un projet web, GP1 Diriger une équipe | 7 | 10 |
 
 Les autres modules (Express, Docker, CI/CD, RAG, n8n, gestion de crise…) sont visibles sur
 la carte, « en chantier ».
@@ -103,7 +110,8 @@ Chaque module suit la même méthode :
 - Comptes e-mail et mot de passe, et GitHub (OAuth). Suppression de compte.
 - XP, rangs, séries de jours et insignes (leçons, niveaux, Blackout, modules terminés).
 - Indices écrits à l'avance qui coûtent de l'XP, et mode Blackout sans indice.
-- Musée de bugs : les échecs sont enregistrés, avec une date de révision (boîtes de Leitner).
+- Musée de bugs et révision espacée : chaque niveau raté revient sur la page Révision le
+  lendemain, puis à 3, 7, 14 et 30 jours une fois réparé (+10 XP par révision réussie).
 
 ## Prochaines étapes
 
@@ -111,7 +119,6 @@ Chaque module suit la même méthode :
   la data).
 - Simulations interactives pour l'IA : courbes de loss, calculateur de VRAM.
 - Terminal simulé pour Docker et CI/CD (xterm.js et scénarios scriptés).
-- Page de révision du musée de bugs.
 - File d'attente BullMQ et Redis si plusieurs runners sont nécessaires.
 
 Pour écrire une leçon ou un niveau, voir [docs/creer-du-contenu.md](docs/creer-du-contenu.md).

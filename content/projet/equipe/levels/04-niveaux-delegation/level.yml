@@ -1,0 +1,49 @@
+id: gp-equipe-04
+title: Déléguer, mais à quel niveau ?
+order: 4
+type: quiz
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: management
+lessons: [gp-equipe-02]
+brief: |
+  Tu croules sous le travail : il faut déléguer. Mais tout ne se délègue pas de la même façon.
+
+  Rappel des quatre niveaux de délégation :
+
+  1. « Fais exactement ceci. »
+  2. « Propose-moi un plan, on le valide ensemble. »
+  3. « Décide, et tiens-moi informé. »
+  4. « C'est ton domaine, je te fais confiance. »
+
+  Pour chaque situation, choisis le niveau le plus adapté.
+hints:
+  - "Plus l'enjeu est critique et la personne débutante, plus le niveau est bas."
+  - "Le but est de faire monter chaque personne d'un niveau, sujet par sujet."
+questions:
+  - prompt: Karim, arrivé il y a deux semaines, doit faire sa toute première mise en production. L'enjeu est réel.
+    choices: ["Niveau 1", "Niveau 2", "Niveau 4"]
+    answer: 1
+    hint: Il doit apprendre, mais l'enjeu impose de valider son plan.
+    explain: "Il prépare son plan, vous le validez ensemble : il apprend, et le risque reste maîtrisé."
+  - prompt: Léa est l'experte reconnue de la base de données. Il faut choisir les index d'une nouvelle table.
+    choices: ["Niveau 1", "Niveau 3", "Niveau 4"]
+    answer: 2
+    hint: Elle connaît ce sujet mieux que toi.
+  - prompt: "Un correctif de sécurité urgent doit être appliqué ce soir, en suivant une procédure précise, par un développeur qui ne l'a jamais fait."
+    choices: ["Niveau 1", "Niveau 3", "Niveau 4"]
+    answer: 0
+    hint: Tâche critique, personne débutante, procédure connue.
+  - prompt: Tom, développeur confirmé, doit choisir la bibliothèque d'envoi d'e-mails. Il a déjà fait ce type de choix.
+    choices: ["Niveau 1", "Niveau 2", "Niveau 3"]
+    answer: 2
+    hint: Il est à l'aise sur le sujet, mais tu veux rester au courant.
+  - prompt: "Tu as délégué une tâche au niveau 3. Au premier écart avec ce que tu aurais fait, quelle est la bonne réaction ?"
+    choices:
+      - Reprendre la tâche toi-même
+      - En discuter, et le laisser corriger, sauf si l'écart met le projet en danger
+      - Le signaler à toute l'équipe
+    answer: 1
+    explain: "Reprendre une tâche déléguée au premier écart détruit la confiance. Mieux vaut commencer à un niveau plus bas, puis l'élargir."

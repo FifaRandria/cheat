@@ -1,0 +1,27 @@
+id: gp-equipe-03
+title: Le conflit qui paralyse l'équipe
+order: 3
+type: ordering
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: management
+lessons: [gp-equipe-03]
+brief: |
+  Depuis une semaine, Léa et Karim ne se parlent plus après un désaccord sur l'architecture.
+  Les revues de code traînent, l'équipe prend parti, et le sprint est en danger.
+
+  Remets dans l'ordre les étapes pour **désamorcer** ce conflit.
+hints:
+  - "Avant de chercher une solution, il faut entendre chaque personne, sans témoin."
+  - "La décision vient après avoir posé des critères objectifs."
+steps:
+  - label: Écouter chacun séparément, sans prendre parti
+  - label: Ramener la discussion aux faits
+    detail: Qu'est-ce qui s'est passé concrètement, et quand ?
+  - label: Rappeler l'objectif commun et fixer des critères de choix
+    detail: Performance, simplicité, délai, sécurité…
+  - label: Décider, en expliquant la décision au regard des critères
+  - label: Demander à chacun de s'engager sur la décision, même s'il n'était pas d'accord
+  - label: Faire un point quelques jours plus tard

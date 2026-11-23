@@ -1,0 +1,61 @@
+id: ia-ft-03
+title: Lire une configuration QLoRA sans l'exécuter
+order: 3
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: concept-ia
+lessons: [ia-ft-02]
+brief: |
+  Un collègue te transmet sa configuration d'entraînement avant de partir en vacances.
+  Tu dois pouvoir l'expliquer à l'équipe **sans l'exécuter**.
+
+  ```python
+  bnb = BitsAndBytesConfig(
+      load_in_4bit=True,
+      bnb_4bit_quant_type="nf4",
+  )
+
+  config = LoraConfig(
+      r=16,
+      lora_alpha=32,
+      target_modules=["q_proj", "v_proj"],
+      lora_dropout=0.05,
+  )
+  ```
+
+  Réponds aux questions de l'équipe.
+hints:
+  - "Relis la section « Lire une configuration LoRA » : chaque paramètre y est expliqué."
+  - "L'effet réel de l'adaptateur est proportionnel à alpha / r."
+questions:
+  - prompt: "Que fait `load_in_4bit=True` ?"
+    choices:
+      - Il entraîne le modèle en 4 epochs
+      - Il charge les poids du modèle de base en 4 bits, ce qui divise sa taille en mémoire par 4 par rapport au 16 bits
+      - Il limite le modèle à 4 couches
+    answer: 1
+    hint: "Le « 4 » parle de bits, c'est-à-dire de la précision de stockage des poids."
+  - prompt: "Avec `r=16` et `lora_alpha=32`, que vaut le facteur `alpha / r` ?"
+    choices: ["0,5", "2", "48"]
+    answer: 1
+    explain: "32 / 16 = 2. C'est la convention courante « alpha = 2 × r »."
+  - prompt: "Que signifie `target_modules=[\"q_proj\", \"v_proj\"]` ?"
+    choices:
+      - On n'entraîne que les couches q_proj et v_proj du modèle d'origine
+      - On ajoute des adaptateurs LoRA à côté des couches q_proj et v_proj du mécanisme d'attention, le reste du modèle reste gelé
+      - On supprime ces deux couches
+    answer: 1
+    hint: Avec LoRA, les poids d'origine ne bougent jamais.
+  - prompt: "À quoi sert `lora_dropout=0.05` ?"
+    choices:
+      - À désactiver aléatoirement 5 % de l'adaptateur pendant l'entraînement, pour limiter l'apprentissage par cœur
+      - À supprimer 5 % du dataset
+      - À réduire le learning rate de 5 %
+    answer: 0
+  - prompt: Quelle méthode décrit l'ensemble de cette configuration ?
+    choices: ["Full fine-tuning", "LoRA sur un modèle en 16 bits", "QLoRA"]
+    answer: 2
+    hint: Un modèle de base quantifié en 4 bits, avec des adaptateurs LoRA.

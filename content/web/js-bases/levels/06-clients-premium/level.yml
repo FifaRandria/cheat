@@ -1,0 +1,26 @@
+id: js-bases-06
+title: La campagne premium envoyée à personne
+order: 6
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 50
+blackout: false
+hintCost: 10
+bugType: property-typo
+entry: clients.js
+lessons: [js-bases-06]
+brief: |
+  L'équipe marketing a envoyé une offre spéciale à tous les clients **premium**…
+  et l'outil indique « 0 destinataire ». Pourtant, la base contient bien des clients premium.
+
+  `emailsPremium(clients)` reçoit une liste de fiches clients et doit renvoyer la liste des
+  **e-mails** des clients dont `premium` vaut `true`, dans le même ordre.
+logs: |
+  [crm] export clients : 3 fiches
+  [crm] exemple de fiche : { nom: "Ada", email: "ada@ex.com", premium: true }
+  [mail] campagne « offre premium » : 0 destinataire
+hints:
+  - "Affiche une fiche avec console.log(client), puis console.log(client.Premium). Que vaut la seconde ligne ?"
+  - "Compare lettre par lettre le nom de la propriété lue dans le code et celle qui apparaît dans les logs."
+tests: tests/

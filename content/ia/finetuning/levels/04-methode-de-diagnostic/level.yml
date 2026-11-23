@@ -1,0 +1,31 @@
+id: ia-ft-04
+title: La méthode face à un fine-tuning raté
+order: 4
+type: ordering
+difficulty: 3
+xp: 80
+blackout: false
+hintCost: 15
+bugType: pipeline
+lessons: [ia-ft-01, ia-ft-02]
+brief: |
+  Ton modèle fine-tuné répond n'importe quoi. Ton premier réflexe serait de changer tous les
+  réglages au hasard et de relancer un entraînement de six heures.
+
+  Remets dans l'ordre la **méthode** d'un professionnel : du plus simple et du moins cher à
+  vérifier, jusqu'à la nouvelle tentative complète.
+hints:
+  - "La leçon le dit : beaucoup de problèmes viennent des données, pas des réglages. Par quoi commencer ?"
+  - "On ne relance un long entraînement qu'après avoir validé le correctif sur un petit essai."
+steps:
+  - label: Relire une vingtaine d'exemples du dataset, à la main
+    detail: Réponses incohérentes, doublons, format inattendu ?
+  - label: Vérifier le format des exemples envoyés au modèle
+    detail: Le texte réellement vu par le modèle correspond-il à ce que tu crois ?
+  - label: Lire les courbes de loss d'entraînement et de validation
+    detail: Sur-apprentissage, sous-apprentissage, loss qui explose ?
+  - label: Changer un seul réglage à la fois
+    detail: Par exemple le learning rate, ou le nombre d'epochs.
+  - label: Valider le correctif sur un petit échantillon
+    detail: Quelques minutes d'entraînement plutôt que six heures.
+  - label: Relancer l'entraînement complet et comparer au modèle d'origine
