@@ -86,26 +86,30 @@ et exécute les tests d'évasion du bac à sable (`.github/workflows/ci.yml`).
 
 Trois parcours indépendants, qui commencent tous par les bases :
 
-| Parcours | Modules ouverts | Leçons | Niveaux |
+| Parcours | Modules | Leçons | Niveaux |
 |---|---|---|---|
-| **Développeur web fullstack** | Bases JS, JS asynchrone, Terminal/Git/HTTP, Express, SQL, React, Docker, CI/CD | 32 | 38 |
-| **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, RAG, n8n | 19 | 25 |
+| **Développeur web fullstack** | HTML et CSS, bases JS, JS asynchrone, Terminal/Git/HTTP, Express, SQL, React, TypeScript et tests, sécurité web, Docker, CI/CD, changer de langage, projet final | 52 | 68 |
+| **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, LLM par API et agents, RAG, n8n | 24 | 32 |
 | **Gestion de projet** | Étapes d'un projet, diriger une équipe, risques et crises, piloter un projet | 15 | 20 |
 
-Au total : 66 leçons et 83 niveaux, répartis dans 17 modules ouverts sur 19. Restent « en
-chantier » : TypeScript (W6) et le projet final web (W9).
+Au total : 91 leçons et 120 niveaux, répartis dans 23 modules, tous ouverts. Le parcours web
+se termine par un projet guidé en sept étapes, la Boîte à outils, qui réunit tous les modules.
 
 Les exercices de code tournent dans le bac à sable sans aucune dépendance externe : un
 mini-framework fidèle à Express pour les API, SQLite intégré à Node (`node:sqlite`) pour le
-SQL, et la bibliothèque standard de Python pour la data et le RAG.
+SQL, un mini-analyseur HTML et un mini-moteur de cascade CSS pour HTML et CSS, des fichiers
+`.ts` exécutés directement par Node pour TypeScript, un faux LLM pour les agents, et la
+bibliothèque standard de Python pour la data et le RAG.
 
 Chaque module suit la même méthode :
 
 1. **Apprendre** : des leçons courtes, avec des exemples JavaScript exécutables et modifiables
    dans la page, des encadrés « À retenir » et un quiz d'auto-évaluation.
-2. **Réparer** : des niveaux qui mettent la notion à l'épreuve. Trois types existent : du
-   code cassé (JavaScript ou Python, exécuté dans le bac à sable), des quiz de mises en
-   situation, et des étapes à remettre dans l'ordre.
+2. **Réparer, puis écrire** : des niveaux qui mettent la notion à l'épreuve. Quatre types
+   existent : du code cassé à réparer, du code à écrire à partir des tests (JavaScript,
+   TypeScript ou Python, exécutés dans le bac à sable), des quiz de mises en situation, et des
+   étapes à remettre dans l'ordre. Certains niveaux font même écrire les tests, vérifiés
+   contre des versions sabotées du code.
 3. **Comprendre** : un post-mortem après chaque réussite. Chaque niveau renvoie aussi vers
    les leçons qui l'expliquent.
 
@@ -115,11 +119,12 @@ Chaque module suit la même méthode :
 - XP, rangs, séries de jours et insignes (leçons, niveaux, Blackout, modules terminés).
 - Indices écrits à l'avance qui coûtent de l'XP, et mode Blackout sans indice.
 - Musée de bugs et révision espacée : chaque niveau raté revient sur la page Révision le
-  lendemain, puis à 3, 7, 14 et 30 jours une fois réparé (+10 XP par révision réussie).
+  lendemain, puis à 3, 7, 14 et 30 jours une fois réparé (+10 XP par révision réussie). Le
+  musée se range aussi par famille de bug, tous langages confondus.
 
 ## Prochaines étapes
 
-- Ouvrir W6 (TypeScript) et W9 (projet final), et ajouter des boss de module.
+- Ajouter des boss de module, et un suivi des points de blocage des apprenants.
 - Simulations interactives pour l'IA : courbes de loss, calculateur de VRAM.
 - Terminal simulé pour Docker et CI/CD (xterm.js et scénarios scriptés).
 - File d'attente BullMQ et Redis si plusieurs runners sont nécessaires.

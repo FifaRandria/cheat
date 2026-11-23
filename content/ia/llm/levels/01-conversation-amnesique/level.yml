@@ -1,0 +1,37 @@
+id: llm-01
+title: L'assistant qui oublie tout
+order: 1
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: api-llm
+entry: assistant.py
+lessons: [llm-01]
+brief: |
+  L'atelier a branché un assistant sur son site. Les clients se plaignent : il oublie ce
+  qu'ils viennent de dire, ignore ses consignes, et la page plante parfois avec une
+  `KeyError: 'text'`.
+
+  Le code prépare les paramètres de l'appel à l'API (le dictionnaire passé à
+  `client.messages.create(**params)`) et lit la réponse. Corrige `assistant.py` :
+
+  - `preparer_requete(historique, question)` renvoie `model`, un `max_tokens` positif, la
+    consigne dans le champ **`system`**, et `messages` : **tout l'historique** suivi de la
+    nouvelle question de l'utilisateur ;
+  - `texte_reponse(reponse)` renvoie le texte de la réponse : la concaténation de **tous les
+    blocs de type `text`**, en ignorant les autres types de blocs.
+
+  Les réponses sont représentées par des dictionnaires, avec la même forme que l'API.
+logs: |
+  [client] « Je m'appelle Ada. » → « Enchanté Ada ! »
+  [client] « Comment je m'appelle ? » → « Je ne connais pas ton nom. »
+  [api]    400 invalid_request_error : messages.0.role : « system » n'est pas un rôle de message
+  [web]    KeyError: 'text'   (reponse["content"][0] = {"type": "thinking", …})
+hints:
+  - "L'API est sans état : que contient la liste messages envoyée ? Où est passé l'historique ?"
+  - "La consigne n'est pas un message : elle va dans un champ à part, à côté de messages."
+  - "Pour le texte : parcours reponse[\"content\"] et garde les blocs dont le type vaut \"text\"."
+tests: tests/

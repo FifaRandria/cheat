@@ -1,0 +1,37 @@
+id: llm-03
+title: Mesurer le classifieur avant de changer le prompt
+order: 3
+type: write
+runtime: python
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 15
+bugType: evaluation
+entry: evaluation.py
+lessons: [llm-03]
+brief: |
+  **Exercice d'écriture.** L'équipe veut changer le prompt du classifieur d'avis, mais personne
+  ne sait dire si le nouveau est meilleur. Écris l'outil de mesure.
+
+  `evaluer(classer, jeu)` reçoit :
+
+  - `classer(avis)` : la fonction à évaluer (dans les tests, une imitation du LLM) ;
+  - `jeu` : une liste de cas `{"id": …, "avis": …, "attendu": …}`.
+
+  Elle appelle `classer` **une fois par cas** et renvoie :
+
+  ```python
+  {
+      "precision": 0.75,                    # part de bonnes réponses, arrondie à 2 décimales
+      "par_categorie": {"positif": 1.0, "negatif": 0.5},   # précision pour chaque valeur attendue
+      "erreurs": ["a2"],                    # les id mal classés, dans l'ordre du jeu
+  }
+  ```
+
+  Un jeu vide donne `{"precision": 0, "par_categorie": {}, "erreurs": []}`.
+hints:
+  - "Une seule boucle sur le jeu : appelle classer, compare au résultat attendu, note l'erreur si besoin."
+  - "Pour chaque catégorie attendue, compte le total et les bonnes réponses dans deux dictionnaires (get(cle, 0) + 1)."
+  - "Arrondis avec round(x, 2), et traite le jeu vide avant de diviser."
+tests: tests/

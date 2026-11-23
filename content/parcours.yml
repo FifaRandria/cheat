@@ -198,8 +198,19 @@
         - LoRA
         - QLoRA
       phase: MVP
-    - id: rag
+    - id: llm
       code: IA3
+      title: LLM par API, prompts et agents
+      tagline: Appeler un modèle, écrire un bon prompt, évaluer, et construire un agent avec des outils.
+      notions:
+        - API Messages
+        - Prompts
+        - Sorties JSON
+        - Évaluation
+        - Agents et outils
+      phase: MVP
+    - id: rag
+      code: IA4
       title: RAG
       tagline: Embeddings, chunking, recherche, prompt.
       notions:
@@ -208,7 +219,7 @@
         - Base vectorielle
       phase: MVP
     - id: n8n
-      code: IA4
+      code: IA5
       title: Automatisation avec n8n
       tagline: Webhooks, workflows, réessais et idempotence.
       notions:
