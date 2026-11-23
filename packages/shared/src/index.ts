@@ -9,8 +9,11 @@
 
 export type Phase = "MVP" | "V1" | "V2" | "V3";
 
-/** bug-hunt : code cassé · quiz : questions/mises en situation · ordering : étapes à remettre dans l'ordre */
-export type LevelType = "bug-hunt" | "quiz" | "ordering";
+/**
+ * bug-hunt : code cassé à réparer · write : code à écrire à partir des tests ·
+ * quiz : questions/mises en situation · ordering : étapes à remettre dans l'ordre
+ */
+export type LevelType = "bug-hunt" | "write" | "quiz" | "ordering";
 
 export type Runtime = "node" | "python";
 

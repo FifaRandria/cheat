@@ -1,0 +1,30 @@
+id: py-bases-07
+title: Compter les mots d'un avis client
+order: 7
+type: write
+runtime: python
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: ecrire
+entry: mots.py
+lessons: [py-bases-07, py-bases-05]
+brief: |
+  **Exercice d'écriture.** Avant d'entraîner un modèle sur des avis clients, l'équipe data veut
+  savoir quels mots reviennent le plus. Écris `compter_mots(texte)`.
+
+  Elle renvoie un dictionnaire `{mot: nombre d'apparitions}` :
+
+  - les mots sont comptés **en minuscules** : `"Super"` et `"super"` sont le même mot ;
+  - la ponctuation `. , ; : ! ?` est ignorée ;
+  - les espaces multiples ne créent pas de mots vides ;
+  - un texte vide donne `{}`.
+
+  Exemple : `compter_mots("Super produit, super prix !")` donne
+  `{"super": 2, "produit": 1, "prix": 1}`.
+hints:
+  - "Commence par le test le plus simple : un texte d'un seul mot. Puis plusieurs mots avec split()."
+  - "Pour la ponctuation, remplace chaque signe par une espace avant de découper."
+  - "Le compteur : resultat[mot] = resultat.get(mot, 0) + 1"
+tests: tests/

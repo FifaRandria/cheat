@@ -1,0 +1,37 @@
+id: py-bases-08
+title: Le bulletin de notes
+order: 8
+type: write
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: ecrire
+entry: bulletin.py
+lessons: [py-bases-07, py-bases-03, py-bases-04]
+brief: |
+  **Exercice d'écriture.** Une école veut générer automatiquement le résumé de chaque bulletin.
+  Écris `bulletin(notes)`, qui reçoit une liste de notes sur 20 et renvoie un dictionnaire :
+
+  ```python
+  {"moyenne": 13.7, "min": 9, "max": 17, "mention": "Assez bien"}
+  ```
+
+  - la moyenne est arrondie à **un chiffre** après la virgule ;
+  - la mention dépend de la moyenne :
+
+  | Moyenne | Mention |
+  |---|---|
+  | moins de 10 | `"Insuffisant"` |
+  | de 10 à moins de 12 | `"Passable"` |
+  | de 12 à moins de 14 | `"Assez bien"` |
+  | de 14 à moins de 16 | `"Bien"` |
+  | 16 et plus | `"Très bien"` |
+
+  - sans aucune note, la fonction renvoie `None`.
+hints:
+  - "Traite d'abord la liste vide : if not notes: return None."
+  - "sum, len, min et max font presque tout le travail. Pour la mention, une suite de if / elif, de la plus basse à la plus haute."
+  - "Attention aux bornes : 12 pile donne « Assez bien », donc la condition est moyenne < 12 pour « Passable »."
+tests: tests/

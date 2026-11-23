@@ -2,7 +2,7 @@ import type { LevelSummary } from "@rustine/shared";
 import Link from "next/link";
 import { bugTypeLabel, incidentCode } from "@/lib/format";
 import { Icon } from "./Icon";
-import { BlackoutTag, Severity, StatusChip } from "./Signals";
+import { BlackoutTag, Severity, StatusChip, WriteTag } from "./Signals";
 
 /** Un niveau, présenté comme un ticket d'incident perforé. */
 export function LevelTicket({ level, moduleCode }: { level: LevelSummary; moduleCode: string }) {
@@ -44,6 +44,7 @@ export function LevelTicket({ level, moduleCode }: { level: LevelSummary; module
             <div className="mt-3 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
                 <Severity level={level.difficulty} />
+                {level.type === "write" && <WriteTag />}
                 {level.blackout && <BlackoutTag />}
               </div>
               <span className={`font-mono text-xs font-semibold ${solved ? "text-ink-3 line-through" : "text-fix"}`}>

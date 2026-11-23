@@ -109,6 +109,13 @@ export interface CodeEditorProps {
   blackout: boolean;
 }
 
+/** Langage Monaco d'après l'extension du fichier. */
+function languageOf(path: string): string {
+  const ext = path.slice(path.lastIndexOf(".") + 1).toLowerCase();
+  const map: Record<string, string> = { py: "python", ts: "typescript", html: "html", css: "css", json: "json", sql: "sql" };
+  return map[ext] ?? "javascript";
+}
+
 export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEditorProps) {
   const [theme, setTheme] = useState<ThemeName>("rustine-night");
   const runRef = useRef(onRun);
@@ -133,7 +140,7 @@ export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEdito
   return (
     <Monaco
       path={path}
-      language={path.endsWith(".py") ? "python" : "javascript"}
+      language={languageOf(path)}
       value={value}
       onChange={(v) => onChange(v ?? "")}
       beforeMount={defineThemes}

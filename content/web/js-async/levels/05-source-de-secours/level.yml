@@ -1,0 +1,38 @@
+id: js-async-05
+title: La météo de secours
+order: 5
+type: write
+runtime: node
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: meteo.js
+lessons: [js-async-03, js-async-02]
+brief: |
+  **Exercice d'écriture.** L'application affiche la météo depuis un fournisseur principal. Quand
+  il tombe en panne, l'écran reste vide. On a deux fournisseurs de secours : écris la fonction
+  qui les essaie **dans l'ordre**.
+
+  `chargerAvecSecours(sources)` reçoit un tableau de sources :
+
+  ```js
+  [
+    { nom: "principal", charger: async () => ({ temp: 21 }) },
+    { nom: "secours", charger: async () => ({ temp: 20 }) },
+  ]
+  ```
+
+  Elle renvoie (de façon asynchrone) `{ source: "principal", donnees: { temp: 21 } }` :
+
+  - elle essaie les sources **l'une après l'autre**, et s'arrête à la première qui réussit ;
+  - elle n'appelle **pas** les sources suivantes si une source a réussi (chaque appel coûte de
+    l'argent) ;
+  - si toutes échouent, ou s'il n'y a aucune source, elle rejette avec une erreur dont le
+    message est `"toutes les sources ont échoué"`.
+hints:
+  - "Il faut attendre chaque source avant de décider d'essayer la suivante : une boucle for…of avec await."
+  - "Une source qui échoue lève une erreur : entoure l'appel d'un try / catch, et continue la boucle dans le catch."
+  - "Après la boucle, si on n'a rien renvoyé, c'est que tout a échoué : throw new Error(\"toutes les sources ont échoué\")."
+tests: tests/

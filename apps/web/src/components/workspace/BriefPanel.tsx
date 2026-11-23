@@ -6,7 +6,7 @@ import { useState } from "react";
 import { incidentCode } from "@/lib/format";
 import { Icon } from "../Icon";
 import { Markdown } from "../Markdown";
-import { BlackoutTag, Severity, StatusChip } from "../Signals";
+import { BlackoutTag, Severity, StatusChip, WriteTag } from "../Signals";
 
 interface Props {
   level: LevelDetail;
@@ -26,6 +26,7 @@ export function BriefPanel({ level, onUnlockHint, canUseHints }: Props) {
             {incidentCode(level.module.code, level.order)}
           </span>
           <StatusChip status={level.status} />
+          {level.type === "write" && <WriteTag />}
           {level.blackout && <BlackoutTag />}
         </div>
         <h1 className="mt-2.5 font-display text-2xl leading-tight font-bold tracking-[-0.03em]">{level.title}</h1>

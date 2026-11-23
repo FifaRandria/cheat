@@ -3,7 +3,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { currentUser, requireUser } from "../auth/session.js";
 import { interactivePayload, interactivePostmortem } from "../content/interactive.js";
-import { getContent, getLoadedLevel, type LoadedLevel, readLevelFiles, readPostmortem } from "../content/loader.js";
+import { getContent, getLoadedLevel, isCodeLevel, type LoadedLevel, readLevelFiles, readPostmortem } from "../content/loader.js";
 import { asJson, db } from "../db.js";
 import { rewardFor } from "../game/progression.js";
 import { HttpError, notFound } from "../http.js";
@@ -104,7 +104,7 @@ export async function requireLevel(id: string) {
 
 export async function levelPostmortem(loaded: LoadedLevel) {
   const written = await readPostmortem(loaded);
-  return loaded.config.type === "bug-hunt" ? written : interactivePostmortem(loaded.config, written);
+  return isCodeLevel(loaded.config.type) ? written : interactivePostmortem(loaded.config, written);
 }
 
 const filesSchema = z
@@ -125,7 +125,7 @@ catalogRouter.get("/levels/:id", async (req, res) => {
     ? await db.progress.findUnique({ where: { userId_levelId: { userId: req.user.id, levelId: row.id } } })
     : null;
 
-  const isCode = loaded.config.type === "bug-hunt";
+  const isCode = isCodeLevel(loaded.config.type);
   const starter = isCode ? await readLevelFiles(loaded, "starter") : [];
   // ?fresh=1 : repartir du code cassé (révision d'un niveau déjà réparé)
   const fresh = req.query.fresh === "1";
@@ -178,7 +178,7 @@ catalogRouter.get("/levels/:id/starter", async (req, res) => {
 catalogRouter.put("/levels/:id/draft", requireUser, async (req, res) => {
   const user = currentUser(req);
   const { row, loaded } = await requireLevel(String(req.params.id));
-  if (loaded.config.type !== "bug-hunt") throw new HttpError(400, "Ce niveau n'a pas de code à enregistrer.");
+  if (!isCodeLevel(loaded.config.type)) throw new HttpError(400, "Ce niveau n'a pas de code à enregistrer.");
   const files = sanitizeFiles(req.body?.files, await readLevelFiles(loaded, "starter"));
   await db.progress.upsert({
     where: { userId_levelId: { userId: user.id, levelId: row.id } },

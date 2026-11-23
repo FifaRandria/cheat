@@ -3,7 +3,7 @@ import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { currentUser, requireUser } from "../auth/session.js";
 import { gradeOrdering, gradeQuiz } from "../content/interactive.js";
-import { readLevelFiles } from "../content/loader.js";
+import { isCodeLevel, readLevelFiles } from "../content/loader.js";
 import { recordAttempt } from "../game/submit.js";
 import { toPublicUser } from "../game/progression.js";
 import { HttpError } from "../http.js";
@@ -47,7 +47,7 @@ playRouter.post("/levels/:id/submit", requireUser, submitLimiter, async (req, re
     saved = files;
   }
 
-  const outcome = await recordAttempt(user, row, saved, result, config.type === "bug-hunt");
+  const outcome = await recordAttempt(user, row, saved, result, isCodeLevel(config.type));
   const body: SubmitResponse = {
     result,
     solved: result.ok,
