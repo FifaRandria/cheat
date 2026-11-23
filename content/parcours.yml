@@ -121,11 +121,15 @@
     - id: web-boss
       code: W10
       title: Projet final web
-      tagline: Une app fullstack dockerisée avec un CI vert.
+      tagline: La Boîte à outils, du cahier des charges à la mise en production.
       notions:
-        - Intégration
-        - Déploiement
-      phase: V2
+        - Cahier des charges
+        - Dépôt SQL
+        - API REST
+        - Sécurité
+        - Tests
+        - Mise en production
+      phase: MVP
 
 - id: ia
   title: Intelligence artificielle

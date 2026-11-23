@@ -1,0 +1,36 @@
+id: web-boss-02
+title: "Étape 2 : le dépôt de données"
+order: 2
+type: write
+runtime: node
+difficulty: 3
+xp: 120
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: depot.js
+lessons: [web-boss-01, web-boss-02]
+brief: |
+  **Exercice d'écriture.** Écris les trois fonctions SQL du fichier `depot.js`. Les fonctions
+  `membreParJeton` et `trouverPret`, déjà écrites, te servent de modèles. `boite.js` crée la base
+  (lis son schéma et ses données de départ) et `dates.js` fournit `ajouterJours`.
+
+  **`listerOutils(db, categorie)`** renvoie `[{ id, nom, categorie, disponible }]`, triés par id.
+  `disponible` est un booléen : un outil est indisponible s'il a un prêt non rendu. Si
+  `categorie` est fournie, seulement cette catégorie. **Une seule requête SQL** : pas de N+1.
+
+  **`emprunter(db, membreId, outilId, aujourdhui)`** enregistre un prêt de 7 jours et renvoie
+  `{ id, outilId, membreId, debut, finPrevue, renduLe: null }`. Elle lève
+  `new ErreurMetier("OUTIL_INCONNU", …)` si l'outil n'existe pas, et
+  `new ErreurMetier("DEJA_PRETE", …)` s'il est déjà prêté.
+
+  **`rendre(db, pretId, aujourdhui)`** enregistre le retour et renvoie le prêt mis à jour (même
+  forme que `trouverPret`). Erreurs : `PRET_INCONNU`, `DEJA_RENDU`.
+
+  Tu peux ajouter un fichier `essai.js` pour expérimenter : `node essai.js` n'est pas
+  disponible ici, mais les tests affichent tes `console.log`.
+hints:
+  - "Disponibilité en une requête : une sous-requête NOT EXISTS (SELECT 1 FROM prets p WHERE p.outil_id = o.id AND p.rendu_le IS NULL). SQLite renvoie 0 ou 1 : convertis en booléen."
+  - "Le filtre facultatif : WHERE ? IS NULL OR o.categorie = ?, en passant la catégorie (ou null) deux fois."
+  - "emprunter : vérifie l'outil, puis un prêt en cours, puis INSERT. L'id créé est dans r.lastInsertRowid (convertis-le avec Number)."
+tests: tests/

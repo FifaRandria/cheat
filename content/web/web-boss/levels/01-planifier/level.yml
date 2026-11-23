@@ -1,0 +1,30 @@
+id: web-boss-01
+title: "Étape 1 : planifier la Boîte à outils"
+order: 1
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: organisation
+lessons: [web-boss-01]
+brief: |
+  L'association vient de valider le devis. Avant d'écrire une ligne de code, l'équipe doit
+  s'entendre sur **l'ordre** des étapes. Un mauvais ordre coûte cher : une API écrite avant le
+  modèle de données sera réécrite, une sécurité ajoutée à la fin sera bâclée.
+
+  Remets les étapes dans l'ordre dans lequel tu vas les mener.
+hints:
+  - "On ne peut rien construire sans savoir ce que veulent les utilisateurs, ni ce qui fait partie du MVP."
+  - "L'API manipule des données : la structure des tables vient avant."
+  - "On ne met en production que ce qui est testé et sécurisé."
+steps:
+  - label: Interroger les bénévoles et les membres sur leurs besoins
+  - label: Écrire les user stories et délimiter le MVP
+  - label: Concevoir le modèle de données (membres, outils, prêts)
+  - label: Écrire le dépôt de données et ses règles métier
+  - label: Exposer l'API REST
+  - label: Faire auditer la sécurité et corriger les failles
+  - label: Écrire les tests de non-régression
+  - label: Conteneuriser l'application et configurer la CI
+  - label: Mettre en production, puis surveiller les logs et les retards

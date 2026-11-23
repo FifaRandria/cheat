@@ -1,0 +1,72 @@
+id: web-boss-07
+title: "Étape 7 : la mise en production"
+order: 7
+type: quiz
+difficulty: 4
+xp: 150
+blackout: false
+hintCost: 0
+bugType: deploiement
+lessons: [web-boss-03, docker-01, cicd-01]
+brief: |
+  Dernière étape : mettre la Boîte à outils en ligne, et l'y maintenir. Pour chaque situation,
+  choisis la bonne décision.
+hints: []
+questions:
+  - prompt: |
+      Voici le Dockerfile proposé. À chaque modification d'une seule ligne de code, la
+      construction réinstalle toutes les dépendances (3 minutes).
+
+      ```dockerfile
+      FROM node:22-alpine
+      WORKDIR /app
+      COPY . .
+      RUN npm ci
+      CMD ["node", "server.js"]
+      ```
+
+      Quelle correction ?
+    choices:
+      - "Copier d'abord package.json et package-lock.json, lancer npm ci, puis copier le reste du code"
+      - Utiliser npm install au lieu de npm ci
+      - Supprimer le WORKDIR
+    answer: 0
+    explain: "Docker réutilise une couche tant que ses fichiers d'entrée n'ont pas changé. Les dépendances changent rarement : leur couche doit venir avant celle du code."
+  - prompt: Où placer le jeton secret qui signe les sessions ?
+    choices:
+      - Dans le Dockerfile, avec ENV JWT_SECRET=…
+      - "Dans une variable d'environnement fournie au démarrage du conteneur, depuis le gestionnaire de secrets de l'hébergeur"
+      - Dans un fichier config.js commité, pour que toute l'équipe l'ait
+    answer: 1
+  - prompt: |
+      La CI exécute ces étapes. Laquelle doit **bloquer** le déploiement si elle échoue ?
+
+      `installer` → `vérifier les types` → `tests` → `construire l'image` → `déployer`
+    choices:
+      - Seulement le déploiement lui-même
+      - "Toutes : chaque étape ne s'exécute que si la précédente a réussi"
+      - Seulement les tests
+    answer: 1
+  - prompt: |
+      La nouvelle version ajoute une colonne `prets.rappel_envoye`. Au démarrage, le code
+      plante : « no such column: rappel_envoye ». Qu'est-ce qui manquait au déploiement ?
+    choices:
+      - Appliquer la migration de base de données avant de démarrer la nouvelle version
+      - Redémarrer le serveur
+      - Vider le cache du navigateur
+    answer: 0
+  - prompt: |
+      Dix minutes après une livraison, le taux d'erreurs 500 passe de 0,1 % à 30 %. Les membres
+      ne peuvent plus emprunter. Que fais-tu en premier ?
+    choices:
+      - Je cherche le bug dans le code et je livre un correctif
+      - "Je reviens à la version précédente (rollback) pour rétablir le service, puis je cherche la cause"
+      - J'attends de voir si ça se calme
+    answer: 1
+  - prompt: |
+      Une fois l'incident réglé, que faut-il produire pour que l'équipe progresse ?
+    choices:
+      - Le nom de la personne responsable
+      - "Un post-mortem sans blâme : chronologie, cause racine, et actions pour que ça ne se reproduise pas (un test, une alerte…)"
+      - Rien, c'est réglé
+    answer: 1
