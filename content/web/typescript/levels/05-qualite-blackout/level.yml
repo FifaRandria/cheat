@@ -1,0 +1,63 @@
+id: typescript-05
+title: La CI verte qui ne protégeait rien
+order: 5
+type: quiz
+difficulty: 4
+xp: 120
+blackout: true
+hintCost: 0
+bugType: qualite
+lessons: [typescript-01, typescript-03, typescript-04]
+brief: |
+  **Mode Blackout.** En un mois, trois bugs graves sont arrivés en production alors que la CI
+  était toujours verte. La direction te demande un audit de la qualité du projet. Pour chaque
+  constat, choisis la bonne recommandation.
+hints: []
+questions:
+  - prompt: |
+      Le `tsconfig.json` du projet contient :
+
+      ```json
+      { "compilerOptions": { "strict": false } }
+      ```
+
+      Quel est le risque principal ?
+    choices:
+      - Aucun, strict ne sert qu'à l'esthétique
+      - "Sans strict, null et undefined sont acceptés partout : la famille « valeur absente » n'est plus détectée"
+    answer: 1
+  - prompt: |
+      Un `grep` trouve 312 occurrences de `: any` et 45 de `// @ts-ignore`. Que recommandes-tu ?
+    choices:
+      - "Tout supprimer d'un coup ce soir"
+      - "Interdire les nouveaux any et ts-ignore avec une règle de lint dans la CI, puis réduire les existants module par module"
+      - Rien, c'est normal dans un gros projet
+    answer: 1
+  - prompt: |
+      La CI exécute `npm test` et `npm run build`, mais jamais `tsc --noEmit`. Le build utilise
+      un outil qui retire les types sans les vérifier. Conséquence ?
+    choices:
+      - "Les erreurs de type ne bloquent jamais rien : il faut ajouter une étape de vérification des types dans la CI"
+      - Aucune, le build vérifie déjà les types
+    answer: 0
+  - prompt: |
+      Ce test passe depuis six mois. Qu'en penses-tu ?
+
+      ```js
+      test("calcule les frais de port", async () => {
+        const frais = calculerFrais(panier);
+        console.log(frais);
+      });
+      ```
+    choices:
+      - C'est un bon test, il exécute la fonction
+      - "Il ne vérifie rien : sans assert, il passera même si la fonction renvoie n'importe quoi"
+    answer: 1
+  - prompt: |
+      Un test échoue un jour sur dix en CI, puis repasse quand on relance. Il utilise
+      `new Date()` pour calculer une échéance « dans 30 jours ». Que faire ?
+    choices:
+      - Relancer la CI jusqu'à ce que ce soit vert
+      - "Rendre le test déterministe : passer une date fixe (une horloge injectée), au lieu de dépendre de la date du jour"
+      - Supprimer le test
+    answer: 1

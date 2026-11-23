@@ -9,7 +9,7 @@ blackout: false
 hintCost: 20
 bugType: tests
 entry: scenarios.js
-lessons: [web-boss-02]
+lessons: [web-boss-02, typescript-04]
 brief: |
   **Exercice d'écriture : cette fois, tu écris les tests.** L'API est corrigée. Pour que les
   failles et les bugs ne reviennent jamais, écris dans `scenarios.js` la fonction

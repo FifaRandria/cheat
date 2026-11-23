@@ -35,6 +35,8 @@ const BUG_TYPES: Record<string, string> = {
   "mots-de-passe": "Mots de passe",
   "controle-acces": "Contrôle d'accès",
   configuration: "Configuration",
+  types: "Types",
+  qualite: "Qualité",
   "off-by-one": "Décalage de un",
   "async-await": "await oublié",
   "async-loop": "Boucle async",

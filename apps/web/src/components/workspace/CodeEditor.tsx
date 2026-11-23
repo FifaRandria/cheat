@@ -131,10 +131,11 @@ export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEdito
   const onMount: OnMount = (editor, monaco) => {
     // Ctrl/Cmd + Entrée : lancer les tests sans quitter le clavier.
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => runRef.current());
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: true,
-      noSyntaxValidation: false,
-    });
+    // Erreurs de syntaxe seulement : l'éditeur ne voit qu'un fichier à la fois, et signalerait
+    // à tort les imports vers les autres fichiers du niveau.
+    for (const defaults of [monaco.languages.typescript.javascriptDefaults, monaco.languages.typescript.typescriptDefaults]) {
+      defaults.setDiagnosticsOptions({ noSemanticValidation: true, noSyntaxValidation: false });
+    }
   };
 
   return (
