@@ -7,7 +7,7 @@
  *   npm run levels:check             tout le contenu
  *   npm run levels:check js-async-01  un seul niveau
  */
-import { gradeOrdering, gradeQuiz, interactivePayload } from "./interactive.js";
+import { gradeOrdering, gradeQuiz, interactivePayload, quizAnswerKey } from "./interactive.js";
 import { getContent, readLevelFiles } from "./loader.js";
 import { runCode } from "../runner-client.js";
 
@@ -26,7 +26,7 @@ for (const level of content.levels.values()) {
   for (const id of c.lessons) if (!content.lessons.has(id)) problems.push(`leçon liée introuvable : ${id}`);
 
   if (c.type === "quiz") {
-    const r = gradeQuiz(c, c.questions.map((q) => q.answer));
+    const r = gradeQuiz(c, quizAnswerKey(c));
     if (!r.ok) problems.push("les bonnes réponses ne sont pas acceptées");
     summary = `quiz · ${c.questions.length} questions`;
   } else if (c.type === "ordering") {

@@ -11,6 +11,8 @@ interface Props {
   title: string;
   xpGained: number;
   firstSolve: boolean;
+  /** Révision espacée réussie */
+  reviewed?: boolean;
   badges: Badge[];
   postmortem: string | null;
   next: { id: string; title: string } | null;
@@ -20,7 +22,7 @@ interface Props {
 }
 
 /** Rapport d'incident tamponné « RÉSOLU », affiché quand tous les tests passent. */
-export function PostMortem({ incident, title, xpGained, firstSolve, badges, postmortem, next, onClose, closeLabel = "Relire mon code" }: Props) {
+export function PostMortem({ incident, title, xpGained, firstSolve, reviewed = false, badges, postmortem, next, onClose, closeLabel = "Relire mon code" }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const xp = useCountUp(xpGained);
 
@@ -66,13 +68,19 @@ export function PostMortem({ incident, title, xpGained, firstSolve, badges, post
           </h2>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            {firstSolve ? (
+            {xpGained > 0 ? (
               <span className="inline-flex items-center gap-2 rounded-xl bg-fix px-3.5 py-2 font-mono text-lg font-bold text-fix-ink tabular-nums">
                 +{xp} XP
               </span>
             ) : (
               <span className="rounded-xl border border-line-strong px-3.5 py-2 font-mono text-sm text-ink-2">
                 Déjà résolu : pas d&apos;XP supplémentaire
+              </span>
+            )}
+            {reviewed && (
+              <span className="inline-flex items-center gap-2 rounded-xl border border-warn/40 bg-warn-soft px-3 py-2 text-sm">
+                <Icon name="reset" size={15} className="text-warn" />
+                Révision réussie : ce piège reviendra plus tard, plus espacé.
               </span>
             )}
             {badges.map((b, i) => (

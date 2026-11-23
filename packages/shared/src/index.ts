@@ -249,6 +249,8 @@ export interface SubmitResponse {
   result: RunResult;
   solved: boolean;
   firstSolve: boolean;
+  /** Révision du musée de bugs réussie à la date prévue */
+  reviewed: boolean;
   xpGained: number;
   user: PublicUser | null;
   newBadges: Badge[];
@@ -284,6 +286,23 @@ export interface ProfileResponse {
     passed: boolean;
     createdAt: string;
   }>;
+}
+
+export interface ReviewItem {
+  level: LevelSummary & { moduleCode: string; trackId: string };
+  bugType: string;
+  occurrences: number;
+  /** Boîte de Leitner : 0 = pas encore réparé, puis 1 à 4 et plus */
+  box: number;
+  nextReviewAt: string;
+  lastSeenAt: string;
+}
+
+export interface ReviewResponse {
+  /** À revoir maintenant : niveaux jamais réparés, ou dont la date de révision est passée */
+  due: ReviewItem[];
+  upcoming: ReviewItem[];
+  reviewXp: number;
 }
 
 export interface ApiError {

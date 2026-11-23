@@ -1,0 +1,29 @@
+id: py-bases-04
+title: L'entraînement qui s'arrête une epoch trop tôt
+order: 4
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 50
+blackout: false
+hintCost: 10
+bugType: off-by-one
+entry: planning.py
+lessons: [py-bases-03]
+brief: |
+  Le script de planification d'entraînement annonce « 3 epochs », mais le journal n'en
+  montre que **deux**. Le modèle est systématiquement sous-entraîné.
+
+  `planning(nb_epochs)` doit renvoyer la liste des étiquettes d'epochs, de la première à la
+  dernière. Pour `nb_epochs = 3` :
+
+  `["epoch 1/3", "epoch 2/3", "epoch 3/3"]`
+logs: |
+  [train] configuration : nb_epochs=3
+  [train] epoch 1/3 ... loss=1.92
+  [train] epoch 2/3 ... loss=1.31
+  [train] entraînement terminé (2 epochs)
+hints:
+  - "Écris à la main ce que contient list(range(1, 3)). Combien de nombres ?"
+  - "La borne de fin de range est exclue : pour aller jusqu'à n inclus, que faut-il écrire ?"
+tests: tests/

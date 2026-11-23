@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  qualite:
+    name: Types, tests et build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Vérifier les types
+        run: npm run typecheck
+
+      - name: Tests unitaires
+        run: npm test
+
+      - name: Build de production
+        run: npm run build
+
+  contenu-et-bac-a-sable:
+    name: Contenu, base de données et isolation du runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: rustine
+          POSTGRES_PASSWORD: rustine
+          POSTGRES_DB: rustine
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rustine"
+          --health-interval 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://rustine:rustine@localhost:5432/rustine?schema=public
+      JWT_SECRET: ci-secret-pas-utilise-en-production
+      RUNNER_URL: http://localhost:4100
+      RUNNER_TOKEN: ci-runner-token
+      RUNNER_MODE: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Appliquer les migrations
+        run: npx prisma migrate deploy
+        working-directory: apps/api
+
+      - name: Synchroniser le contenu en base
+        run: npm run levels:sync
+
+      - name: Télécharger les images des bacs à sable
+        run: |
+          docker pull node:22-alpine
+          docker pull python:3.12-alpine
+
+      - name: Démarrer le runner (mode docker)
+        run: |
+          npx tsx apps/runner/src/index.ts > runner.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:4100/health && exit 0
+            sleep 1
+          done
+          cat runner.log
+          exit 1
+
+      - name: "Vérifier le contenu : chaque niveau échoue au départ et passe avec sa solution"
+        run: npm run levels:check
+
+      - name: Tests d'évasion du bac à sable
+        run: npm run test:escape
+
+      - name: Journal du runner
+        if: always()
+        run: cat runner.log || true

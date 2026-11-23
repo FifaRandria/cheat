@@ -1,0 +1,32 @@
+id: py-bases-05
+title: L'exemple disparu entre entraînement et validation
+order: 5
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 80
+blackout: false
+hintCost: 15
+bugType: slice
+entry: separation.py
+lessons: [py-bases-05, ia-ft-01]
+brief: |
+  Avant d'entraîner un modèle, on sépare le dataset en deux parties : l'**entraînement**
+  (ce que le modèle révise) et la **validation** (l'examen blanc, jamais vu pendant
+  l'entraînement).
+
+  Un audit montre que, sur 1 000 exemples, le script n'en répartit que **999**. Un exemple
+  disparaît à chaque fois, et ce n'est jamais le même.
+
+  `separer(exemples, ratio)` doit renvoyer un couple `(train, validation)` :
+
+  - `train` contient les `int(len(exemples) * ratio)` premiers exemples ;
+  - `validation` contient **tous** les autres ;
+  - aucun exemple n'est perdu, aucun n'est dans les deux listes.
+logs: |
+  [data] dataset : 1000 exemples, ratio=0.8
+  [data] train : 800 · validation : 199 · total : 999 (attendu : 1000)
+hints:
+  - "Pour une liste de 10 éléments et coupure = 8, écris ce que contiennent liste[:8] et liste[9:]. Quel index manque ?"
+  - "Dans liste[debut:fin], debut est inclus et fin est exclue. Pour reprendre exactement là où train s'arrête, quel début faut-il ?"
+tests: tests/

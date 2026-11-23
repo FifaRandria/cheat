@@ -1,0 +1,46 @@
+id: gp-equipe-02
+title: Le feedback qui a vexé tout le monde
+order: 2
+type: quiz
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 15
+bugType: management
+lessons: [gp-equipe-03]
+brief: |
+  En revue de sprint, un lead a lancé devant toute l'équipe : « Tom, tu bâcles tout en ce
+  moment. » Tom n'a plus dit un mot de la semaine, et deux collègues sont venus se plaindre.
+
+  Toi, tu veux faire mieux. Pour chaque situation, choisis le feedback le plus utile.
+hints:
+  - "Situation précise, comportement observable, impact concret : c'est la méthode SBI."
+  - "On critique un comportement, jamais une personne. Et en privé."
+questions:
+  - prompt: Tom a fusionné du code sans test, et un bug de paiement est passé en production. Quel feedback donner ?
+    choices:
+      - « Tu es négligent, fais un effort. »
+      - "« Hier, sur la fusion du module de paiement, il n'y avait pas de test. Un bug est passé en production et trois clients ont été débités deux fois. Comment on évite ça la prochaine fois ? »"
+      - Ne rien dire pour ne pas le démotiver
+    answer: 1
+    hint: Lequel décrit une situation, un comportement et un impact, puis ouvre la discussion ?
+  - prompt: Où et quand donner ce feedback ?
+    choices:
+      - En privé, le jour même ou le lendemain
+      - En réunion d'équipe, pour que tout le monde apprenne
+      - À l'entretien annuel, dans six mois
+    answer: 0
+  - prompt: Léa a écrit une documentation de déploiement très claire. Que dire ?
+    choices:
+      - Rien, c'est son travail
+      - « Merci, super ! »
+      - "« Ta doc de déploiement de lundi, avec les commandes à copier-coller, a permis à Karim de mettre en production seul pour la première fois. Merci. »"
+    answer: 2
+    hint: Un feedback positif est aussi précis qu'un feedback correctif.
+  - prompt: "Après ton feedback, Tom explique qu'il a été chargé de trois urgences en même temps ce jour-là. Quelle est la meilleure réaction ?"
+    choices:
+      - Maintenir ta critique, une excuse reste une excuse
+      - L'écouter, reconnaître le problème d'organisation, et chercher ensemble comment éviter ces surcharges
+      - Lui retirer le module de paiement
+    answer: 1
+    hint: Ouvrir la discussion, c'est aussi accepter d'apprendre quelque chose.

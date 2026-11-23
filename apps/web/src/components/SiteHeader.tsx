@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
@@ -10,6 +12,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const NAV = [
   { href: "/parcours", label: "Parcours" },
   { href: "/lecons", label: "Leçons" },
+  { href: "/revision", label: "Révision", auth: true },
   { href: "/profil", label: "Dossier" },
 ];
 
@@ -17,6 +20,21 @@ export function SiteHeader() {
   const { user, loading, logout } = useSession();
   const pathname = usePathname();
   const router = useRouter();
+  const [due, setDue] = useState(0);
+
+  // Nombre de pièces du musée de bugs à revoir, rafraîchi à chaque navigation.
+  useEffect(() => {
+    if (!user) {
+      setDue(0);
+      return;
+    }
+    api
+      .reviewCount()
+      .then((r) => setDue(r.due))
+      .catch(() => setDue(0));
+  }, [user, pathname]);
+
+  const nav = NAV.filter((item) => !item.auth || user);
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur-md">
@@ -24,7 +42,7 @@ export function SiteHeader() {
         <Logo />
 
         <nav className="ml-4 hidden items-center gap-1 sm:flex" aria-label="Navigation principale">
-          {NAV.map((item) => {
+          {nav.map((item) => {
             const active = pathname.startsWith(item.href);
             return (
               <Link
@@ -36,6 +54,7 @@ export function SiteHeader() {
                 }`}
               >
                 {item.label}
+                {item.href === "/revision" && due > 0 && <DueBadge count={due} />}
               </Link>
             );
           })}
@@ -99,7 +118,7 @@ export function SiteHeader() {
 
       {/* Navigation mobile */}
       <nav className="flex border-t border-line sm:hidden" aria-label="Navigation principale">
-        {NAV.map((item) => (
+        {nav.map((item) => (
           <Link
             key={item.href}
             href={item.href}
@@ -108,10 +127,22 @@ export function SiteHeader() {
             }`}
           >
             {item.label}
+            {item.href === "/revision" && due > 0 && <DueBadge count={due} />}
           </Link>
         ))}
       </nav>
     </header>
+  );
+}
+
+function DueBadge({ count }: { count: number }) {
+  return (
+    <span
+      className="ml-1.5 inline-grid min-w-[1.15rem] place-items-center rounded-full bg-break px-1 font-mono text-[0.62rem] leading-[1.15rem] font-bold text-break-ink"
+      aria-label={`${count} à revoir`}
+    >
+      {count}
+    </span>
   );
 }
 

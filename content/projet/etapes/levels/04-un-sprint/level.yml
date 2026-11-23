@@ -1,0 +1,31 @@
+id: gp-etapes-04
+title: Deux semaines de sprint dans le désordre
+order: 4
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: gestion-projet
+lessons: [gp-etapes-04]
+brief: |
+  La nouvelle équipe de Table Ronde veut adopter **Scrum**, mais a tout mélangé : elle fait
+  la rétrospective avant d'avoir développé quoi que ce soit, et montre au client des
+  fonctionnalités qui ne sont pas terminées.
+
+  Remets dans l'ordre le déroulé d'un sprint de deux semaines.
+hints:
+  - "Avant de choisir quoi faire pendant le sprint, il faut un backlog clair et priorisé."
+  - "On montre le produit au client (revue) avant d'améliorer la façon de travailler (rétrospective)."
+steps:
+  - label: Affiner et prioriser le haut du backlog
+    detail: Les stories sont claires, estimées et ont des critères d'acceptation.
+  - label: Planification de sprint
+    detail: L'équipe choisit les stories qu'elle s'engage à terminer.
+  - label: Développer, avec un daily de 15 minutes chaque matin
+  - label: Vérifier chaque story avec la définition du terminé
+    detail: Code relu, tests verts, critères d'acceptation vérifiés.
+  - label: Revue de sprint avec le client
+    detail: Montrer ce qui fonctionne et récolter ses retours.
+  - label: Rétrospective de l'équipe
+    detail: Ce qui a bien marché, ce qu'on change au prochain sprint.

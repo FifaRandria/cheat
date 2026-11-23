@@ -1,0 +1,28 @@
+id: gp-equipe-05
+title: Celui qui ne parle plus au daily
+order: 5
+type: ordering
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: management
+lessons: [gp-equipe-03, gp-equipe-02]
+brief: |
+  Tom, d'habitude fiable, rate ses délais depuis trois sprints, et ne dit presque plus rien
+  au daily. Un manager pressé voudrait « le recadrer » en réunion d'équipe.
+
+  Remets dans l'ordre la bonne démarche pour **accompagner** une personne en difficulté.
+hints:
+  - "On commence par rassembler des faits précis, avant même d'en parler."
+  - "Le plan se construit avec la personne, après avoir compris la cause."
+steps:
+  - label: Observer et noter des faits précis
+    detail: Les trois dernières stories ont pris deux fois plus de temps que prévu.
+  - label: Proposer un tête-à-tête, rapidement
+  - label: Partager les faits, sans jugement
+  - label: Écouter pour comprendre la cause
+    detail: Tâches mal découpées, technologie inconnue, surcharge, problème personnel ?
+  - label: Construire un plan ensemble
+    detail: Découper autrement, binômer, former, alléger la charge.
+  - label: Faire des points réguliers et reconnaître les progrès

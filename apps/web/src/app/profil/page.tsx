@@ -108,7 +108,12 @@ export default function ProfilePage() {
             </SectionTitle>
             <p className="mt-2 text-sm text-ink-3">
               Les pièges dans lesquels tu es tombé·e. Ils reviendront, de plus en plus espacés, jusqu&apos;à devenir des
-              réflexes.
+              réflexes.{" "}
+              {museum.length > 0 && (
+                <Link href="/revision" className="text-fix hover:underline">
+                  Ouvrir la révision →
+                </Link>
+              )}
             </p>
             {museum.length === 0 ? (
               <p className="mt-4 rounded-xl border border-dashed border-line p-5 text-sm text-ink-3">

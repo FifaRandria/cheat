@@ -1,0 +1,34 @@
+id: js-async-04
+title: L'erreur qui traverse le try
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 20
+bugType: async-await
+entry: commande.js
+lessons: [js-async-02]
+brief: |
+  Quand un article est en rupture de stock, le serveur de commandes **plante** au lieu de
+  répondre poliment « stock insuffisant ». Pourtant, le code entoure bien l'enregistrement d'un
+  `try` / `catch`.
+
+  `passerCommande(panier)` doit renvoyer :
+
+  - `{ ok: true, id }` si la commande est enregistrée ;
+  - `{ ok: false, erreur: "…message…" }` si l'enregistrement échoue. Elle ne doit **jamais**
+    rejeter.
+
+  `stock.js` simule la base de données : il n'est pas en cause.
+logs: |
+  [orders] POST /commandes  panier=[clavier]      → 201
+  [orders] POST /commandes  panier=[écran-4k]     → 500
+  [orders] UnhandledPromiseRejection: Error: Stock insuffisant pour écran-4k
+             at enregistrer (stock.js:9:11)
+  [orders] le bloc catch de passerCommande n'a jamais été exécuté
+hints:
+  - "Le catch n'est jamais exécuté. À quel moment l'erreur se produit-elle : avant ou après que passerCommande a rendu la main ?"
+  - "Dans une fonction async, `return promesse` renvoie la promesse sans l'attendre. Qu'est-ce qui change avec `return await promesse` ?"
+tests: tests/

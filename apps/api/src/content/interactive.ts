@@ -10,8 +10,8 @@ import type { InteractivePayload, LevelConfig, RunResult } from "@rustine/shared
 const stepId = (levelId: string, index: number) =>
   createHash("sha256").update(`${levelId}:${index}`).digest("hex").slice(0, 10);
 
-/** Mélange déterministe (même ordre à chaque chargement), jamais identique à la solution. */
-function shuffled<T>(items: T[], seed: string): T[] {
+/** Mélange déterministe (même ordre à chaque chargement), par défaut jamais identique à l'original. */
+function shuffled<T>(items: T[], seed: string, avoidIdentity = true): T[] {
   let h = createHash("sha256").update(seed).digest().readUInt32LE(0);
   const rand = () => {
     h = (h + 0x6d2b79f5) | 0;
@@ -24,13 +24,33 @@ function shuffled<T>(items: T[], seed: string): T[] {
     const j = Math.floor(rand() * (i + 1));
     [out[i], out[j]] = [out[j] as T, out[i] as T];
   }
-  if (out.every((v, i) => v === items[i])) out.push(out.shift() as T);
+  if (avoidIdentity && out.length > 1 && out.every((v, i) => v === items[i])) out.push(out.shift() as T);
   return out;
+}
+
+/**
+ * Ordre d'affichage des choix d'une question : order[k] est l'index d'origine du k-ième choix affiché.
+ * Les auteurs peuvent ainsi toujours écrire la bonne réponse au même endroit sans que cela se voie.
+ */
+function choiceOrder(config: LevelConfig, question: number): number[] {
+  const n = config.questions[question]?.choices.length ?? 0;
+  return shuffled(Array.from({ length: n }, (_, k) => k), `${config.id}:q${question}`, false);
+}
+
+/** Index affichés des bonnes réponses (pour les vérifications automatiques du contenu). */
+export function quizAnswerKey(config: LevelConfig): number[] {
+  return config.questions.map((q, i) => choiceOrder(config, i).indexOf(q.answer));
 }
 
 export function interactivePayload(config: LevelConfig): InteractivePayload | null {
   if (config.type === "quiz") {
-    return { kind: "quiz", questions: config.questions.map((q) => ({ prompt: q.prompt, choices: q.choices })) };
+    return {
+      kind: "quiz",
+      questions: config.questions.map((q, i) => ({
+        prompt: q.prompt,
+        choices: choiceOrder(config, i).map((k) => q.choices[k] as string),
+      })),
+    };
   }
   if (config.type === "ordering") {
     const steps = config.steps.map((s, i) => ({ id: stepId(config.id, i), label: s.label, detail: s.detail ?? null }));
@@ -42,7 +62,9 @@ export function interactivePayload(config: LevelConfig): InteractivePayload | nu
 export function gradeQuiz(config: LevelConfig, answers: unknown): RunResult {
   const given = Array.isArray(answers) ? answers : [];
   const tests = config.questions.map((q, i) => {
-    const ok = given[i] === q.answer;
+    // given[i] est un index dans l'ordre affiché : on le ramène à l'index d'origine.
+    const picked = typeof given[i] === "number" ? choiceOrder(config, i)[given[i] as number] : undefined;
+    const ok = picked === q.answer;
     return {
       name: `Question ${i + 1}`,
       ok,

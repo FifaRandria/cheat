@@ -127,7 +127,9 @@ catalogRouter.get("/levels/:id", async (req, res) => {
 
   const isCode = loaded.config.type === "bug-hunt";
   const starter = isCode ? await readLevelFiles(loaded, "starter") : [];
-  const files = isCode && progress?.lastCode ? sanitizeFiles(progress.lastCode, starter) : starter;
+  // ?fresh=1 : repartir du code cassé (révision d'un niveau déjà réparé)
+  const fresh = req.query.fresh === "1";
+  const files = isCode && progress?.lastCode && !fresh ? sanitizeFiles(progress.lastCode, starter) : starter;
   const hintsUsed = progress?.hintsUsed ?? 0;
   const solved = progress?.status === "solved";
 
