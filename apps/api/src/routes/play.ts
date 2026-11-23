@@ -55,6 +55,7 @@ playRouter.post("/levels/:id/submit", requireUser, submitLimiter, async (req, re
     xpGained: outcome.xpGained,
     user: toPublicUser(outcome.user),
     newBadges: outcome.newBadges,
+    reviewed: outcome.reviewed,
     postmortem: result.ok ? await levelPostmortem(loaded) : null,
     next: result.ok ? await findNextLevel(row.id) : null,
   };

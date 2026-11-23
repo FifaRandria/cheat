@@ -1,8 +1,9 @@
-import type { ProfileResponse } from "@rustine/shared";
+import type { LevelSummary, ProfileResponse, ReviewItem, ReviewResponse } from "@rustine/shared";
 import { Router } from "express";
 import { closeSession, currentUser, requireUser } from "../auth/session.js";
 import { db } from "../db.js";
 import { toBadge, toPublicUser } from "../game/progression.js";
+import { REVIEW_XP } from "../game/submit.js";
 
 export const meRouter = Router();
 meRouter.use(requireUser);
@@ -62,6 +63,63 @@ meRouter.get("/profile", async (req, res) => {
     })),
   };
   res.json(body);
+});
+
+/** À revoir maintenant : jamais réparé (boîte 0), ou date de révision passée. */
+const dueFilter = (userId: string, now: Date) => ({
+  userId,
+  level: { active: true },
+  OR: [{ box: 0 }, { nextReviewAt: { lte: now } }],
+});
+
+/** Musée de bugs : ce qui est à revoir aujourd'hui, et ce qui reviendra plus tard. */
+meRouter.get("/review", async (req, res) => {
+  const user = currentUser(req);
+  const now = new Date();
+  const [entries, progress] = await Promise.all([
+    db.bugMuseumEntry.findMany({
+      where: { userId: user.id, level: { active: true } },
+      orderBy: { nextReviewAt: "asc" },
+      include: { level: { include: { module: true } } },
+    }),
+    db.progress.findMany({ where: { userId: user.id }, select: { levelId: true, status: true } }),
+  ]);
+  const status = new Map(progress.map((p) => [p.levelId, p.status as LevelSummary["status"]]));
+
+  const items: Array<ReviewItem & { due: boolean }> = entries.map((e) => ({
+    due: e.box === 0 || e.nextReviewAt <= now,
+    level: {
+      id: e.level.id,
+      title: e.level.title,
+      order: e.level.order,
+      type: e.level.type as LevelSummary["type"],
+      difficulty: e.level.difficulty,
+      xp: e.level.xp,
+      blackout: e.level.blackout,
+      bugType: e.level.bugType,
+      status: status.get(e.levelId) ?? "todo",
+      moduleCode: e.level.module.code,
+      trackId: e.level.module.trackId ?? "",
+    },
+    bugType: e.bugType,
+    occurrences: e.occurrences,
+    box: e.box,
+    nextReviewAt: e.nextReviewAt.toISOString(),
+    lastSeenAt: e.lastSeenAt.toISOString(),
+  }));
+
+  const strip = ({ due: _due, ...item }: ReviewItem & { due: boolean }): ReviewItem => item;
+  const body: ReviewResponse = {
+    due: items.filter((i) => i.due).map(strip),
+    upcoming: items.filter((i) => !i.due).map(strip),
+    reviewXp: REVIEW_XP,
+  };
+  res.json(body);
+});
+
+/** Nombre d'entrées à revoir, pour le badge de l'en-tête. */
+meRouter.get("/review/count", async (req, res) => {
+  res.json({ due: await db.bugMuseumEntry.count({ where: dueFilter(currentUser(req).id, new Date()) }) });
 });
 
 /** Droit à l'effacement : supprime le compte et toutes ses données (cascade). */

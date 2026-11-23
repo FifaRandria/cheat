@@ -15,13 +15,17 @@ export default function LevelPage() {
   const { user, loading } = useSession();
   const [level, setLevel] = useState<LevelDetail | null>(null);
   const [error, setError] = useState<{ status: number; message: string } | null>(null);
+  const [revision, setRevision] = useState(false);
 
   useEffect(() => {
     if (loading) return;
     setLevel(null);
     setError(null);
+    // ?revision=1 : rejouer depuis le musée de bugs, en repartant du code cassé
+    const isRevision = new URLSearchParams(window.location.search).get("revision") === "1";
+    setRevision(isRevision);
     api
-      .level(id)
+      .level(id, { fresh: isRevision })
       .then((l) => {
         setLevel(l);
         document.title = `${l.title} · Rustine`;
@@ -53,8 +57,12 @@ export default function LevelPage() {
 
   if (!level) return <WorkspaceSkeleton />;
   // La clé force un état neuf quand on passe d'un niveau à l'autre.
-  const key = `${level.id}:${user?.id ?? "anon"}`;
-  return level.interactive ? <InteractiveWorkspace key={key} initial={level} /> : <Workspace key={key} initial={level} />;
+  const key = `${level.id}:${user?.id ?? "anon"}:${revision}`;
+  return level.interactive ? (
+    <InteractiveWorkspace key={key} initial={level} revision={revision} />
+  ) : (
+    <Workspace key={key} initial={level} revision={revision} />
+  );
 }
 
 function WorkspaceSkeleton() {

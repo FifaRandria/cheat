@@ -5,6 +5,7 @@ import type {
   LevelDetail,
   ProfileResponse,
   PublicUser,
+  ReviewResponse,
   SourceFile,
   Submission,
   SubmitResponse,
@@ -60,7 +61,10 @@ export const api = {
   lesson: (id: string) => request<LessonDetail>(`/lessons/${encodeURIComponent(id)}`),
   completeLesson: (id: string) =>
     request<LessonCompleteResponse>(`/lessons/${encodeURIComponent(id)}/complete`, { method: "POST" }),
-  level: (id: string) => request<LevelDetail>(`/levels/${encodeURIComponent(id)}`),
+  level: (id: string, opts: { fresh?: boolean } = {}) =>
+    request<LevelDetail>(`/levels/${encodeURIComponent(id)}${opts.fresh ? "?fresh=1" : ""}`),
+  review: () => request<ReviewResponse>("/me/review"),
+  reviewCount: () => request<{ due: number }>("/me/review/count"),
   starter: (id: string) => request<SourceFile[]>(`/levels/${encodeURIComponent(id)}/starter`),
   saveDraft: (id: string, files: SourceFile[]) =>
     request<void>(`/levels/${encodeURIComponent(id)}/draft`, { method: "PUT", body: json({ files }) }),

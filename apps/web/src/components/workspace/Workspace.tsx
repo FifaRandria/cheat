@@ -12,7 +12,7 @@ import { CodeEditor } from "./CodeEditor";
 import { PostMortem } from "./PostMortem";
 import { type PanelState, TestPanel } from "./TestPanel";
 
-export function Workspace({ initial }: { initial: LevelDetail }) {
+export function Workspace({ initial, revision = false }: { initial: LevelDetail; revision?: boolean }) {
   const { user, setUser } = useSession();
   const [level, setLevel] = useState(initial);
   const [files, setFiles] = useState<SourceFile[]>(initial.files);
@@ -118,6 +118,15 @@ export function Workspace({ initial }: { initial: LevelDetail }) {
         </Link>
         <span className="h-4 w-px bg-line" aria-hidden="true" />
         <span className="font-mono text-xs text-ink-3">{incident}</span>
+        {revision && (
+          <Link
+            href="/revision"
+            className="flex items-center gap-1.5 rounded-md bg-warn-soft px-2 py-0.5 font-mono text-[0.62rem] font-semibold tracking-[0.12em] text-warn uppercase"
+            title="Tu rejoues ce niveau depuis le musée de bugs"
+          >
+            <Icon name="reset" size={11} /> Révision
+          </Link>
+        )}
 
         {level.blackout && (
           <span className="flicker hidden font-mono text-[0.68rem] tracking-[0.24em] text-ink uppercase md:inline">
@@ -241,6 +250,7 @@ export function Workspace({ initial }: { initial: LevelDetail }) {
           xpGained={report.xpGained}
           firstSolve={report.firstSolve}
           badges={report.newBadges}
+          reviewed={report.reviewed}
           postmortem={report.postmortem}
           next={report.next}
           onClose={() => setReport(null)}
