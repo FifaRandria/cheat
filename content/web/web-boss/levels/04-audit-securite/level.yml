@@ -9,7 +9,7 @@ blackout: false
 hintCost: 20
 bugType: securite
 entry: app.js
-lessons: [web-boss-02]
+lessons: [web-boss-02, securite-01, securite-03]
 brief: |
   Avant la mise en ligne, l'association a fait auditer l'API par une bénévole experte en
   sécurité. Son rapport tient en quatre lignes, et elles sont toutes graves. Corrige les quatre
