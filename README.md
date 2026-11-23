@@ -92,7 +92,7 @@ Trois parcours indépendants, qui commencent tous par les bases :
 | **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, RAG, n8n | 19 | 25 |
 | **Gestion de projet** | Étapes d'un projet, diriger une équipe, risques et crises, piloter un projet | 15 | 20 |
 
-Au total : 66 leçons et 83 niveaux, répartis dans 17 modules ouverts sur 20. Restent « en
+Au total : 66 leçons et 83 niveaux, répartis dans 17 modules ouverts sur 19. Restent « en
 chantier » : TypeScript (W6) et le projet final web (W9).
 
 Les exercices de code tournent dans le bac à sable sans aucune dépendance externe : un
