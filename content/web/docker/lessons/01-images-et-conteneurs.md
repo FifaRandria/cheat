@@ -32,6 +32,9 @@ une version diffère, et plus rien ne marche.
 **Docker** emballe l'application **avec tout son environnement** dans une **image**. Cette image
 s'exécute de façon identique partout : sur ton ordinateur, dans le CI, en production.
 
+> **Déjà vu** : tu utiliseras Docker pour de vrai dans le module « Ton projet sur ta machine » :
+> PostgreSQL en développement, puis l'image de production.
+
 ## Image et conteneur
 
 | | Image | Conteneur |

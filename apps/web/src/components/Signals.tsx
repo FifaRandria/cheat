@@ -41,6 +41,19 @@ export function Severity({ level, label = true }: { level: number; label?: boole
   );
 }
 
+/** Niveau « écrire » : pas de bug à trouver, une fonction à écrire à partir des tests. */
+export function WriteTag() {
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-md bg-info-soft px-1.5 py-0.5 font-mono text-[0.6rem] font-bold tracking-[0.14em] text-info uppercase"
+      title="Exercice d'écriture : les tests décrivent ce que ton code doit faire"
+    >
+      <Icon name="code" size={10} strokeWidth={2.5} />
+      À écrire
+    </span>
+  );
+}
+
 export function BlackoutTag() {
   return (
     <span

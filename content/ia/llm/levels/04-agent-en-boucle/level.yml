@@ -1,0 +1,42 @@
+id: llm-04
+title: L'agent qui tourne en rond
+order: 4
+type: bug-hunt
+runtime: python
+difficulty: 4
+xp: 140
+blackout: false
+hintCost: 20
+bugType: agent
+entry: agent.py
+lessons: [llm-04]
+brief: |
+  L'assistant de l'atelier est devenu un **agent** : il peut consulter le stock et le planning
+  grâce à des outils. Le premier week-end, la facture de l'API a été multipliée par quarante,
+  et certains clients n'ont jamais eu de réponse.
+
+  Corrige `executer_agent(llm, outils, question)` :
+
+  - à chaque tour, la réponse `assistant` est ajoutée à l'historique, puis les résultats des
+    outils dans **un seul** message `user` ;
+  - chaque `tool_result` porte le `tool_use_id` de la demande correspondante ;
+  - un outil **inconnu**, ou qui **lève une exception**, ne fait pas planter l'agent : il
+    produit un `tool_result` avec `"is_error": True` et un message d'erreur en `content` ;
+  - au-delà de `MAX_TOURS` appels au modèle, l'agent s'arrête et renvoie
+    `"Désolé, je n'ai pas pu terminer."`.
+
+  `llm.creer(messages=…, outils=…)` imite l'API et renvoie un dictionnaire de même forme.
+  `faux_llm.py` n'est pas en cause.
+logs: |
+  [agent] tour 1 → tool_use stock_piece(reference="CH-11V")
+  [agent] tour 2 → tool_use stock_piece(reference="CH-11V")
+  [agent] tour 3 → tool_use stock_piece(reference="CH-11V")
+  …
+  [agent] tour 412 → tool_use stock_piece(reference="CH-11V")
+  [api]   400 invalid_request_error : tool_result sans tool_use_id correspondant
+  [agent] KeyError: 'planning_atelier'
+hints:
+  - "Le modèle redemande le même outil sans fin : voit-il sa propre demande dans l'historique ? Regarde ce qui est ajouté à messages à chaque tour."
+  - "Remplace while True par une boucle bornée : for tour in range(MAX_TOURS), et le message d'abandon après la boucle."
+  - "Pour un outil inconnu ou en erreur : try / except autour de l'appel, et {\"type\": \"tool_result\", \"tool_use_id\": …, \"content\": str(erreur), \"is_error\": True}."
+tests: tests/

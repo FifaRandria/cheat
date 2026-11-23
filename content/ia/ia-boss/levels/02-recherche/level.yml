@@ -1,0 +1,38 @@
+id: ia-boss-02
+title: "Étape 2 : retrouver les bons passages du règlement"
+order: 2
+type: write
+runtime: python
+difficulty: 3
+xp: 120
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: recherche.py
+lessons: [ia-boss-01, rag-03, rag-04, gp-etapes-03]
+brief: |
+  **Exercice d'écriture.** Écris la partie « recherche » de l'assistant, dans `recherche.py`.
+  `reglement.py` contient le texte, et `vecteurs.py` fournit `vecteur(texte)` et
+  `similarite(a, b)` (un embedding simplifié, déjà écrit).
+
+  **`decouper(reglement)`** renvoie un passage par **paragraphe** (une ligne non vide qui n'est
+  pas un titre), avec le titre de sa section (ligne qui commence par `## `) :
+
+  ```python
+  [{"id": "R1", "titre": "Adhésion", "texte": "L'adhésion coûte 20 euros par an et donne accès…"}, …]
+  ```
+
+  Les identifiants se suivent : `R1`, `R2`, `R3`…
+
+  **`rechercher(question, passages, k=2, seuil=0.15)`** renvoie au plus `k` passages, du plus
+  proche au moins proche de la question. La similarité se calcule entre `vecteur(question)` et
+  `vecteur(titre + " " + texte)` du passage. Les passages sous le `seuil` sont écartés : pour une
+  question hors sujet, la liste est **vide**.
+
+  > **Côté chef de projet** : découper l'assistant en briques testables séparément (recherche,
+  > requête, agent) permet d'estimer et de livrer par morceaux.
+hints:
+  - "decouper : parcours reglement.splitlines(), garde le titre courant dans une variable, et crée un passage pour chaque autre ligne non vide."
+  - "rechercher : calcule un score par passage, garde ceux qui atteignent le seuil, trie par score décroissant, puis prends les k premiers."
+  - "Inclure le titre dans le texte comparé aide beaucoup : « horaires » est dans le titre, pas dans le paragraphe."
+tests: tests/

@@ -1,0 +1,69 @@
+id: securite-05
+title: Une nuit agitée
+order: 5
+type: quiz
+difficulty: 4
+xp: 140
+blackout: true
+hintCost: 0
+bugType: securite
+lessons: [securite-01, securite-03, securite-04]
+brief: |
+  **Mode Blackout.** Tu es d'astreinte. Entre 22 h et 6 h, l'outil de surveillance déclenche
+  cinq alertes. Pour chacune, choisis la bonne réaction. Seule la documentation de
+  l'[OWASP](https://owasp.org/www-project-top-ten/) est disponible.
+hints: []
+questions:
+  - prompt: |
+      **22 h 14.** 40 000 tentatives de connexion en une heure, depuis quelques adresses, sur
+      des milliers de comptes différents, avec des mots de passe courants.
+
+      ```text
+      POST /connexion  email=ada@…    → 401
+      POST /connexion  email=bob@…    → 401
+      POST /connexion  email=eve@…    → 200
+      ```
+
+      Quelle protection manquait ?
+    choices:
+      - Un mot de passe plus long pour l'administrateur
+      - "Une limitation du nombre de tentatives (par adresse IP et par compte), et une alerte sur les connexions anormales"
+      - Le chiffrement HTTPS
+    answer: 1
+  - prompt: |
+      **23 h 02.** Le message d'erreur de connexion dit « Aucun compte avec cet e-mail » ou
+      « Mot de passe incorrect » selon le cas. Pourquoi est-ce un problème ?
+    choices:
+      - "Il permet à un attaquant de savoir quels e-mails ont un compte : il faut un message unique, « identifiants incorrects »"
+      - Ce n'est pas un problème, c'est plus clair pour l'utilisateur
+    answer: 0
+  - prompt: |
+      **1 h 37.** Une alerte GitHub : une clé d'API de paiement a été trouvée dans un commit
+      d'hier, sur un dépôt public. Quelle est la **première** action ?
+    choices:
+      - Supprimer le commit et forcer le push
+      - "Révoquer la clé immédiatement chez le prestataire et en générer une nouvelle : elle a pu être copiée, effacer l'historique ne suffit pas"
+      - Rendre le dépôt privé
+    answer: 1
+  - prompt: |
+      **3 h 50.** `npm audit` signale une vulnérabilité **critique** dans une dépendance
+      utilisée pour lire les fichiers envoyés par les utilisateurs. Un correctif existe.
+    choices:
+      - Ignorer, puisque le code de l'équipe n'est pas en cause
+      - "Mettre à jour la dépendance, lancer les tests et déployer rapidement : une faille connue et publique est exploitée en quelques heures"
+      - Supprimer la fonctionnalité d'envoi de fichiers pour toujours
+    answer: 1
+  - prompt: |
+      **5 h 20.** Les logs de l'API contiennent ces lignes :
+
+      ```text
+      [api] POST /connexion corps={"email":"ada@…","motdepasse":"Soleil2026!"}
+      [api] GET /me Authorization: Bearer eyJhbGciOiJIUzI1NiIs…
+      ```
+
+      Que faire ?
+    choices:
+      - Rien, les logs sont privés
+      - "Ne plus journaliser les mots de passe ni les jetons (masquer ces champs), purger les logs concernés, et considérer ces secrets comme compromis"
+      - Chiffrer le disque du serveur de logs
+    answer: 1

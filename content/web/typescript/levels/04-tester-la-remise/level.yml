@@ -1,0 +1,39 @@
+id: typescript-04
+title: Écrire les tests de la remise fidélité
+order: 4
+type: write
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 15
+bugType: tests
+entry: verifier-remise.js
+lessons: [typescript-04]
+brief: |
+  **Exercice d'écriture : tu écris les tests.** La fonction `remiseFidelite(total, anciennete)`
+  (dans `remise.js`) calcule la remise d'un client. Elle est correcte aujourd'hui ; ton rôle est
+  de garantir qu'elle le restera. Voici la règle métier :
+
+  | Ancienneté (années) | Remise |
+  |---|---|
+  | moins de 1 | 0 % |
+  | de 1 à moins de 3 | 5 % du total |
+  | 3 et plus | 10 % du total |
+
+  - la remise est **plafonnée à 50 €** ;
+  - elle est arrondie au centime ;
+  - pour un total nul ou négatif, la remise vaut 0.
+
+  Écris `verifierRemise(remiseFidelite)` dans `verifier-remise.js` : elle reçoit une version de
+  la fonction et doit **lever une erreur** (un `assert` qui échoue) si cette version ne respecte
+  pas la règle.
+
+  **Comment c'est vérifié** : tes vérifications doivent passer sur la vraie fonction, puis
+  détecter quatre versions **sabotées** (des mutants). À toi de deviner où un développeur
+  pressé pourrait se tromper.
+hints:
+  - "Les bugs se cachent aux bornes : teste juste avant et pile sur 1 an, juste avant et pile sur 3 ans."
+  - "Le plafond ne se voit qu'avec un gros total : à 10 %, il faut plus de 500 € pour l'atteindre."
+  - "N'oublie pas le dernier point de la règle : un total négatif."
+tests: tests/

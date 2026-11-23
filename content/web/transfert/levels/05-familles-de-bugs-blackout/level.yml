@@ -1,0 +1,82 @@
+id: transfert-05
+title: Des bugs dans des langages que tu n'as jamais appris
+order: 5
+type: quiz
+difficulty: 3
+xp: 120
+blackout: true
+hintCost: 0
+bugType: familles
+lessons: [transfert-01, transfert-04]
+brief: |
+  **Mode Blackout.** Tu viens d'être recruté dans une agence qui maintient des applications en
+  Go, en Java, en PHP et en C#. Tu n'as jamais écrit une ligne dans ces langages. Pour chaque
+  extrait signalé par le support, identifie la **famille** du bug : tu les as toutes déjà
+  réparées.
+hints: []
+questions:
+  - prompt: |
+      **Go.** Le total d'une commande est toujours trop bas, du montant du premier article.
+
+      ```go
+      func total(prix []float64) float64 {
+          var t float64
+          for i := 1; i < len(prix); i++ {
+              t += prix[i]
+          }
+          return t
+      }
+      ```
+    choices:
+      - Une attente oubliée
+      - "Un décalage de un : la boucle commence à l'indice 1 et oublie le premier élément"
+      - Une injection SQL
+    answer: 1
+  - prompt: |
+      **Java.** La page de profil plante pour certains clients seulement, avec
+      `NullPointerException`.
+
+      ```java
+      String ville = client.getAdresse().getVille();
+      ```
+    choices:
+      - "Une valeur absente : certains clients n'ont pas d'adresse (null), comme undefined en JavaScript ou None en Python"
+      - Un problème N+1
+      - Un tri incorrect
+    answer: 0
+  - prompt: |
+      **PHP.** La page « Mes commandes » met 9 secondes à s'afficher pour les gros clients.
+
+      ```php
+      foreach ($commandes as $c) {
+          $produit = $db->query("SELECT * FROM produits WHERE id = " . (int) $c['produit_id'])->fetch();
+          echo $produit['nom'];
+      }
+      ```
+    choices:
+      - Une valeur absente
+      - "Un problème N+1 : une requête SQL par commande, au lieu d'une jointure"
+      - Un argument par défaut mutable
+    answer: 1
+  - prompt: |
+      **C#.** Le message « Enregistré » s'affiche, mais certaines commandes ne sont jamais
+      écrites en base, surtout quand le serveur est chargé.
+
+      ```csharp
+      public async Task Enregistrer(Commande c) {
+          _db.Commandes.Add(c);
+          _db.SaveChangesAsync();
+          Console.WriteLine("Enregistré");
+      }
+      ```
+    choices:
+      - "Une attente oubliée : il manque await devant SaveChangesAsync()"
+      - Un décalage de un
+      - Une erreur de spécificité
+    answer: 0
+  - prompt: Tu dois corriger un bug urgent dans un projet Go, un langage que tu ne connais pas. Quelle démarche ?
+    choices:
+      - Apprendre Go en entier avant de toucher au code
+      - "Reproduire le bug, lire le README pour lancer les tests, suivre la fonctionnalité depuis son point d'entrée, et chercher dans la documentation officielle chaque construction inconnue"
+      - Réécrire le module dans un langage que tu connais
+    answer: 1

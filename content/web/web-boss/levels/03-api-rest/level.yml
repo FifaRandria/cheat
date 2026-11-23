@@ -1,0 +1,37 @@
+id: web-boss-03
+title: "Étape 3 : l'API REST"
+order: 3
+type: write
+runtime: node
+difficulty: 3
+xp: 120
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: app.js
+lessons: [web-boss-02, web-boss-01, pilotage-01]
+brief: |
+  **Exercice d'écriture.** Le dépôt est prêt (`depot.js`). Écris les routes de `app.js`, en
+  respectant le contrat de l'API (leçon « Le projet : la Boîte à outils »). Le middleware
+  `authentifier` est déjà écrit.
+
+  | Route | Accès | Réponse |
+  |---|---|---|
+  | `GET /outils` | public | 200, la liste ; `req.query.categorie` filtre |
+  | `POST /prets` `{ outilId }` | `authentifier` | 201, le prêt créé pour le membre connecté |
+  | `POST /prets/:id/retour` | `authentifier` | 200, le prêt rendu |
+
+  - `outilId` doit être un **entier positif** : sinon 400 `{ erreur }`, sans toucher à la base.
+  - Les `ErreurMetier` du dépôt deviennent des codes HTTP grâce au tableau `STATUTS`, dans
+    **un gestionnaire d'erreurs** : `{ erreur: message, code }`.
+  - Toute autre erreur : 500 `{ erreur: "Erreur interne" }`.
+
+  `mini-express.js` reproduit Express : il n'est pas en cause.
+
+  > **Côté chef de projet** : une route terminée et testée fait avancer le burndown ; une route
+  > « presque finie » ne compte pas (leçon « Mesurer l'avancement »).
+hints:
+  - "Commence par GET /outils : une ligne avec res.json(listerOutils(db, req.query.categorie))."
+  - "Dans POST /prets, Number.isInteger(outilId) && outilId > 0. Le membre connecté est dans req.membre."
+  - "Ne mets pas de try/catch dans les routes : une erreur levée par le dépôt va toute seule au gestionnaire d'erreurs app.use((err, req, res, next) => …)."
+tests: tests/

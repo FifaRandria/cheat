@@ -1,0 +1,34 @@
+id: llm-02
+title: Le JSON qui fait tomber le pipeline
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 10
+bugType: sortie-structuree
+entry: analyse.py
+lessons: [llm-02]
+brief: |
+  Chaque nuit, un script fait analyser les avis clients par un LLM, qui doit répondre en JSON :
+  `{"note": 1 à 5, "sentiment": "positif" | "negatif" | "neutre" | "hors-sujet"}`. Depuis une
+  semaine, le script plante une nuit sur deux, et le tableau de bord affiche des notes de 12.
+
+  Corrige `lire_analyse(texte)`, qui reçoit le texte brut renvoyé par le modèle :
+
+  - elle **extrait** l'objet JSON, même entouré de texte ou de balises de code ;
+  - elle **valide** : `note` est un entier de 1 à 5, `sentiment` fait partie des quatre
+    valeurs autorisées ;
+  - elle renvoie `{"note": …, "sentiment": …}` si tout est valide, et `None` sinon, **sans
+    jamais lever d'exception**.
+logs: |
+  [nuit] avis #1182 → json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+  [nuit]   réponse brute : "Voici l'analyse :\n```json\n{\"note\": 4, \"sentiment\": \"positif\"}\n```"
+  [nuit] avis #1203 → note=12 sentiment="très positif"   (enregistré tel quel)
+  [nuit] avis #1240 → réponse brute : "Je ne peux pas analyser cet avis."
+hints:
+  - "Commence par afficher les réponses brutes des logs : le JSON n'est pas seul dans le texte."
+  - "Extraction simple : de la première { à la dernière }, avec texte.find et texte.rfind. Puis json.loads dans un try / except."
+  - "Validation : isinstance(note, int), 1 <= note <= 5, et sentiment in SENTIMENTS. Attention, True est un int en Python."
+tests: tests/

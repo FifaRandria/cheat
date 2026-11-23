@@ -46,6 +46,9 @@ Pour parler à la base, on utilise le langage **SQL**. Les exercices de ce modul
 **SQLite**, intégré à Node. Les requêtes de base sont les mêmes qu'avec PostgreSQL, que tu
 utiliseras en production.
 
+> **Déjà vu** : une table ressemble aux tableaux d'objets du module « Bases de JavaScript » :
+> une ligne est un objet, une colonne une propriété.
+
 ## Lire avec SELECT
 
 ```sql

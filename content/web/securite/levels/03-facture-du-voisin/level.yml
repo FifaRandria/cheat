@@ -1,0 +1,32 @@
+id: securite-03
+title: La facture du voisin et le membre devenu admin
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 15
+bugType: controle-acces
+entry: app.js
+lessons: [securite-01]
+brief: |
+  Un programme de *bug bounty* (des chercheurs payés pour trouver des failles) a rapporté trois
+  problèmes sur l'API de facturation. Corrige-les dans `app.js` :
+
+  1. un membre connecté peut lire **la facture d'un autre** en changeant l'id dans l'URL ;
+  2. un membre peut se donner le rôle **admin** en modifiant son profil ;
+  3. la liste des utilisateurs, réservée aux admins, est accessible à **n'importe qui** qui
+     ajoute un en-tête bien choisi.
+
+  Une facture d'un autre client doit répondre **404**, comme si elle n'existait pas. Seuls le
+  `nom` et l'`email` sont modifiables par `PUT /profil`. `mini-express.js` n'est pas en cause.
+logs: |
+  [bounty] GET /factures/42   Authorization: Bearer jeton-ada            → 200 (facture de Bob, 560 €)
+  [bounty] PUT /profil        { "nom": "Ada", "role": "admin" }          → 200, role = admin
+  [bounty] GET /admin/utilisateurs  X-Role: admin   (jeton d'Ada)        → 200, 3 comptes et leurs e-mails
+hints:
+  - "Pour chaque route, pose les deux questions : qui est-ce (authentification) ? A-t-il le droit sur CETTE ressource (autorisation) ?"
+  - "Object.assign(utilisateur, req.body) copie tous les champs envoyés. Choisis toi-même les champs modifiables."
+  - "Un en-tête comme X-Role est envoyé par le client : il peut écrire ce qu'il veut. Le rôle se lit dans les données du serveur (req.utilisateur.role)."
+tests: tests/

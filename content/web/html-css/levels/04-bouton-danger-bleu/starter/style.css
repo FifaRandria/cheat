@@ -1,0 +1,14 @@
+button {
+  background: lightgray;
+  color: black;
+}
+
+.btn-danger {
+  background: crimson;
+  color: white;
+}
+
+#formulaire button {
+  background: steelblue;
+  color: whitesmoke;
+}

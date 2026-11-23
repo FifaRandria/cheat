@@ -81,6 +81,9 @@ L'ordre des leçons vient du numéro du fichier (`01-`, `02-`…).
 | `> **À retenir** : …` | encadré vert, l'idée clé |
 | `> **Attention** : …` | encadré rouge, le piège |
 | `> **Astuce** : …` ou `> **Analogie** : …` | encadré ambre |
+| `> **Déjà vu** : …` | encadré bleu : renvoi vers un autre module |
+| `> **Côté chef de projet** : …` | encadré bleu : lien avec le parcours gestion de projet |
+| `- [ ] …` | case de mission cochable, retenue dans le navigateur |
 
 Les exemples `js run` s'exécutent dans un Web Worker isolé, coupé au bout de 5 secondes.
 Python ne s'exécute pas dans le navigateur : fais suivre chaque exemple d'un bloc `output`.
@@ -90,7 +93,7 @@ Python ne s'exécute pas dans le navigateur : fais suivre chaque exemple d'un bl
 
 ---
 
-## Les trois types de niveaux
+## Les quatre types de niveaux
 
 Champs communs à tous les `level.yml` :
 
@@ -98,7 +101,7 @@ Champs communs à tous les `level.yml` :
 id: js-bases-01
 title: Le panier qui refuse de compter
 order: 1                         # position dans le module
-type: bug-hunt                   # bug-hunt | quiz | ordering
+type: bug-hunt                   # bug-hunt | write | quiz | ordering
 difficulty: 1                    # 1 à 5
 xp: 30
 blackout: false                  # true : aucun indice
@@ -161,13 +164,51 @@ Le bac à sable n'a **pas accès à npm ni à pip**. Pour des exercices réalist
   `starter/` **et** `solution/`, et précise dans l'énoncé qu'il n'est pas en cause ;
 - **SQL** : `content/web/postgres/_shared/base.js` crée une base SQLite en mémoire avec
   `node:sqlite`, et compte les requêtes (`db.requetes`) pour détecter un problème N+1 ;
+- **HTML et CSS** : `content/web/html-css/_shared/mini-html.js` (analyseur HTML) et
+  `mini-css.js` (cascade CSS : `!important`, spécificité, ordre). Ils se copient dans
+  `tests/` : le joueur ne les voit pas, et les tests lisent ses fichiers avec `readFileSync` ;
+- **Navigateur** : `content/web/navigateur/_shared/mini-dom.js` (une fausse page : sélecteurs,
+  `textContent`, `innerHTML`, événements qui remontent, formulaires qui rechargent la page) et
+  `faux-fetch.js` (`fetchFixe` pour une table de réponses, `fetchDepuisApp` pour brancher une
+  vraie application mini-express). Ils dépendent de `mini-html.js` et `mini-css.js` : copie les
+  quatre dans `tests/`. Le code du joueur reçoit `document` (et `fetch`) en paramètre ;
+- **Projet final** : `content/web/web-boss/_shared/boite.js` (base de la Boîte à outils) et
+  `dates.js` ;
+- **TypeScript** : un fichier `.ts` du joueur s'importe directement depuis un test `.js`
+  (`import { f } from "../src/profil.ts"`). Node efface les types à l'exécution : seule la
+  syntaxe effaçable est permise (pas d'`enum` ni de `namespace`) ;
 - **Python** : uniquement la bibliothèque standard (`csv`, `statistics`, `math`, `sqlite3`…).
+  Pour un LLM, un faux client qui rejoue des réponses écrites à l'avance (voir
+  `content/ia/llm/levels/04-agent-en-boucle/starter/faux_llm.py`) : le bac à sable n'a pas de
+  réseau.
 
 Le loader ignore les dossiers `_shared` : ils ne servent qu'aux auteurs. Si tu modifies un
 module commun, recopie-le dans tous les niveaux qui l'utilisent.
 Quand une exception survient, le joueur voit aussi la ligne fautive de **son** fichier.
 
-### 2. `quiz` : des mises en situation
+### 2. `write` : du code à écrire à partir des tests
+
+Même structure qu'un `bug-hunt` (`runtime`, `entry`, `starter/`, `tests/`, `solution/`), mais le
+code de départ est une **fonction vide** à écrire. Les tests sont le cahier des charges.
+
+- Commence l'énoncé par **Exercice d'écriture.** et donne un exemple d'entrée et de sortie.
+- Ordonne les tests du plus simple (cas vide, une seule entrée) au plus subtil (bornes, pièges).
+- `bugType: ecrire` ; le post-mortem s'organise en `## Ce qu'il fallait écrire`,
+  `## Les pièges évités`, `## Le réflexe à garder`.
+- Le niveau apparaît avec l'étiquette **À écrire**. `levels:check` vérifie, comme pour un
+  bug-hunt, que le départ échoue et que la solution passe.
+
+Progression conseillée dans un module : réparer d'abord, puis écrire.
+
+**Faire écrire des tests.** Le joueur écrit une fonction de vérification (par exemple
+`verifierRemise(fonction)`) qui lève une erreur quand la fonction reçue viole la règle. Les tests
+du niveau la lancent sur la vraie implémentation (elle doit passer), puis sur plusieurs
+**mutants** (des versions sabotées) qu'elle doit tous détecter. La vraie implémentation est
+copiée dans `tests/` pour que le joueur ne puisse pas la modifier. Exemples :
+`content/web/typescript/levels/04-tester-la-remise/` et
+`content/web/web-boss/levels/05-tests-de-non-regression/`.
+
+### 3. `quiz` : des mises en situation
 
 Idéal pour la gestion de projet et les concepts d'IA. Les bonnes réponses ne quittent jamais
 le serveur.
@@ -191,7 +232,7 @@ Un `postmortem.md`, s'il existe, est ajouté à la suite.
 Conseils : des distracteurs plausibles (les erreurs que font vraiment les débutants), et
 varie la position de la bonne réponse.
 
-### 3. `ordering` : remettre des étapes dans l'ordre
+### 4. `ordering` : remettre des étapes dans l'ordre
 
 ```yaml
 type: ordering

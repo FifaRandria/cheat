@@ -1,0 +1,33 @@
+id: web-boss-04
+title: "Étape 5 : l'audit de sécurité"
+order: 5
+type: bug-hunt
+runtime: node
+difficulty: 4
+xp: 150
+blackout: false
+hintCost: 20
+bugType: securite
+entry: app.js
+lessons: [web-boss-02, securite-01, securite-03, crises-01]
+brief: |
+  Avant la mise en ligne, l'association a fait auditer l'API par une bénévole experte en
+  sécurité. Son rapport tient en quatre lignes, et elles sont toutes graves. Corrige les quatre
+  failles, dans `app.js` et `depot.js`.
+
+  Le reste du contrat ne change pas : toutes les routes doivent continuer à fonctionner pour
+  un membre honnête.
+
+  > **Côté chef de projet** : chaque faille de l'audit est un risque, avec une probabilité, un
+  > impact et une action. Le registre des risques aide à décider ce qui doit être corrigé avant
+  > la mise en ligne.
+logs: |
+  [audit] CRITIQUE  Connexion sans mot de passe : Authorization: Bearer ' OR '1'='1  → connecté en tant qu'Ada
+  [audit] HAUTE     Ada (jeton-ada) peut rendre le prêt n°1, qui appartient à Bob → 200
+  [audit] HAUTE     GET /membres/2/prets avec le jeton d'Ada → 200, historique complet de Bob
+  [audit] MOYENNE   Une erreur SQL renvoie au client le message et la pile d'appels (chemins des fichiers, noms des tables)
+hints:
+  - "La première ligne est une injection SQL : regarde comment membreParJeton construit sa requête."
+  - "Les deux suivantes sont des contrôles d'accès manquants : la route doit vérifier que la ressource appartient à req.membre, sinon 403."
+  - "Pour la dernière : le détail de l'erreur va dans console.error, le client ne reçoit que { erreur: \"Erreur interne\" }."
+tests: tests/

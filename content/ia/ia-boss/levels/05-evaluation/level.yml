@@ -1,0 +1,43 @@
+id: ia-boss-05
+title: "Étape 5 : mesurer l'assistant"
+order: 5
+type: write
+runtime: python
+difficulty: 3
+xp: 130
+blackout: false
+hintCost: 15
+bugType: evaluation
+entry: evaluation.py
+lessons: [llm-03, ia-boss-02, pilotage-03]
+brief: |
+  **Exercice d'écriture.** Avant l'ouverture aux membres, le bureau veut des chiffres. Écris
+  `evaluer_assistant(repondre, jeu)` dans `evaluation.py`.
+
+  - `repondre(question)` interroge l'assistant et renvoie `{"texte": …, "jetons": …}` ;
+  - chaque cas du `jeu` ressemble à
+    `{"id": "q1", "question": "…", "attendu": ["20 euros"]}` : la réponse est **réussie** si
+    elle contient **tous** les mots attendus, sans tenir compte des majuscules ;
+  - pour une question **hors sujet**, `attendu` vaut `None` : la réponse est réussie si elle
+    contient `je ne sais pas` (sans tenir compte des majuscules).
+
+  La fonction appelle `repondre` **une fois par cas**, et renvoie :
+
+  ```python
+  {
+      "reussite": 0.75,          # part des cas réussis, arrondie à 2 décimales
+      "refus_corrects": 1.0,     # part des cas hors sujet réussis (None s'il n'y en a aucun)
+      "jetons_moyens": 412,      # moyenne des jetons par réponse, arrondie à l'entier
+      "echecs": ["q3"],          # les id des cas ratés, dans l'ordre du jeu
+  }
+  ```
+
+  Un jeu vide donne `{"reussite": 0, "refus_corrects": None, "jetons_moyens": 0, "echecs": []}`.
+
+  > **Côté chef de projet** : ces chiffres sont la base d'un reporting honnête au bureau : « 82
+  > % de réussite, et voici les questions ratées ».
+hints:
+  - "Une boucle sur le jeu : appelle repondre, mets le texte en minuscules, puis décide si le cas est réussi."
+  - "Garde deux compteurs pour les cas hors sujet (total et réussis) : s'il n'y en a aucun, refus_corrects vaut None."
+  - "round(x, 2) pour les taux, round(x) pour les jetons. Et traite le jeu vide avant de diviser."
+tests: tests/

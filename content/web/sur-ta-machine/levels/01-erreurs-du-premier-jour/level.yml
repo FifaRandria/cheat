@@ -1,0 +1,73 @@
+id: machine-01
+title: Les erreurs du premier jour
+order: 1
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 0
+bugType: environnement
+lessons: [machine-01, machine-02, machine-03]
+brief: |
+  Premier soir sur ton propre ordinateur. Tout ce qui « marchait tout seul » dans Rustine
+  demande maintenant d'être installé, configuré, lancé. Voici les messages que tu vas
+  rencontrer. Pour chacun, choisis la bonne réparation.
+hints: []
+questions:
+  - prompt: |
+      ```output
+      npm ERR! code ENOENT
+      npm ERR! enoent Could not read package.json: Error: ENOENT: no such file or directory, open 'C:\Users\ada\package.json'
+      ```
+    choices:
+      - Réinstaller npm
+      - "Tu n'es pas dans le dossier du projet : `cd boite-a-outils/api`, puis relancer la commande"
+      - Créer un package.json vide dans ton dossier personnel
+    answer: 1
+    explain: "npm cherche package.json dans le dossier courant. Le chemin du message montre où tu étais."
+  - prompt: |
+      ```output
+      import express from "express";
+      ^^^^^^
+      SyntaxError: Cannot use import statement outside a module
+      ```
+    choices:
+      - "Ajouter \"type\": \"module\" dans package.json (npm pkg set type=module)"
+      - Remplacer Node.js par Deno
+    answer: 0
+  - prompt: |
+      ```output
+      Error: listen EADDRINUSE: address already in use :::4000
+      ```
+    choices:
+      - Le port 4000 est cassé
+      - "Un autre programme utilise déjà le port 4000, souvent ton propre serveur lancé dans un autre terminal : l'arrêter, ou changer PORT"
+    answer: 1
+  - prompt: |
+      ```output
+      Error: connect ECONNREFUSED 127.0.0.1:5432
+      ```
+
+      L'API démarre, puis plante à la première requête.
+    choices:
+      - "Rien n'écoute sur le port de PostgreSQL : la base n'est pas lancée (docker compose up -d), ou Docker Desktop est arrêté"
+      - Le mot de passe de la base est faux
+    answer: 0
+    explain: "Un mauvais mot de passe donnerait « password authentication failed ». ECONNREFUSED signifie que personne ne répond à cette adresse."
+  - prompt: |
+      ```output
+      Error: Cannot find module 'express'
+      ```
+
+      Le projet vient d'être cloné depuis GitHub.
+    choices:
+      - "node_modules n'est pas dans le dépôt (c'est voulu) : lancer npm install"
+      - Ajouter node_modules au dépôt
+    answer: 0
+  - prompt: |
+      `process.env.DATABASE_URL` vaut `undefined`, alors que le fichier `.env` existe et contient
+      la bonne ligne.
+    choices:
+      - "Node ne lit pas .env tout seul : lancer avec node --env-file=.env (ou via le script npm qui le fait)"
+      - Renommer le fichier en env.txt
+    answer: 0

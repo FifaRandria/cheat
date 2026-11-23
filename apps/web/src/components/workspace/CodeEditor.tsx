@@ -109,6 +109,13 @@ export interface CodeEditorProps {
   blackout: boolean;
 }
 
+/** Langage Monaco d'après l'extension du fichier. */
+function languageOf(path: string): string {
+  const ext = path.slice(path.lastIndexOf(".") + 1).toLowerCase();
+  const map: Record<string, string> = { py: "python", ts: "typescript", html: "html", css: "css", json: "json", sql: "sql" };
+  return map[ext] ?? "javascript";
+}
+
 export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEditorProps) {
   const [theme, setTheme] = useState<ThemeName>("rustine-night");
   const runRef = useRef(onRun);
@@ -124,16 +131,17 @@ export function CodeEditor({ path, value, onChange, onRun, blackout }: CodeEdito
   const onMount: OnMount = (editor, monaco) => {
     // Ctrl/Cmd + Entrée : lancer les tests sans quitter le clavier.
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => runRef.current());
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: true,
-      noSyntaxValidation: false,
-    });
+    // Erreurs de syntaxe seulement : l'éditeur ne voit qu'un fichier à la fois, et signalerait
+    // à tort les imports vers les autres fichiers du niveau.
+    for (const defaults of [monaco.languages.typescript.javascriptDefaults, monaco.languages.typescript.typescriptDefaults]) {
+      defaults.setDiagnosticsOptions({ noSemanticValidation: true, noSyntaxValidation: false });
+    }
   };
 
   return (
     <Monaco
       path={path}
-      language={path.endsWith(".py") ? "python" : "javascript"}
+      language={languageOf(path)}
       value={value}
       onChange={(v) => onChange(v ?? "")}
       beforeMount={defineThemes}

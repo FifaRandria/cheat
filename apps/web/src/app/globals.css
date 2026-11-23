@@ -318,6 +318,19 @@ body::before {
 .prose-rustine ol {
   list-style: decimal;
 }
+/* Missions : la case remplace le tiret */
+.prose-rustine ul > li.task-list-item::before {
+  content: none;
+}
+.prose-rustine .mission-check {
+  position: absolute;
+  left: -1.35rem;
+  top: 0.3em;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--fix);
+  cursor: pointer;
+}
 .prose-rustine li + li {
   margin-top: 0.35em;
 }
@@ -499,6 +512,14 @@ body::before {
 .prose-rustine .callout-tip .callout-icon,
 .prose-rustine .callout-tip strong:first-child {
   color: var(--warn);
+}
+.prose-rustine .callout-info {
+  background: var(--info-soft);
+  border-color: color-mix(in srgb, var(--info) 35%, transparent);
+}
+.prose-rustine .callout-info .callout-icon,
+.prose-rustine .callout-info strong:first-child {
+  color: var(--info);
 }
 .prose-rustine blockquote {
   border-left: 3px solid var(--line-strong);

@@ -1,0 +1,36 @@
+id: typescript-03
+title: Le paiement en espèces oublié
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 15
+bugType: types
+entry: paiement.ts
+lessons: [typescript-02]
+brief: |
+  La boutique accepte depuis lundi les paiements **en espèces** au retrait en magasin. Le type
+  `Paiement` a bien été mis à jour… mais les tickets de caisse affichent « undefined », et les
+  frais de ces commandes valent `NaN`.
+
+  Corrige `paiement.ts` :
+
+  - `libelle(p)` : `"Carte •••• 4242"` (les 4 derniers chiffres), `"Virement FR76…"` (les 4
+    premiers caractères de l'IBAN suivis de `…`), `"Espèces"` ;
+  - `frais(p, montant)` : 1,5 % du montant pour la carte (arrondi au centime), 0 pour le virement,
+    0 pour les espèces ;
+  - un type de paiement **inconnu** (une donnée inattendue reçue de l'API) doit lever une
+    erreur qui cite ce type, dans les deux fonctions. Plus jamais de `undefined` silencieux.
+
+  Bonus apprécié par l'équipe : une vérification d'exhaustivité avec `never`.
+logs: |
+  [caisse] ticket #5512  Paiement : undefined   Frais : NaN €
+  [caisse] ticket #5513  Paiement : undefined   Frais : NaN €
+  [api]    paiement reçu : {"type":"cheque"}  → ticket « undefined »
+hints:
+  - "Que renvoie une fonction quand aucun case du switch ne correspond et qu'il n'y a pas de default ?"
+  - "Ajoute le case \"especes\" dans les deux fonctions."
+  - "Dans un default : const impossible: never = p; throw new Error(`type de paiement inconnu : ${(impossible as { type: string }).type}`)."
+tests: tests/

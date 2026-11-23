@@ -43,6 +43,9 @@ function CarteProduit({ nom, prix }) {
 }
 ```
 
+> **Déjà vu** : dans le module « JavaScript dans le navigateur », tu as organisé une interface
+> autour d'un état et d'une fonction de rendu. React automatise exactement cette idée.
+
 ## Les props : les données d'entrée
 
 Les **props** sont les paramètres d'un composant. Le parent les fournit, comme des attributs

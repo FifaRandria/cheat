@@ -1,0 +1,35 @@
+id: js-bases-09
+title: Le résumé du panier
+order: 9
+type: write
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: ecrire
+entry: resume.js
+lessons: [js-bases-08, js-bases-04, js-bases-06]
+brief: |
+  **Exercice d'écriture.** L'équipe produit veut afficher un encart « Ton panier » en haut de
+  la page. Écris `resumePanier(articles)`.
+
+  Chaque article ressemble à `{ nom: "Clavier", prix: 49.9, quantite: 2 }`. La fonction
+  renvoie un objet :
+
+  ```js
+  {
+    nbArticles: 3,        // la somme des quantités
+    total: 109.7,         // prix × quantité, additionnés, arrondis au centime
+    plusCher: "Clavier",  // le nom de l'article au prix unitaire le plus élevé
+  }
+  ```
+
+  Pour un panier vide : `{ nbArticles: 0, total: 0, plusCher: null }`.
+
+  Commence par le test le plus simple. Tu n'as pas besoin d'écrire toute la fonction d'un coup.
+hints:
+  - "Une seule boucle for…of peut calculer les trois valeurs à la fois : prépare trois variables avant la boucle."
+  - "Pour le plus cher, garde l'article le plus cher vu jusqu'ici, et compare chaque nouvel article avec lui."
+  - "Arrondi au centime : Math.round(total * 100) / 100. Et si le panier est vide, plusCher reste null."
+tests: tests/

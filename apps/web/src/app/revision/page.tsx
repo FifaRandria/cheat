@@ -103,6 +103,8 @@ export default function RevisionPage() {
               )}
             </section>
 
+            <FamilySummary items={[...data.due, ...data.upcoming]} />
+
             {data.upcoming.length > 0 && (
               <section className="mt-14" aria-labelledby="upcoming-title">
                 <h2 id="upcoming-title" className="font-display text-xl font-semibold tracking-tight">
@@ -126,6 +128,50 @@ export default function RevisionPage() {
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * Le musée rangé par famille de bug : un même piège rencontré en JavaScript et en Python
+ * apparaît ensemble. C'est la famille qu'on apprend à reconnaître, pas le langage.
+ */
+function FamilySummary({ items }: { items: ReviewItem[] }) {
+  const families = new Map<string, { count: number; mastery: number; tracks: Set<string> }>();
+  for (const item of items) {
+    const f = families.get(item.bugType) ?? { count: 0, mastery: 0, tracks: new Set<string>() };
+    f.count += 1;
+    f.mastery += Math.min(item.box, MASTERY);
+    f.tracks.add(item.level.trackId);
+    families.set(item.bugType, f);
+  }
+  const rows = [...families.entries()].sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]));
+  if (rows.length < 2) return null;
+
+  return (
+    <section className="mt-14" aria-labelledby="families-title">
+      <h2 id="families-title" className="font-display text-xl font-semibold tracking-tight">
+        Par famille
+      </h2>
+      <p className="mt-1 text-sm text-ink-3">
+        Les mêmes pièges reviennent dans tous les langages. Reconnaître la famille, c&apos;est déjà la moitié du
+        diagnostic.
+      </p>
+      <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {rows.map(([type, f]) => (
+          <li key={type} className="flex items-center gap-3 rounded-xl border border-line bg-raised/40 px-4 py-3">
+            <span className="flex shrink-0 gap-1">
+              {[...f.tracks].map((t) => {
+                const style = trackStyle(t);
+                return <Icon key={t} name={style.icon} size={14} style={{ color: style.accent }} />;
+              })}
+            </span>
+            <span className="min-w-0 flex-1 truncate text-sm font-medium">{bugTypeLabel(type)}</span>
+            <span className="font-mono text-xs text-ink-3">{plural(f.count, "pièce", "pièces")}</span>
+            <Mastery box={Math.round(f.mastery / f.count)} />
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 

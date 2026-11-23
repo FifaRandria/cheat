@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Inscription</title>
+  </head>
+  <body>
+    <main>
+      <h1>Rejoindre l'association</h1>
+      <form action="/inscription" method="post">
+        <p>Nom</p>
+        <input type="text" name="nom">
+
+        <label>E-mail</label>
+        <input type="text" name="email" id="email">
+
+        <label for="mdp">Mot de passe</label>
+        <input type="text" name="motdepasse" id="motdepasse">
+
+        <div class="bouton" onclick="document.forms[0].submit()">S'inscrire</div>
+      </form>
+    </main>
+  </body>
+</html>

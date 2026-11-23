@@ -32,6 +32,9 @@ certaine date. Il a trois limites quand on veut l'utiliser dans une entreprise :
 2. **Ses connaissances sont figées** à la date de son entraînement.
 3. **Il peut inventer** une réponse plausible mais fausse : on parle d'**hallucination**.
 
+> **Déjà vu** : le RAG prolonge le module « LLM par API, prompts et agents » : les passages
+> trouvés vont dans la consigne système, entre balises, comme n'importe quel document.
+
 ## L'idée du RAG
 
 **RAG** signifie *Retrieval-Augmented Generation* : génération augmentée par la recherche.

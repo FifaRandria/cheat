@@ -44,7 +44,7 @@ const levelSchema = z
     id: slug,
     title: z.string(),
     order: z.number().int(),
-    type: z.enum(["bug-hunt", "quiz", "ordering"]).default("bug-hunt"),
+    type: z.enum(["bug-hunt", "write", "quiz", "ordering"]).default("bug-hunt"),
     runtime: z.enum(["node", "python"]).default("node"),
     difficulty: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)]),
     xp: z.number().int().positive(),
@@ -60,7 +60,8 @@ const levelSchema = z
     steps: z.array(z.object({ label: z.string(), detail: z.string().optional() })).default([]),
   })
   .superRefine((l, ctx) => {
-    if (l.type === "bug-hunt" && !l.entry) ctx.addIssue({ code: "custom", message: "entry requis pour un bug-hunt" });
+    if ((l.type === "bug-hunt" || l.type === "write") && !l.entry)
+      ctx.addIssue({ code: "custom", message: `entry requis pour un niveau ${l.type}` });
     if (l.type === "quiz" && l.questions.length === 0) ctx.addIssue({ code: "custom", message: "questions requises" });
     if (l.type === "ordering" && l.steps.length < 3) ctx.addIssue({ code: "custom", message: "au moins 3 steps" });
   });
@@ -105,6 +106,9 @@ export interface Content {
   levels: Map<string, LoadedLevel>;
   lessons: Map<string, LoadedLesson>;
 }
+
+/** Les niveaux où le joueur édite du code exécuté par le runner (réparer ou écrire). */
+export const isCodeLevel = (type: string): boolean => type === "bug-hunt" || type === "write";
 
 let cache: Content | null = null;
 

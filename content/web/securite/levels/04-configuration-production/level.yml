@@ -1,0 +1,36 @@
+id: securite-04
+title: La configuration qui partait en production
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 15
+bugType: configuration
+entry: config.js
+lessons: [securite-04]
+brief: |
+  Revue de code avant la mise en production : `config.js` lit la configuration depuis les
+  variables d'environnement. Le relecteur a bloqué la fusion avec un commentaire : « en l'état,
+  n'importe qui peut fabriquer des jetons valides, voler les sessions, et appeler l'API depuis
+  un site piégé ».
+
+  `chargerConfig(env)` reçoit un objet comme `process.env` et doit respecter ces règles :
+
+  - **secret** : en production (`NODE_ENV` vaut `"production"`), `JWT_SECRET` est obligatoire
+    et fait au moins 32 caractères, sinon la fonction lève une erreur qui cite `JWT_SECRET`. En
+    développement seulement, un secret par défaut est toléré ;
+  - **cookie de session** : `httpOnly` à `true`, `sameSite` à `"lax"`, `secure` à `true` en
+    production, et une durée de vie (`maxAge`, en millisecondes) de **7 jours au plus** ;
+  - **CORS** : `origineAutorisee(origine)` n'accepte que les origines **exactes** de la liste
+    `ORIGINES` (séparées par des virgules), ou `http://localhost:3000` si la liste est absente.
+logs: |
+  [revue] config.js:5   jwtSecret: env.JWT_SECRET ?? "dev-secret"   → en prod, si la variable manque ?
+  [revue] config.js:7   httpOnly: false                              → lisible par une XSS
+  [revue] config.js:12  origine.includes(…)                         → https://rustine.fr.pirate.example ?
+hints:
+  - "Commence par le secret : en production, s'il manque ou s'il est trop court, throw new Error(\"JWT_SECRET …\")."
+  - "Pour le cookie : 7 jours = 7 * 24 * 60 * 60 * 1000 millisecondes. secure dépend de la production."
+  - "Pour CORS : découpe ORIGINES avec split(\",\"), nettoie avec trim(), puis compare avec includes sur le TABLEAU (égalité exacte), pas sur la chaîne."
+tests: tests/

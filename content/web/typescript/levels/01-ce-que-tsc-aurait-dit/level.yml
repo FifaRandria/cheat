@@ -1,0 +1,94 @@
+id: typescript-01
+title: Ce que le compilateur aurait dit
+order: 1
+type: quiz
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 0
+bugType: types
+lessons: [typescript-01, typescript-02, typescript-03]
+brief: |
+  L'équipe migre un vieux projet JavaScript vers TypeScript. Le premier passage de `tsc` affiche
+  des dizaines d'erreurs. Pour chacune, choisis l'explication correcte : beaucoup sont des bugs
+  qui attendaient en production.
+hints: []
+questions:
+  - prompt: |
+      ```ts
+      interface Commande { total: number; livree: boolean }
+      function aExpedier(c: Commande) {
+        return !c.livre;
+      }
+      ```
+
+      ```output
+      error TS2551: Property 'livre' does not exist on type 'Commande'. Did you mean 'livree'?
+      ```
+
+      En JavaScript, que faisait ce code ?
+    choices:
+      - Il plantait au démarrage
+      - "Il renvoyait toujours true (c.livre valait undefined), et toutes les commandes partaient en expédition"
+      - Il fonctionnait correctement
+    answer: 1
+    explain: "!undefined vaut true. Le bug était silencieux : exactement la famille « faute de frappe dans une propriété »."
+  - prompt: |
+      ```ts
+      function trouverMembre(id: number): Membre | undefined { … }
+      const nom = trouverMembre(7).nom;
+      ```
+
+      ```output
+      error TS2532: Object is possibly 'undefined'.
+      ```
+
+      Quelle correction respecte le cas où le membre n'existe pas ?
+    choices:
+      - "`trouverMembre(7)!.nom` pour faire taire l'erreur"
+      - "`trouverMembre(7)?.nom ?? \"Inconnu\"`"
+      - "`(trouverMembre(7) as Membre).nom`"
+    answer: 1
+  - prompt: |
+      ```ts
+      type Statut = "en-attente" | "payee" | "annulee";
+      function couleur(s: Statut): string {
+        switch (s) {
+          case "en-attente": return "orange";
+          case "payee": return "vert";
+        }
+      }
+      ```
+
+      ```output
+      error TS2366: Function lacks ending return statement and return type does not include 'undefined'.
+      ```
+
+      Que signale le compilateur ?
+    choices:
+      - Une faute de syntaxe dans le switch
+      - "Un cas oublié : pour une commande annulée, la fonction renverrait undefined"
+      - Que la fonction est trop longue
+    answer: 1
+  - prompt: |
+      ```ts
+      const quantite = document.querySelector("input")!.value;
+      const total = quantite * prixUnitaire;
+      ```
+
+      ```output
+      error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+      ```
+
+      Pourquoi ?
+    choices:
+      - "La valeur d'un champ de formulaire est toujours une chaîne : il faut la convertir avec Number(…) et vérifier le résultat"
+      - Il manque un point-virgule
+    answer: 0
+  - prompt: |
+      Pour faire disparaître les 47 erreurs restantes, un collègue propose de remplacer tous les
+      types par `any`. Qu'en penses-tu ?
+    choices:
+      - "Bonne idée, la migration sera finie aujourd'hui"
+      - "Mauvaise idée : any désactive les vérifications, les 47 bugs potentiels restent là, simplement cachés"
+    answer: 1

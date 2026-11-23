@@ -1,0 +1,38 @@
+id: typescript-02
+title: Le « as » qui ment
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 15
+bugType: types
+entry: profil.ts
+lessons: [typescript-03, typescript-01]
+brief: |
+  Le code est en TypeScript, le compilateur ne signale aucune erreur… et la page de profil
+  plante pour 3 % des utilisateurs. Leurs profils viennent d'un ancien système, et ne
+  ressemblent pas tout à fait au type `Profil`.
+
+  Corrige `profil.ts` :
+
+  - `lireProfil(donnees: unknown)` renvoie un `Profil` si les données ont la bonne forme
+    (`nom` : texte non vide, `email` : texte contenant `@`, `adresse` facultative mais, si elle
+    est présente, avec une `ville` en texte), et `null` sinon ;
+  - `villeAffichee(profil: Profil)` renvoie la ville en majuscules, ou `"Ville inconnue"` s'il
+    n'y a pas d'adresse.
+
+  Le fichier est exécuté par Node, qui efface les types : seules les vérifications **à
+  l'exécution** protègent.
+logs: |
+  [web] TypeError: Cannot read properties of undefined (reading 'ville')
+  [web]     at villeAffichee (profil.ts:13)
+  [web] TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+  [web] profil reçu : {"nom":"Bob","email":"bob@ex.fr","adresse":{"cp":"69001"}}
+  [web] profil reçu : {"name":"Eve","mail":"eve@ex.fr"}
+hints:
+  - "as Profil ne vérifie rien : Node efface même cette ligne. Il faut vérifier chaque champ avec typeof."
+  - "Écris une vérification pas à pas : est-ce un objet non null ? nom est-il une chaîne non vide ? email contient-il @ ? adresse est-elle absente, ou un objet avec une ville en texte ?"
+  - "Pour l'affichage : profil.adresse?.ville peut manquer, d'où ?.ville?.toUpperCase() ?? \"Ville inconnue\"."
+tests: tests/

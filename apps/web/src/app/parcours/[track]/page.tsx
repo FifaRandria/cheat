@@ -151,7 +151,7 @@ function Station({ module: m }: { module: ModuleSummary }) {
                 <span className="grid size-5 place-items-center rounded bg-break font-sans text-[0.65rem] font-bold text-break-ink">
                   {m.lessons.length > 0 ? 2 : 1}
                 </span>
-                Réparer · {m.solvedCount}/{plural(m.levels.length, "incident", "incidents")}
+                {m.levels.some((l) => l.type === "write") ? "Réparer et écrire" : "Réparer"} · {m.solvedCount}/{plural(m.levels.length, "incident", "incidents")}
               </h3>
               <div className="grid gap-3 sm:grid-cols-2">
                 {m.levels.map((l) => (

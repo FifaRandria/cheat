@@ -1,0 +1,37 @@
+id: navigateur-03
+title: Le catalogue qui affiche [object Promise]
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 15
+bugType: fetch
+entry: catalogue.js
+lessons: [navigateur-03, js-async-02]
+brief: |
+  Le catalogue charge les outils depuis l'API (`GET /api/outils`). Résultat à l'écran : une liste
+  vide, `[object Promise]`, ou des lignes « undefined » quand l'API est en panne. Et un double
+  clic sur **Recharger** lance deux chargements.
+
+  `charger(document, fetch)` fait un chargement complet. Corrige `catalogue.js` :
+
+  - pendant le chargement, `#etat` affiche `Chargement…` et le bouton `#recharger` est
+    **désactivé** ;
+  - en cas de succès, `#etat` est vide et la liste contient un `li` par outil :
+    `Perceuse (disponible)` ou `Scie sauteuse (prêtée)` ;
+  - si l'API répond une erreur (code non 2xx) ou si le réseau est coupé : la liste est vide et
+    `#etat` affiche `Impossible de charger les outils.` ;
+  - dans tous les cas, le bouton est réactivé à la fin.
+
+  L'API renvoie `[{ "id": 1, "nom": "Perceuse", "disponible": true }, …]`.
+logs: |
+  [écran]  [object Promise]
+  [console] Uncaught (in promise) TypeError: outils.map is not a function
+  [réseau] GET /api/outils → 503 {"erreur":"maintenance"}
+hints:
+  - "fetch puis .json() renvoient tous les deux des promesses : il faut deux await."
+  - "fetch ne lève pas d'erreur pour un 503 : teste reponse.ok, et lève une erreur toi-même s'il est faux."
+  - "Un try / catch / finally : l'état de chargement avant, le message d'erreur dans le catch, la réactivation du bouton dans le finally."
+tests: tests/

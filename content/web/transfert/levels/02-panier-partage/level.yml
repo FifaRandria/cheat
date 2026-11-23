@@ -1,0 +1,29 @@
+id: transfert-02
+title: Le panier que tous les clients partagent
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: mutation
+entry: panier.py
+lessons: [transfert-03, transfert-02]
+brief: |
+  L'équipe a porté le service panier de JavaScript vers Python. Ligne à ligne, le code est
+  identique à l'original, qui fonctionnait depuis deux ans. Depuis la mise en ligne, des
+  clients voient dans leur panier les articles **d'autres clients**.
+
+  `ajouter(article, panier=…)` ajoute un article et renvoie le panier. Appelée sans panier,
+  elle doit en créer un **nouveau**. `nouvelle_commande(client, articles)` renvoie
+  `{"client": …, "lignes": […]}` en partant d'un panier vide.
+logs: |
+  [panier] client=ada  ajouter("clavier")  → ['clavier']
+  [panier] client=bob  ajouter("souris")   → ['clavier', 'souris']   ← le clavier d'Ada !
+  [panier] client=eve  ajouter("écran")    → ['clavier', 'souris', 'écran']
+hints:
+  - "Le code JavaScript d'origine était : function ajouter(article, panier = []). Que fait la même ligne en Python ?"
+  - "En Python, la valeur par défaut est évaluée une seule fois, à la définition de la fonction."
+  - "Idiome : panier=None, puis if panier is None: panier = []. Vérifie aussi les autres valeurs par défaut du fichier."
+tests: tests/

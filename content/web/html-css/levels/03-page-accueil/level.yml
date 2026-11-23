@@ -1,0 +1,34 @@
+id: html-css-03
+title: Écrire la page d'accueil de l'atelier
+order: 3
+type: write
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: ecrire
+entry: index.html
+lessons: [html-css-01, html-css-02]
+brief: |
+  **Exercice d'écriture.** L'atelier Rustine ouvre son site. Le `head` est prêt ; écris le
+  contenu du `body`, avec des balises **sémantiques**. Les tests vérifient la structure, pas le
+  texte exact.
+
+  Le body contient, dans cet ordre :
+
+  1. un **en-tête** avec une **navigation** : une liste d'au moins 3 liens (Accueil, Cours,
+     Contact…) ;
+  2. le **contenu principal**, avec :
+     - un titre de niveau 1 qui contient le mot « Rustine » ;
+     - au moins **deux sections**, chacune avec son titre de niveau 2 et un paragraphe ;
+     - une image avec un texte alternatif ;
+  3. un **pied de page** avec le symbole `©`.
+
+  Pense aussi à la ligne qui adapte la page aux téléphones : il manque une balise `meta` dans le
+  `head`.
+hints:
+  - "Le squelette sémantique est dans la première leçon : header > nav > ul > li > a, puis main, puis footer."
+  - "Chaque section : <section><h2>…</h2><p>…</p></section>."
+  - "La balise manquante : <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+tests: tests/

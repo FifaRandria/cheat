@@ -84,7 +84,7 @@ Une mauvaise hypothèse est vague : « il y a un problème avec les remises ».
 Quand le programme est long, coupe-le en deux : la valeur est-elle déjà fausse au milieu ? Si
 oui, le bug est avant ; sinon, il est après. Recommence. En quelques étapes, tu tiens la ligne
 fautive. C'est le principe de la **recherche dichotomique**, celui de `git bisect`, que tu
-verras dans le module W2.
+verras dans le module « Terminal, Git et HTTP ».
 
 ## 5. Corriger la cause, pas le symptôme
 

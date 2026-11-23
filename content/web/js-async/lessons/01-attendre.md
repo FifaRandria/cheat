@@ -34,6 +34,9 @@ Pour ces opérations **asynchrones**, JavaScript lance la demande, **continue** 
 et revient s'en occuper quand le résultat arrive. Sinon, la page entière se figerait à chaque
 requête.
 
+> **Déjà vu** : le module « JavaScript dans le navigateur » s'appuie sur ce chapitre : chaque
+> clic, chaque saisie et chaque `fetch` est asynchrone.
+
 ## Voir l'asynchrone en action
 
 `setTimeout(fonction, délai)` exécute une fonction **plus tard**, après un délai en millisecondes :

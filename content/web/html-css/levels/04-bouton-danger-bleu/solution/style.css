@@ -1,0 +1,16 @@
+button {
+  background: lightgray;
+  color: black;
+}
+
+#formulaire button {
+  background: steelblue;
+  color: whitesmoke;
+}
+
+/* Aussi précise que la règle du formulaire, et écrite après : elle gagne. */
+#formulaire .btn-danger,
+.btn-danger {
+  background: crimson;
+  color: white;
+}

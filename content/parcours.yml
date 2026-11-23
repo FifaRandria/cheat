@@ -14,8 +14,20 @@
     production.
   icon: code
   modules:
-    - id: js-bases
+    - id: html-css
       code: W0
+      title: HTML et CSS
+      tagline: La structure d'une page, l'accessibilité, la cascade et la mise en page.
+      notions:
+        - Balises sémantiques
+        - Formulaires
+        - Accessibilité
+        - Cascade et spécificité
+        - Flexbox
+        - Responsive
+      phase: MVP
+    - id: js-bases
+      code: W1
       title: Bases de JavaScript
       tagline: Variables, conditions, boucles, fonctions. Le point de départ.
       notions:
@@ -27,7 +39,7 @@
         - Objets
       phase: MVP
     - id: js-async
-      code: W1
+      code: W2
       title: JavaScript asynchrone
       tagline: Promesses, async/await, et les bugs qui vont avec.
       notions:
@@ -36,8 +48,19 @@
         - async/await
         - Promise.all
       phase: MVP
+    - id: navigateur
+      code: W3
+      title: JavaScript dans le navigateur
+      tagline: Le DOM, les événements, fetch, et une interface organisée autour d'un état.
+      notions:
+        - DOM
+        - Événements
+        - Formulaires
+        - fetch
+        - État et rendu
+      phase: MVP
     - id: outils
-      code: W2
+      code: W4
       title: Terminal, Git et HTTP
       tagline: Les outils du diagnostic au quotidien.
       notions:
@@ -47,7 +70,7 @@
         - HTTP
       phase: MVP
     - id: express
-      code: W3
+      code: W5
       title: Backend Express et API REST
       tagline: Routes, middlewares, validation, JWT.
       notions:
@@ -57,7 +80,7 @@
         - JWT
       phase: MVP
     - id: postgres
-      code: W4
+      code: W6
       title: SQL et bases de données
       tagline: Requêtes, jointures, index, N+1 et transactions.
       notions:
@@ -69,7 +92,7 @@
         - Transactions
       phase: MVP
     - id: frontend
-      code: W5
+      code: W7
       title: Frontend avec React
       tagline: Composants, état, effets, et les bugs de rendu.
       notions:
@@ -79,16 +102,29 @@
         - Hydratation
       phase: MVP
     - id: typescript
-      code: W6
-      title: TypeScript et qualité
-      tagline: Types, tests, lint, en finir avec any.
+      code: W8
+      title: TypeScript et tests
+      tagline: Des types pour attraper les bugs avant l'exécution, et des tests que tu écris toi-même.
       notions:
         - Types
-        - Tests
-        - Lint
-      phase: V1
+        - Unions et narrowing
+        - null et strict
+        - Écrire des tests
+      phase: MVP
+    - id: securite
+      code: W9
+      title: Sécurité web
+      tagline: Contrôle d'accès, XSS, injections, mots de passe, secrets et cookies.
+      notions:
+        - Autorisation
+        - XSS
+        - Injections
+        - Mots de passe
+        - Secrets
+        - Cookies et CORS
+      phase: MVP
     - id: docker
-      code: W7
+      code: W10
       title: Docker
       tagline: Images, volumes, réseaux, compose.
       notions:
@@ -98,7 +134,7 @@
         - Réseaux
       phase: MVP
     - id: cicd
-      code: W8
+      code: W11
       title: CI/CD
       tagline: Pipelines, GitHub Actions, déploiement.
       notions:
@@ -106,14 +142,42 @@
         - GitHub Actions
         - Déploiement
       phase: MVP
-    - id: web-boss
-      code: W9
-      title: Projet final web
-      tagline: Une app fullstack dockerisée avec un CI vert.
+    - id: transfert
+      code: W12
+      title: Changer de langage
+      tagline: Apprendre un nouveau langage vite, en partant de ce que tu sais déjà.
       notions:
-        - Intégration
-        - Déploiement
-      phase: V2
+        - Méthode
+        - JavaScript vers Python
+        - Pièges propres
+        - Familles de bugs
+        - Documentation
+      phase: MVP
+    - id: web-boss
+      code: W13
+      title: Projet final web
+      tagline: La Boîte à outils, du cahier des charges à la mise en production.
+      notions:
+        - Cahier des charges
+        - Dépôt SQL
+        - API REST
+        - Sécurité
+        - Tests
+        - Mise en production
+      phase: MVP
+    - id: sur-ta-machine
+      code: W14
+      title: Ton projet sur ta machine
+      tagline: Installer, construire, tester, déployer la Boîte à outils pour de vrai, et y brancher l'IA.
+      notions:
+        - Poste de travail
+        - Git et GitHub
+        - Express et PostgreSQL
+        - React avec Vite
+        - Tests et CI
+        - Mise en ligne
+        - Assistant IA
+      phase: MVP
 
 - id: ia
   title: Intelligence artificielle
@@ -158,8 +222,19 @@
         - LoRA
         - QLoRA
       phase: MVP
-    - id: rag
+    - id: llm
       code: IA3
+      title: LLM par API, prompts et agents
+      tagline: Appeler un modèle, écrire un bon prompt, évaluer, et construire un agent avec des outils.
+      notions:
+        - API Messages
+        - Prompts
+        - Sorties JSON
+        - Évaluation
+        - Agents et outils
+      phase: MVP
+    - id: rag
+      code: IA4
       title: RAG
       tagline: Embeddings, chunking, recherche, prompt.
       notions:
@@ -168,13 +243,25 @@
         - Base vectorielle
       phase: MVP
     - id: n8n
-      code: IA4
+      code: IA5
       title: Automatisation avec n8n
       tagline: Webhooks, workflows, réessais et idempotence.
       notions:
         - Webhooks
         - Nœuds
         - Credentials
+      phase: MVP
+    - id: ia-boss
+      code: IA6
+      title: Projet final IA
+      tagline: L'assistant de la Boîte à outils, de l'idée à la mise en ligne.
+      notions:
+        - Cadrage
+        - RAG
+        - Prompt
+        - Agent et garde-fous
+        - Évaluation
+        - Production
       phase: MVP
 
 - id: projet
