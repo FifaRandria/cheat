@@ -1,0 +1,74 @@
+id: navigateur-05
+title: La page blanche du lundi matin
+order: 5
+type: quiz
+difficulty: 3
+xp: 110
+blackout: true
+hintCost: 0
+bugType: navigateur
+lessons: [navigateur-01, navigateur-02, navigateur-03]
+brief: |
+  **Mode Blackout.** Lundi, 9 h. Le site de la Boîte à outils a été modifié vendredi soir, et le
+  support reçoit des captures d'écran. Pour chaque symptôme, ouvre les bons outils de
+  développement (mentalement) et trouve la cause. Seule la documentation
+  [MDN](https://developer.mozilla.org/fr/) est ouverte.
+hints: []
+questions:
+  - prompt: |
+      La page est vide. La console affiche :
+
+      ```output
+      Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+          at app.js:3
+      ```
+
+      Le HTML commence par `<head><script src="app.js"></script></head>`.
+    choices:
+      - Le fichier app.js est introuvable
+      - "Le script s'exécute avant que le body soit lu : les éléments n'existent pas encore. Il faut type=\"module\", defer, ou le script en fin de body"
+      - Le navigateur est trop ancien
+    answer: 1
+  - prompt: |
+      La console affiche :
+
+      ```output
+      Access to fetch at 'https://api.boite-a-outils.example/outils' from origin
+      'https://boite-a-outils.example' has been blocked by CORS policy
+      ```
+
+      Où corriger ?
+    choices:
+      - "Dans le code de la page, en ajoutant mode: \"no-cors\""
+      - "Sur le serveur de l'API : autoriser l'origine exacte https://boite-a-outils.example"
+    answer: 1
+  - prompt: |
+      Le bouton « Emprunter » ne fait rien. L'onglet Réseau montre :
+
+      ```output
+      POST /api/prets   401   {"erreur":"Connexion requise"}
+      ```
+
+      L'utilisateur est pourtant connecté. Le code envoie `fetch("/api/prets", { method: "POST", body })`.
+    choices:
+      - "Il manque l'en-tête Authorization (le jeton de connexion) dans la requête"
+      - Le serveur est en panne
+      - Il faut utiliser GET
+    answer: 0
+  - prompt: |
+      Le serveur reçoit `{}` à chaque emprunt, et répond 400. Le code envoie :
+
+      ```js
+      fetch("/api/prets", { method: "POST", headers: { Authorization: … }, body: { outilId: 3 } })
+      ```
+    choices:
+      - "Le corps doit être un texte : body: JSON.stringify({ outilId: 3 }), avec l'en-tête Content-Type: application/json"
+      - Il faut envoyer outilId dans l'URL
+    answer: 0
+  - prompt: |
+      Certains utilisateurs voient la nouvelle version, d'autres encore l'ancienne, avec un bug
+      corrigé vendredi. Un rechargement forcé (Ctrl+Maj+R) règle le problème.
+    choices:
+      - "Le navigateur a gardé l'ancien app.js en cache : il faut des noms de fichiers versionnés (app.3f9a1c.js), ce que font les outils de build"
+      - Le serveur renvoie des versions au hasard
+    answer: 0

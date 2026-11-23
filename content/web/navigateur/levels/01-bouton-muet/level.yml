@@ -1,0 +1,33 @@
+id: navigateur-01
+title: Le bouton « Ajouter » qui ne fait rien
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 50
+blackout: false
+hintCost: 5
+bugType: dom
+entry: panier.js
+lessons: [navigateur-01, navigateur-02]
+brief: |
+  Premier jour sur le site de la Boîte à outils. La page d'un outil affiche une quantité et deux
+  boutons. Rien ne marche : la console affiche une erreur au chargement, et quand on la corrige,
+  la quantité vaut 1 avant même le premier clic, puis ne bouge plus.
+
+  Corrige `panier.js` (la page est dans `page.html`) :
+
+  - au chargement, la quantité affichée est `0` ;
+  - chaque clic sur **Ajouter** l'augmente de 1 ;
+  - **Vider** la remet à `0`, à l'écran aussi.
+
+  Dans les niveaux, ta fonction reçoit la page en paramètre (`initialiser(document)`) : les tests
+  lui donnent une fausse page qui se comporte comme celle du navigateur.
+logs: |
+  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+      at initialiser (panier.js:4:9)
+hints:
+  - "null signifie que querySelector n'a rien trouvé. Compare le sélecteur avec l'id écrit dans page.html."
+  - "addEventListener reçoit le NOM de l'événement (\"click\") et une FONCTION, sans parenthèses."
+  - "Vider change la variable, mais l'écran ne sait pas qu'il doit se mettre à jour."
+tests: tests/

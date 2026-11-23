@@ -1,0 +1,30 @@
+id: navigateur-04
+title: Écrire le catalogue filtrable
+order: 4
+type: write
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: catalogue.js
+lessons: [navigateur-04, navigateur-02, navigateur-01]
+brief: |
+  **Exercice d'écriture.** Les membres veulent chercher un outil par son nom et par catégorie.
+  Écris `monterCatalogue(document, outils)`, qui affiche le catalogue et branche les filtres.
+  Organise ton code avec un **état** et une fonction de **rendu** (leçon « L'état et le rendu »).
+
+  Chaque outil ressemble à `{ id: 1, nom: "Perceuse", categorie: "electro" }`.
+
+  - `#outils` contient un `li` par outil **visible**, avec son nom ;
+  - `#filtre` (à chaque caractère tapé) garde les outils dont le nom **contient** le texte, sans
+    tenir compte des majuscules ni des espaces autour ;
+  - `#categorie` (au changement) garde la catégorie choisie ; la valeur vide signifie « toutes » ;
+  - les deux filtres se **combinent** ;
+  - `#compteur` affiche `Aucun outil`, `1 outil` ou `3 outils`.
+hints:
+  - "Commence par l'état : const etat = { filtre: \"\", categorie: \"\" }, et une fonction afficher() qui vide la liste puis la remplit."
+  - "Branche l'événement input sur #filtre et change sur #categorie : chacun modifie l'état, puis appelle afficher()."
+  - "Le filtre : outils.filter((o) => o.nom.toLowerCase().includes(texte) && (!etat.categorie || o.categorie === etat.categorie))."
+tests: tests/

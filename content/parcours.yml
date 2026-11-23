@@ -48,8 +48,19 @@
         - async/await
         - Promise.all
       phase: MVP
-    - id: outils
+    - id: navigateur
       code: W3
+      title: JavaScript dans le navigateur
+      tagline: Le DOM, les événements, fetch, et une interface organisée autour d'un état.
+      notions:
+        - DOM
+        - Événements
+        - Formulaires
+        - fetch
+        - État et rendu
+      phase: MVP
+    - id: outils
+      code: W4
       title: Terminal, Git et HTTP
       tagline: Les outils du diagnostic au quotidien.
       notions:
@@ -59,7 +70,7 @@
         - HTTP
       phase: MVP
     - id: express
-      code: W4
+      code: W5
       title: Backend Express et API REST
       tagline: Routes, middlewares, validation, JWT.
       notions:
@@ -69,7 +80,7 @@
         - JWT
       phase: MVP
     - id: postgres
-      code: W5
+      code: W6
       title: SQL et bases de données
       tagline: Requêtes, jointures, index, N+1 et transactions.
       notions:
@@ -81,7 +92,7 @@
         - Transactions
       phase: MVP
     - id: frontend
-      code: W6
+      code: W7
       title: Frontend avec React
       tagline: Composants, état, effets, et les bugs de rendu.
       notions:
@@ -91,7 +102,7 @@
         - Hydratation
       phase: MVP
     - id: typescript
-      code: W7
+      code: W8
       title: TypeScript et tests
       tagline: Des types pour attraper les bugs avant l'exécution, et des tests que tu écris toi-même.
       notions:
@@ -101,7 +112,7 @@
         - Écrire des tests
       phase: MVP
     - id: securite
-      code: W8
+      code: W9
       title: Sécurité web
       tagline: Contrôle d'accès, XSS, injections, mots de passe, secrets et cookies.
       notions:
@@ -113,7 +124,7 @@
         - Cookies et CORS
       phase: MVP
     - id: docker
-      code: W9
+      code: W10
       title: Docker
       tagline: Images, volumes, réseaux, compose.
       notions:
@@ -123,7 +134,7 @@
         - Réseaux
       phase: MVP
     - id: cicd
-      code: W10
+      code: W11
       title: CI/CD
       tagline: Pipelines, GitHub Actions, déploiement.
       notions:
@@ -132,7 +143,7 @@
         - Déploiement
       phase: MVP
     - id: transfert
-      code: W11
+      code: W12
       title: Changer de langage
       tagline: Apprendre un nouveau langage vite, en partant de ce que tu sais déjà.
       notions:
@@ -143,7 +154,7 @@
         - Documentation
       phase: MVP
     - id: web-boss
-      code: W12
+      code: W13
       title: Projet final web
       tagline: La Boîte à outils, du cahier des charges à la mise en production.
       notions:

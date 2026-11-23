@@ -1,0 +1,35 @@
+id: navigateur-02
+title: Le formulaire de contact qui recharge la page
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: dom
+entry: contact.js
+lessons: [navigateur-02, navigateur-01, securite-02]
+brief: |
+  Le formulaire de contact « ne marche pas » : la page clignote et se recharge, les messages
+  arrivent vides, la touche Entrée ne fait rien de prévu, et un petit malin a fait afficher une
+  image piégée à la place de son nom.
+
+  `initialiser(document, envoyer)` branche le formulaire. Corrige `contact.js` :
+
+  - l'envoi se fait **à la soumission du formulaire** (clic sur le bouton **ou** touche Entrée),
+    **sans recharger la page** ;
+  - on lit le nom et le message **au moment de l'envoi**, sans les espaces autour ;
+  - s'il manque l'un des deux : `#erreur` affiche `Remplis tous les champs.` et rien n'est
+    envoyé ;
+  - sinon : `envoyer({ nom, message })` est appelée, `#erreur` est vidé, `#confirmation`
+    affiche `Merci <nom> !` **comme du texte**, et les deux champs sont vidés.
+logs: |
+  [navigateur] Navigated to http://localhost:5173/contact
+  [api]        POST /contact  { "nom": "", "message": "" }
+  [support]    « J'ai appuyé sur Entrée, la page s'est rechargée et mon message a disparu. »
+hints:
+  - "Écoute l'événement submit sur le formulaire, pas click sur le bouton : la touche Entrée déclenche submit."
+  - "Le comportement par défaut d'un formulaire est de recharger la page : event.preventDefault()."
+  - "Lis .value à l'intérieur de l'écouteur. Et innerHTML avec un nom tapé par l'utilisateur, c'est la faille XSS du module Sécurité : textContent."
+tests: tests/

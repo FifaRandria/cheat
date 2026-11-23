@@ -164,6 +164,11 @@ Le bac à sable n'a **pas accès à npm ni à pip**. Pour des exercices réalist
 - **HTML et CSS** : `content/web/html-css/_shared/mini-html.js` (analyseur HTML) et
   `mini-css.js` (cascade CSS : `!important`, spécificité, ordre). Ils se copient dans
   `tests/` : le joueur ne les voit pas, et les tests lisent ses fichiers avec `readFileSync` ;
+- **Navigateur** : `content/web/navigateur/_shared/mini-dom.js` (une fausse page : sélecteurs,
+  `textContent`, `innerHTML`, événements qui remontent, formulaires qui rechargent la page) et
+  `faux-fetch.js` (`fetchFixe` pour une table de réponses, `fetchDepuisApp` pour brancher une
+  vraie application mini-express). Ils dépendent de `mini-html.js` et `mini-css.js` : copie les
+  quatre dans `tests/`. Le code du joueur reçoit `document` (et `fetch`) en paramètre ;
 - **Projet final** : `content/web/web-boss/_shared/boite.js` (base de la Boîte à outils) et
   `dates.js` ;
 - **TypeScript** : un fichier `.ts` du joueur s'importe directement depuis un test `.js`

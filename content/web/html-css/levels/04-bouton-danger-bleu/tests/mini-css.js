@@ -1,9 +1,10 @@
 // Mini-moteur de cascade CSS pour les tests des niveaux HTML/CSS.
 // Il applique les vraies règles du navigateur (!important, spécificité, ordre d'apparition)
-// sur des sélecteurs simples : balise, .classe, #id, *, sélecteurs composés (button.primaire),
-// descendant (nav a) et enfant (ul > li). Copié dans tests/ de chaque niveau.
+// sur des sélecteurs simples : balise, .classe, #id, *, attribut ([data-id], [type="submit"]),
+// sélecteurs composés (button.primaire), descendant (nav a) et enfant (ul > li).
+// Copié dans tests/ de chaque niveau.
 
-const COMPOUND = /^(\*|[a-zA-Z][\w-]*)?((?:[.#][\w-]+)*)$/;
+const COMPOUND = /^(\*|[a-zA-Z][\w-]*)?((?:[.#][\w-]+|\[[\w-]+(?:=(?:"[^"]*"|'[^']*'|[\w-]+))?\])*)$/;
 
 function parseCompound(src) {
   const m = COMPOUND.exec(src);
@@ -11,7 +12,11 @@ function parseCompound(src) {
   const tag = m[1] && m[1] !== "*" ? m[1].toLowerCase() : null;
   const ids = [...m[2].matchAll(/#([\w-]+)/g)].map((x) => x[1]);
   const classes = [...m[2].matchAll(/\.([\w-]+)/g)].map((x) => x[1]);
-  return { tag, ids, classes };
+  const attributs = [...m[2].matchAll(/\[([\w-]+)(?:=(?:"([^"]*)"|'([^']*)'|([\w-]+)))?\]/g)].map((x) => ({
+    nom: x[1].toLowerCase(),
+    valeur: x[2] ?? x[3] ?? x[4],
+  }));
+  return { tag, ids, classes, attributs };
 }
 
 /** Découpe « nav > ul a » en [{compound, combinator}] de gauche à droite. */
@@ -34,7 +39,7 @@ function parseSelector(src) {
 export function specificity(selector) {
   const parts = typeof selector === "string" ? parseSelector(selector) : selector;
   return parts.reduce(
-    (s, p) => [s[0] + p.ids.length, s[1] + p.classes.length, s[2] + (p.tag ? 1 : 0)],
+    (s, p) => [s[0] + p.ids.length, s[1] + p.classes.length + p.attributs.length, s[2] + (p.tag ? 1 : 0)],
     [0, 0, 0],
   );
 }
@@ -46,7 +51,8 @@ function matchesCompound(el, c) {
   if (c.tag && el.tag !== c.tag) return false;
   if (c.ids.some((id) => el.attrs.id !== id)) return false;
   const cls = classList(el);
-  return c.classes.every((k) => cls.includes(k));
+  if (!c.classes.every((k) => cls.includes(k))) return false;
+  return c.attributs.every((a) => a.nom in el.attrs && (a.valeur === undefined || el.attrs[a.nom] === a.valeur));
 }
 
 function matchesFrom(el, parts, i) {
