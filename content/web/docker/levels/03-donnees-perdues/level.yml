@@ -1,0 +1,47 @@
+id: docker-03
+title: La base vide après la mise à jour
+order: 3
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: docker
+lessons: [docker-02, docker-01]
+brief: |
+  Pour mettre à jour PostgreSQL, un développeur a supprimé l'ancien conteneur et en a lancé un
+  nouveau avec l'image récente. Résultat : **toutes les réservations ont disparu**.
+
+  ```output
+  $ docker run -d --name db -e POSTGRES_PASSWORD=secret postgres:17
+  ```
+hints:
+  - "Que devient ce qui est écrit dans un conteneur quand on le supprime ?"
+questions:
+  - prompt: Pourquoi les données ont-elles disparu ?
+    choices:
+      - PostgreSQL efface sa base à chaque mise à jour
+      - Les données étaient stockées dans le conteneur lui-même, supprimé avec lui, faute de volume
+      - Le mot de passe a changé
+    answer: 1
+  - prompt: Quelle commande aurait conservé les données ?
+    choices:
+      - "`docker run -d -v donnees-db:/var/lib/postgresql/data -e POSTGRES_PASSWORD=secret postgres:17`"
+      - "`docker run -d --restart always postgres:17`"
+      - "`docker run -d -p 5432:5432 postgres:17`"
+    answer: 0
+  - prompt: Avec un volume, que se passe-t-il si on supprime le conteneur et qu'on en relance un neuf avec le même volume ?
+    choices:
+      - Les données sont retrouvées
+      - Les données sont perdues
+    answer: 0
+  - prompt: "Avant toute opération risquée sur la base de production, que faut-il toujours faire ?"
+    choices:
+      - Une sauvegarde (par exemple avec pg_dump), vérifiée
+      - Rien, Docker s'en charge
+    answer: 0
+  - prompt: "`docker compose down -v` est-il sans danger pour la base ?"
+    choices:
+      - "Oui, comme `docker compose down`"
+      - "Non : l'option `-v` supprime aussi les volumes, donc les données"
+    answer: 1

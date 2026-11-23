@@ -1,0 +1,55 @@
+id: docker-02
+title: Le conteneur qui ne trouve pas la base
+order: 2
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: docker
+lessons: [docker-02, docker-03]
+brief: |
+  L'API fonctionne parfaitement sur l'ordinateur du développeur. Une fois lancée avec
+  `docker compose up`, elle s'arrête aussitôt.
+
+  ```output
+  $ docker compose ps
+  db    Up (healthy)
+  api   Exited (1)
+
+  $ docker compose logs api
+  api | Error: connect ECONNREFUSED 127.0.0.1:5432
+  ```
+
+  La variable d'environnement de l'API contient :
+  `DATABASE_URL=postgresql://app:secret@localhost:5432/app`
+hints:
+  - "Dans un conteneur, localhost désigne le conteneur lui-même."
+  - "Les services d'un même docker compose se joignent par leur nom."
+questions:
+  - prompt: Pourquoi l'API ne trouve-t-elle pas la base ?
+    choices:
+      - PostgreSQL est en panne
+      - "`localhost` désigne le conteneur de l'API lui-même, où aucune base n'écoute sur le port 5432"
+      - Le mot de passe est faux
+    answer: 1
+  - prompt: Quelle est la bonne DATABASE_URL ?
+    choices:
+      - "`postgresql://app:secret@db:5432/app`"
+      - "`postgresql://app:secret@127.0.0.1:5432/app`"
+      - "`postgresql://app:secret@localhost:5433/app`"
+    answer: 0
+  - prompt: Pourquoi cela marchait-il sur l'ordinateur du développeur ?
+    choices:
+      - Parce que l'API et PostgreSQL tournaient directement sur la même machine, sans conteneur
+      - Par chance
+    answer: 0
+  - prompt: Quelle commande a permis de voir la cause de l'arrêt ?
+    choices: ["docker compose logs api", "docker compose build", "docker pull postgres"]
+    answer: 0
+  - prompt: "L'API redémarre maintenant, mais échoue parfois au tout premier démarrage avec la même erreur, puis fonctionne. Que faut-il ajouter ?"
+    choices:
+      - "Un healthcheck sur `db` et `depends_on` avec `condition: service_healthy`"
+      - Un deuxième conteneur PostgreSQL
+      - Rien, c'est normal
+    answer: 0

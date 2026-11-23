@@ -1,0 +1,27 @@
+id: docker-01
+title: Le build qui prend 6 minutes pour une virgule
+order: 1
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: docker
+lessons: [docker-01]
+brief: |
+  Chaque modification du code, même une virgule, relance l'installation complète des
+  dépendances : **6 minutes** de build à chaque fois. Le Dockerfile copie tout le projet dès le
+  début, et le cache de Docker ne sert à rien.
+
+  Remets les instructions du Dockerfile dans l'ordre qui profite au mieux du cache.
+hints:
+  - "On part toujours d'une image de base, puis on choisit le dossier de travail."
+  - "Ce qui change rarement en haut (les dépendances), ce qui change souvent en bas (le code)."
+steps:
+  - label: FROM node:22-alpine
+  - label: WORKDIR /app
+  - label: COPY package.json package-lock.json ./
+  - label: RUN npm ci
+  - label: COPY . .
+  - label: EXPOSE 3000
+  - label: CMD ["node", "server.js"]
