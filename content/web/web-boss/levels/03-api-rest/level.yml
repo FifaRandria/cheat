@@ -9,7 +9,7 @@ blackout: false
 hintCost: 15
 bugType: ecrire
 entry: app.js
-lessons: [web-boss-02, web-boss-01]
+lessons: [web-boss-02, web-boss-01, pilotage-01]
 brief: |
   **Exercice d'écriture.** Le dépôt est prêt (`depot.js`). Écris les routes de `app.js`, en
   respectant le contrat de l'API (leçon « Le projet : la Boîte à outils »). Le middleware
@@ -27,6 +27,9 @@ brief: |
   - Toute autre erreur : 500 `{ erreur: "Erreur interne" }`.
 
   `mini-express.js` reproduit Express : il n'est pas en cause.
+
+  > **Côté chef de projet** : une route terminée et testée fait avancer le burndown ; une route
+  > « presque finie » ne compte pas (leçon « Mesurer l'avancement »).
 hints:
   - "Commence par GET /outils : une ligne avec res.json(listerOutils(db, req.query.categorie))."
   - "Dans POST /prets, Number.isInteger(outilId) && outilId > 0. Le membre connecté est dans req.membre."

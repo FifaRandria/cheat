@@ -7,13 +7,16 @@ xp: 60
 blackout: false
 hintCost: 10
 bugType: organisation
-lessons: [web-boss-01]
+lessons: [web-boss-01, gp-etapes-01, gp-etapes-03]
 brief: |
   L'association vient de valider le devis. Avant d'écrire une ligne de code, l'équipe doit
   s'entendre sur **l'ordre** des étapes. Un mauvais ordre coûte cher : une API écrite avant le
   modèle de données sera réécrite, une sécurité ajoutée à la fin sera bâclée.
 
   Remets les étapes dans l'ordre dans lequel tu vas les mener.
+
+  > **Côté chef de projet** : ce plan devient un planning : chaque étape se découpe en tâches
+  > estimées (leçon « Planifier, découper et estimer »).
 hints:
   - "On ne peut rien construire sans savoir ce que veulent les utilisateurs, ni ce qui fait partie du MVP."
   - "L'API manipule des données : la structure des tables vient avant."

@@ -9,7 +9,7 @@ blackout: false
 hintCost: 15
 bugType: ecrire
 entry: depot.js
-lessons: [web-boss-01, web-boss-02]
+lessons: [web-boss-01, web-boss-02, gp-etapes-02]
 brief: |
   **Exercice d'écriture.** Écris les trois fonctions SQL du fichier `depot.js`. Les fonctions
   `membreParJeton` et `trouverPret`, déjà écrites, te servent de modèles. `boite.js` crée la base
@@ -29,6 +29,9 @@ brief: |
 
   Tu peux ajouter un fichier `essai.js` pour expérimenter : `node essai.js` n'est pas
   disponible ici, mais les tests affichent tes `console.log`.
+
+  > **Côté chef de projet** : le modèle de données découle du MVP. Pas de table « réservations »
+  > tant qu'elle n'est pas dans le périmètre (leçon « Cadrer le projet et définir le MVP »).
 hints:
   - "Disponibilité en une requête : une sous-requête NOT EXISTS (SELECT 1 FROM prets p WHERE p.outil_id = o.id AND p.rendu_le IS NULL). SQLite renvoie 0 ou 1 : convertis en booléen."
   - "Le filtre facultatif : WHERE ? IS NULL OR o.categorie = ?, en passant la catégorie (ou null) deux fois."

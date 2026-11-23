@@ -47,6 +47,9 @@ for bloc in reponse.content:
         print(bloc.text)
 ```
 
+> **Déjà vu** : si tu as suivi le parcours web, une API de LLM est une API HTTP comme celles du
+> module « Backend Express » : méthodes, codes d'erreur, en-têtes.
+
 ## Les éléments d'une requête
 
 | Champ | Rôle |

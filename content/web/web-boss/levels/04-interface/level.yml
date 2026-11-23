@@ -9,7 +9,7 @@ blackout: false
 hintCost: 20
 bugType: ecrire
 entry: interface.js
-lessons: [web-boss-04, navigateur-03, navigateur-04]
+lessons: [web-boss-04, navigateur-03, navigateur-04, pilotage-04]
 brief: |
   **Exercice d'écriture.** L'API fonctionne : il faut maintenant l'interface que les membres
   utiliseront. Écris `monterBoite(document, fetch, jeton)` dans `interface.js` (la page est dans
@@ -38,6 +38,10 @@ brief: |
   Organise ton code comme dans le module « JavaScript dans le navigateur » : un état, une
   fonction de rendu. C'est l'organisation d'un composant React, que tu réécriras en React dans
   le module « Ton projet sur ta machine ».
+
+  > **Côté chef de projet** : l'interface est ce que le client voit : c'est le bon moment pour
+  > une démonstration, et pour cadrer les demandes de changement (leçon « Devis, changements et
+  > relation client »).
 hints:
   - "Commence par le chargement : une fonction async charger() qui fait fetch(\"/api/outils\"), vérifie ok, range les outils dans l'état et appelle afficher()."
   - "Pour les boutons, un seul écouteur click sur #outils, et event.target.closest(\"button[data-id]\") (la délégation)."

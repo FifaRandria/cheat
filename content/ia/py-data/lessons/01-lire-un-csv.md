@@ -34,6 +34,9 @@ C'est le format d'échange le plus courant en data : exports de tableurs, de bas
 d'outils marketing. Et c'est la première source de données que tu manipuleras avant
 d'entraîner un modèle.
 
+> **Déjà vu** : tu retrouves les listes et dictionnaires des « Bases de Python » : chaque ligne
+> lue avec `DictReader` est un dictionnaire.
+
 ## Le module csv
 
 Python sait lire les CSV sans rien installer. `csv.DictReader` transforme chaque ligne en

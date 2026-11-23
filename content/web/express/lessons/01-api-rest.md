@@ -29,6 +29,9 @@ Une **API** (*Application Programming Interface*) est un guichet que le serveur 
 autres programmes : au lieu de pages HTML, il échange des **données**, le plus souvent en
 **JSON**.
 
+> **Déjà vu** : les méthodes et les codes HTTP viennent du module « Terminal, Git et HTTP » ;
+> l'autre côté de la requête, `fetch`, du module « JavaScript dans le navigateur ».
+
 ## Anatomie d'un échange
 
 Une requête contient :

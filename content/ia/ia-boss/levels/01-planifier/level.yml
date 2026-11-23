@@ -7,11 +7,14 @@ xp: 60
 blackout: false
 hintCost: 10
 bugType: organisation
-lessons: [ia-boss-01, llm-03]
+lessons: [ia-boss-01, llm-03, gp-etapes-02]
 brief: |
   Le bureau de l'association a validé l'idée d'un assistant. Une bénévole développeuse propose
   de « brancher ChatGPT sur le site ce week-end ». Tu proposes plutôt un plan, dans le bon
   ordre. Remets les étapes dans l'ordre où tu vas les mener.
+
+  > **Côté chef de projet** : recenser les questions réelles, c'est cadrer. Un assistant sans
+  > besoin clair est un projet sans fin.
 hints:
   - "On commence par vérifier le besoin, puis on fixe ce qu'est une bonne réponse avant de construire."
   - "Le prototype le plus simple vient avant les outils et l'agent."

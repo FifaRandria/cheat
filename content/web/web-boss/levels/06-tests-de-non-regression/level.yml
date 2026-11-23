@@ -9,7 +9,7 @@ blackout: false
 hintCost: 20
 bugType: tests
 entry: scenarios.js
-lessons: [web-boss-02, typescript-04]
+lessons: [web-boss-02, typescript-04, gp-etapes-04]
 brief: |
   **Exercice d'écriture : cette fois, tu écris les tests.** L'API est corrigée. Pour que les
   failles et les bugs ne reviennent jamais, écris dans `scenarios.js` la fonction
@@ -27,6 +27,9 @@ brief: |
   détecter chaque sabotage. Un test qui ne détecte rien ne protège rien.
 
   `nouvelleApp()` donne une application neuve avec une base neuve : utilise-en une par règle.
+
+  > **Côté chef de projet** : des tests de non-régression sont la condition d'une « définition
+  > de terminé » honnête : sans eux, « fini » veut dire « fini jusqu'au prochain bug ».
 hints:
   - "Inspire-toi de l'exemple déjà écrit : une requête avec app.handle, puis assert.equal sur le status."
   - "Pour la règle 1, vérifie que CHAQUE outil reçu a la catégorie electro : res.body.every(…)."

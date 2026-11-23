@@ -7,10 +7,13 @@ xp: 150
 blackout: true
 hintCost: 0
 bugType: deploiement
-lessons: [ia-boss-02, llm-03]
+lessons: [ia-boss-02, llm-03, crises-03]
 brief: |
   **Mode Blackout.** L'assistant est ouvert à tous les membres depuis un mois. Le bureau te
   présente le bilan, avec cinq décisions à prendre.
+
+  > **Côté chef de projet** : si l'assistant pose problème (fuite de données, coût), la
+  > communication suit les mêmes règles qu'une crise.
 hints: []
 questions:
   - prompt: |

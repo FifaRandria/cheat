@@ -37,6 +37,9 @@ Entraîner un modèle d'IA, c'est exactement ça, répété des millions de fois
 *poids*). Apprendre, c'est ajuster ces réglages pour que ses réponses se rapprochent des
 bonnes.
 
+> **Déjà vu** : les données d'entraînement se préparent avec les techniques du module « Python
+> pour la data » : nettoyer, traiter les valeurs manquantes, normaliser.
+
 ## Le vocabulaire de l'entraînement
 
 | Terme | Dans l'analogie | En vrai |

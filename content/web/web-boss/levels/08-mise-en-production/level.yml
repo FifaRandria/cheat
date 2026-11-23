@@ -7,10 +7,13 @@ xp: 150
 blackout: false
 hintCost: 0
 bugType: deploiement
-lessons: [web-boss-03, docker-01, cicd-01]
+lessons: [web-boss-03, docker-01, cicd-01, crises-03, pilotage-03]
 brief: |
   Dernière étape : mettre la Boîte à outils en ligne, et l'y maintenir. Pour chaque situation,
   choisis la bonne décision.
+
+  > **Côté chef de projet** : annonce la mise en ligne à l'association avec un reporting honnête
+  > : ce qui est livré, ce qui ne l'est pas, et les risques connus.
 hints: []
 questions:
   - prompt: |

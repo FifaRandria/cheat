@@ -9,7 +9,7 @@ blackout: false
 hintCost: 20
 bugType: agent
 entry: agent.py
-lessons: [llm-04, ia-boss-02]
+lessons: [llm-04, ia-boss-02, crises-01]
 brief: |
   Un premier prototype d'agent existe. Avant de l'ouvrir aux membres, un audit a relevé trois
   problèmes graves. Corrige `executer_agent(llm, outils, question, confirmer)` dans `agent.py` :
@@ -26,6 +26,9 @@ brief: |
 
   La boucle, l'historique et la limite de tours sont déjà corrects (tu les as réparés dans le
   module « LLM par API »). `faux_llm.py` n'est pas en cause.
+
+  > **Côté chef de projet** : une réservation faite sans accord est un risque à fort impact : la
+  > confirmation n'est pas négociable, même si elle ralentit l'usage.
 logs: |
   [audit] « réserve-moi la perceuse » → reserver(outil_id=1) exécuté sans demander au membre
   [audit] reserver(outil_id="1; annuler tout") → TypeError dans le service de réservation

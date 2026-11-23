@@ -81,6 +81,9 @@ L'ordre des leçons vient du numéro du fichier (`01-`, `02-`…).
 | `> **À retenir** : …` | encadré vert, l'idée clé |
 | `> **Attention** : …` | encadré rouge, le piège |
 | `> **Astuce** : …` ou `> **Analogie** : …` | encadré ambre |
+| `> **Déjà vu** : …` | encadré bleu : renvoi vers un autre module |
+| `> **Côté chef de projet** : …` | encadré bleu : lien avec le parcours gestion de projet |
+| `- [ ] …` | case de mission cochable, retenue dans le navigateur |
 
 Les exemples `js run` s'exécutent dans un Web Worker isolé, coupé au bout de 5 secondes.
 Python ne s'exécute pas dans le navigateur : fais suivre chaque exemple d'un bloc `output`.

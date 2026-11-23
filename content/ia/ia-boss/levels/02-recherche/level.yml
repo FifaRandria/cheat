@@ -9,7 +9,7 @@ blackout: false
 hintCost: 15
 bugType: ecrire
 entry: recherche.py
-lessons: [ia-boss-01, rag-03, rag-04]
+lessons: [ia-boss-01, rag-03, rag-04, gp-etapes-03]
 brief: |
   **Exercice d'écriture.** Écris la partie « recherche » de l'assistant, dans `recherche.py`.
   `reglement.py` contient le texte, et `vecteurs.py` fournit `vecteur(texte)` et
@@ -28,6 +28,9 @@ brief: |
   proche au moins proche de la question. La similarité se calcule entre `vecteur(question)` et
   `vecteur(titre + " " + texte)` du passage. Les passages sous le `seuil` sont écartés : pour une
   question hors sujet, la liste est **vide**.
+
+  > **Côté chef de projet** : découper l'assistant en briques testables séparément (recherche,
+  > requête, agent) permet d'estimer et de livrer par morceaux.
 hints:
   - "decouper : parcours reglement.splitlines(), garde le titre courant dans une variable, et crée un passage pour chaque autre ligne non vide."
   - "rechercher : calcule un score par passage, garde ceux qui atteignent le seuil, trie par score décroissant, puis prends les k premiers."

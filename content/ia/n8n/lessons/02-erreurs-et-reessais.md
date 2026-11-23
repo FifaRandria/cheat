@@ -26,6 +26,9 @@ check:
 Un workflow appelle des services externes : une API de paiement, un LLM, un CRM. Ils sont
 parfois **lents**, **saturés** ou **en maintenance**. Un workflow robuste prévoit l'échec.
 
+> **Déjà vu** : la règle est la même qu'avec une API de LLM (module « LLM par API ») : on ne
+> réessaie que les erreurs passagères, avec une attente croissante.
+
 ## Les erreurs passagères et les erreurs définitives
 
 Toutes les erreurs ne se valent pas :

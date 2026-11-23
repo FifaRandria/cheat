@@ -9,7 +9,7 @@ blackout: false
 hintCost: 15
 bugType: evaluation
 entry: evaluation.py
-lessons: [llm-03, ia-boss-02]
+lessons: [llm-03, ia-boss-02, pilotage-03]
 brief: |
   **Exercice d'écriture.** Avant l'ouverture aux membres, le bureau veut des chiffres. Écris
   `evaluer_assistant(repondre, jeu)` dans `evaluation.py`.
@@ -33,6 +33,9 @@ brief: |
   ```
 
   Un jeu vide donne `{"reussite": 0, "refus_corrects": None, "jetons_moyens": 0, "echecs": []}`.
+
+  > **Côté chef de projet** : ces chiffres sont la base d'un reporting honnête au bureau : « 82
+  > % de réussite, et voici les questions ratées ».
 hints:
   - "Une boucle sur le jeu : appelle repondre, mets le texte en minuscules, puis décide si le cas est réussi."
   - "Garde deux compteurs pour les cas hors sujet (total et réussis) : s'il n'y en a aucun, refus_corrects vaut None."

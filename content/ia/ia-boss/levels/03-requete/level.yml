@@ -9,7 +9,7 @@ blackout: false
 hintCost: 15
 bugType: ecrire
 entry: requete.py
-lessons: [llm-01, llm-02, rag-04]
+lessons: [llm-01, llm-02, rag-04, pilotage-02]
 brief: |
   **Exercice d'écriture.** Écris `preparer_requete(question, passages, historique)` dans
   `requete.py`. Elle renvoie le dictionnaire passé à `client.messages.create(**params)` :
@@ -22,6 +22,9 @@ brief: |
     `Aucun document pertinent.` ;
   - `messages` : les **6 derniers** messages de l'historique au plus (chaque message renvoyé
     coûte), en commençant toujours par un message `user`, puis la question.
+
+  > **Côté chef de projet** : chaque message renvoyé coûte des jetons : limiter l'historique est
+  > une décision de budget (leçon « Suivre le budget »).
 hints:
   - "Écris d'abord une petite fonction bloc_documents(passages) qui renvoie le texte entre <documents> et </documents>."
   - "Les 6 derniers messages : historique[-6:]. S'ils commencent par un message assistant, retire-le."

@@ -32,6 +32,9 @@ au téléphone pendant le service.
 Un projet web, même petit, passe toujours par les mêmes grandes étapes. Les sauter, c'est
 la meilleure façon de livrer en retard, hors budget, ou à côté du besoin.
 
+> **Déjà vu** : tu appliqueras chaque étape dans les projets finaux web et IA, la Boîte à outils
+> et son assistant : leurs énoncés portent un encadré « Côté chef de projet ».
+
 ## Les sept étapes
 
 | # | Étape | La question à laquelle elle répond |

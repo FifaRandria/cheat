@@ -88,17 +88,21 @@ Trois parcours indépendants, qui commencent tous par les bases :
 
 | Parcours | Modules | Leçons | Niveaux |
 |---|---|---|---|
-| **Développeur web fullstack** | HTML et CSS, bases JS, JS asynchrone, Terminal/Git/HTTP, Express, SQL, React, TypeScript et tests, sécurité web, Docker, CI/CD, changer de langage, projet final | 52 | 68 |
-| **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, LLM par API et agents, RAG, n8n | 24 | 32 |
+| **Développeur web fullstack** | HTML et CSS, bases JS, JS asynchrone, JS dans le navigateur, Terminal/Git/HTTP, Express, SQL, React, TypeScript et tests, sécurité web, Docker, CI/CD, changer de langage, projet final, ton projet sur ta machine | 64 | 79 |
+| **IA et automatisation** | Bases Python, Python pour la data, fine-tuning, LLM par API et agents, RAG, n8n, projet final IA | 26 | 38 |
 | **Gestion de projet** | Étapes d'un projet, diriger une équipe, risques et crises, piloter un projet | 15 | 20 |
 
-Au total : 91 leçons et 120 niveaux, répartis dans 23 modules, tous ouverts. Le parcours web
-se termine par un projet guidé en sept étapes, la Boîte à outils, qui réunit tous les modules.
+Au total : 105 leçons et 137 niveaux, répartis dans 26 modules. Chaque parcours technique se
+termine par un projet guidé : la Boîte à outils (huit étapes, de la base de données à
+l'interface et à la mise en production) et son assistant IA (six étapes). Le module « Ton
+projet sur ta machine » fait ensuite tout reconstruire hors du bac à sable, jusqu'à la mise en
+ligne. Les étapes des projets renvoient aux leçons de gestion de projet, et les leçons
+renvoient aux modules qu'elles prolongent.
 
 Les exercices de code tournent dans le bac à sable sans aucune dépendance externe : un
 mini-framework fidèle à Express pour les API, SQLite intégré à Node (`node:sqlite`) pour le
-SQL, un mini-analyseur HTML et un mini-moteur de cascade CSS pour HTML et CSS, des fichiers
-`.ts` exécutés directement par Node pour TypeScript, un faux LLM pour les agents, et la
+SQL, un mini-analyseur HTML, un mini-moteur de cascade CSS et un mini-DOM pour le navigateur, des fichiers
+`.ts` exécutés directement par Node pour TypeScript, un faux LLM pour les agents, un faux pilote PostgreSQL, et la
 bibliothèque standard de Python pour la data et le RAG.
 
 Chaque module suit la même méthode :

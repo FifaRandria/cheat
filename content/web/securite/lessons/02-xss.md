@@ -39,6 +39,9 @@ L'image ne charge pas, `onerror` s'exécute, et le cookie de session de **chaque
 part chez l'attaquant. C'est une faille **XSS** (*Cross-Site Scripting*) : le texte d'un
 utilisateur est devenu du **code** exécuté par le navigateur des autres.
 
+> **Déjà vu** : c'est le HTML du module « HTML et CSS », vu par un attaquant : `textContent` et
+> `innerHTML` viennent du module « JavaScript dans le navigateur ».
+
 ## La règle : échapper à la sortie
 
 Le texte doit rester du texte. Pour cela, on remplace les caractères qui ont un sens en HTML

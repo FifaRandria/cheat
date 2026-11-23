@@ -9,7 +9,7 @@ blackout: true
 hintCost: 0
 bugType: incident
 entry: relances.js
-lessons: [web-boss-01, sql-04, js-bases-07]
+lessons: [web-boss-01, sql-04, js-bases-07, crises-02, crises-04]
 brief: |
   **Mode Blackout.** Trois semaines après la mise en ligne, le téléphone de l'association ne
   s'arrête plus. Chaque matin, `listerRelances(db, aujourdhui)` produit la liste des membres à
@@ -20,6 +20,10 @@ brief: |
   égal, par ordre alphabétique des membres).
 
   Lis les logs, reproduis, isole. Seule la documentation est disponible.
+
+  > **Côté chef de projet** : pendant l'incident, on rétablit le service et on prévient les
+  > bénévoles ; ensuite seulement, on écrit un post-mortem sans blâme (leçons « Gérer un
+  > incident en production » et « Le post-mortem sans blâme »).
 logs: |
   [mail]    08:00 relance → Ada : « Escabeau, 46 jours de retard »         (rendu le 4 octobre !)
   [mail]    08:00 relance → Eve : « Perceuse, 0 jours de retard »          (à rendre aujourd'hui)

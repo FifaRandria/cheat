@@ -5,12 +5,17 @@ import { Icon, type IconName } from "./Icon";
 import { CodeBlock } from "./lesson/CodeBlock";
 import { MissionCheck } from "./lesson/MissionCheck";
 
-/** Encadrés : une citation qui commence par **À retenir**, **Attention** ou **Astuce**. */
+/**
+ * Encadrés : une citation qui commence par **À retenir**, **Attention**, **Astuce**,
+ * **Côté chef de projet** (lien avec la gestion de projet) ou **Déjà vu** (renvoi vers un module).
+ */
 const CALLOUTS: Record<string, { cls: string; icon: IconName }> = {
   "à retenir": { cls: "callout-key", icon: "key" },
   attention: { cls: "callout-warn", icon: "bug" },
   astuce: { cls: "callout-tip", icon: "spark" },
   analogie: { cls: "callout-tip", icon: "spark" },
+  "côté chef de projet": { cls: "callout-info", icon: "flag" },
+  "déjà vu": { cls: "callout-info", icon: "book" },
 };
 
 const textOf = (n: ElementContent | undefined): string =>

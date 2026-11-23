@@ -513,6 +513,14 @@ body::before {
 .prose-rustine .callout-tip strong:first-child {
   color: var(--warn);
 }
+.prose-rustine .callout-info {
+  background: var(--info-soft);
+  border-color: color-mix(in srgb, var(--info) 35%, transparent);
+}
+.prose-rustine .callout-info .callout-icon,
+.prose-rustine .callout-info strong:first-child {
+  color: var(--info);
+}
 .prose-rustine blockquote {
   border-left: 3px solid var(--line-strong);
   padding-left: 1rem;

@@ -34,6 +34,9 @@ modification poussée, une machine récupère le code et lance automatiquement t
 vérifications. En quelques minutes, on sait si la modification casse quelque chose, et
 **laquelle**.
 
+> **Déjà vu** : une CI ne vaut que par ses tests. Relis « Écrire ses propres tests » (module «
+> TypeScript et tests ») : un test sans assert passe toujours.
+
 ## Le pipeline
 
 Les vérifications s'enchaînent dans un **pipeline** :
