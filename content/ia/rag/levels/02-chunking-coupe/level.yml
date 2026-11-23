@@ -1,0 +1,28 @@
+id: rag-02
+title: La réponse coupée entre deux morceaux
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: chunk-overlap
+entry: chunking.py
+lessons: [rag-03, py-bases-05]
+brief: |
+  Le chatbot RH répond « je ne sais pas » à « Quel est le délai de préavis ? ». La réponse
+  figure pourtant dans le règlement… à cheval entre deux morceaux. Et les dernières lignes des
+  documents, souvent les plus importantes, ne sont **jamais** retrouvées.
+
+  `decouper(mots, taille, chevauchement)` reçoit une liste de mots et doit renvoyer des
+  morceaux (textes) de `taille` mots au plus, où chaque morceau reprend les `chevauchement`
+  derniers mots du précédent. **Aucun mot** ne doit être perdu, y compris à la fin.
+logs: |
+  [index] règlement.txt : 1 030 mots → 10 morceaux (taille 100, chevauchement 20)
+  [index] mots couverts : 1 000 / 1 030
+  [index] chevauchement mesuré entre morceaux voisins : 0 mot
+hints:
+  - "Écris à la main les débuts de morceaux pour 10 mots, taille 4, chevauchement 1. De combien faut-il avancer à chaque fois ?"
+  - "Le dernier morceau peut être plus court que les autres. La borne de range le laisse-t-elle passer ?"
+tests: tests/

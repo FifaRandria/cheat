@@ -1,0 +1,31 @@
+id: rag-03
+title: Le top-k qui renvoie les pires passages
+order: 3
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: top-k
+entry: recherche.py
+lessons: [rag-04]
+brief: |
+  Depuis une « optimisation » de la recherche, le chatbot répond complètement à côté. En
+  affichant les passages envoyés au modèle, l'équipe constate qu'ils n'ont **rien à voir**
+  avec la question. Et quand aucun document n'est pertinent, le chatbot invente quand même.
+
+  `top_k(scores, k, seuil)` reçoit une liste de `(passage, score)` et doit renvoyer les
+  **passages** (sans les scores) :
+
+  - les `k` plus similaires, **du plus au moins similaire** ;
+  - en écartant ceux dont le score est **inférieur** au `seuil` ;
+  - moins de `k` s'il n'y en a pas assez, et une liste vide si aucun ne passe le seuil.
+logs: |
+  [rag] question : « délai de livraison »
+  [rag] scores : FAQ livraison 0.91 · Suivi colis 0.77 · CGV 0.42 · Recrutement 0.08
+  [rag] passages envoyés au modèle : Recrutement, CGV
+hints:
+  - "Les passages envoyés sont les deux plus mauvais. Dans quel ordre la liste est-elle triée ?"
+  - "Le seuil est-il appliqué quelque part ?"
+tests: tests/

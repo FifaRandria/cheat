@@ -1,0 +1,31 @@
+id: rag-01
+title: Le chatbot qui cite toujours le règlement de 80 pages
+order: 1
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: similarity
+entry: similarite.py
+lessons: [rag-02]
+brief: |
+  Le chatbot du support répond à **toutes** les questions en citant les conditions générales
+  de vente, un document de 80 pages. Même pour « Quel est le délai de livraison ? », alors
+  qu'une FAQ de trois lignes y répond exactement.
+
+  `similarite(a, b)` doit renvoyer la **similarité cosinus** de deux vecteurs : `1.0` pour
+  deux vecteurs de même direction, quelle que soit leur longueur, et `0.0` si l'un des deux
+  est nul.
+
+  `meilleur_document(question, documents)` utilise cette fonction : il n'est pas en cause.
+logs: |
+  [rag] question : « délai de livraison » → vecteur [0, 1, 1, 0]
+  [rag] score FAQ livraison (4 mots)  : 2
+  [rag] score CGV (24 000 mots)       : 187
+  [rag] document retenu : CGV
+hints:
+  - "Les scores dépassent 1 et grandissent avec la taille du document. Que mesure réellement la fonction ?"
+  - "La similarité cosinus divise le produit scalaire par le produit des normes des deux vecteurs."
+tests: tests/
