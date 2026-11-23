@@ -1,0 +1,41 @@
+id: pilotage-03
+title: Six semaines de vert, puis le rouge
+order: 3
+type: quiz
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: pilotage
+lessons: [pilotage-03]
+brief: |
+  Ton prédécesseur a envoyé six rapports hebdomadaires « 🟢 VERT, tout va bien ». À deux
+  semaines de la date, le projet a basculé au rouge : trois semaines de retard, et plus aucune
+  option. Le client est furieux.
+
+  C'est toi qui rédiges les rapports désormais.
+hints:
+  - "Un bon rapport donne des faits chiffrés et se termine par les décisions attendues."
+  - "Orange : un écart sous contrôle avec un plan. Rouge : une décision est nécessaire."
+questions:
+  - prompt: Comment appelle-t-on le phénomène décrit dans l'énoncé ?
+    choices: ["Un reporting pastèque", "Un burndown", "Une dérive du périmètre"]
+    answer: 0
+  - prompt: Le paiement en ligne prend une semaine de plus que prévu ; tu as un plan pour absorber le retard, sans décision nécessaire du client. Quelle météo ?
+    choices: ["🟢 Vert", "🟠 Orange", "🔴 Rouge"]
+    answer: 1
+  - prompt: Quelle phrase mettre dans le rapport ?
+    choices:
+      - « Ça avance bien, quelques ajustements. »
+      - « 12 stories sur 20 terminées. Fin prévue le 18 au lieu du 11, à cause de l'intégration du paiement. »
+      - « Petit retard sans conséquence. »
+    answer: 1
+  - prompt: Par quoi doit se terminer le rapport ?
+    choices:
+      - Par les bonnes nouvelles, pour finir sur une note positive
+      - Par les décisions attendues du client, avec une échéance
+      - Par les remerciements à l'équipe
+    answer: 1
+  - prompt: Deux semaines plus tard, le retard atteint trois semaines et le client doit choisir entre réduire le périmètre et décaler la date. Quelle météo ?
+    choices: ["🟠 Orange, pour ne pas l'inquiéter", "🔴 Rouge"]
+    answer: 1

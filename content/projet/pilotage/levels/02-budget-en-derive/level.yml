@@ -1,0 +1,40 @@
+id: pilotage-02
+title: Le budget consommé à 70 %
+order: 2
+type: quiz
+difficulty: 3
+xp: 90
+blackout: false
+hintCost: 15
+bugType: pilotage
+lessons: [pilotage-02]
+brief: |
+  Le projet Table Ronde a été vendu **40 jours** au TJM de **500 €**. À mi-parcours du
+  planning, la comptabilité indique que **28 jours** ont été consommés. Le backlog montre
+  que **50 %** du travail est terminé, et l'équipe estime le reste à faire à **26 jours**.
+hints:
+  - "Budget = jours × TJM. Prévision à terminaison = consommé + reste à faire."
+  - "Compare la part du budget consommée à la part du travail terminée."
+questions:
+  - prompt: Quel est le budget total du projet ?
+    choices: ["2 000 €", "20 000 €", "28 000 €"]
+    answer: 1
+  - prompt: Quelle part du budget est consommée ?
+    choices: ["50 %", "70 %", "28 %"]
+    answer: 1
+    hint: 28 jours sur 40.
+  - prompt: Le projet est-il dans les clous ?
+    choices:
+      - Oui, on est à mi-parcours du planning
+      - Non, 70 % du budget a été consommé pour 50 % du travail terminé
+    answer: 1
+  - prompt: Quelle est la prévision à terminaison ?
+    choices: ["40 jours", "54 jours", "56 jours"]
+    answer: 1
+    hint: Consommé (28) + reste à faire estimé (26).
+  - prompt: Que proposes-tu au client ?
+    choices:
+      - Ne rien dire et espérer que l'équipe rattrape
+      - "Annoncer un dépassement d'environ 14 jours (7 000 €) maintenant, avec des options : réduire le périmètre, décaler, ou augmenter le budget"
+      - Facturer les 14 jours en fin de projet sans prévenir
+    answer: 1
