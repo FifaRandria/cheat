@@ -37,6 +37,12 @@ const attacks: Attack[] = [
     code: `const keep = []; for (let i = 0; i < 1024; i++) keep.push(Buffer.alloc(1024 * 1024, 1));`,
   },
   {
+    name: "base SQLite écrite hors de /tmp",
+    code: `const { DatabaseSync } = await import("node:sqlite");
+const db = new DatabaseSync("/work/pwn.db");
+db.exec("create table t (x int)");`,
+  },
+  {
     name: "fork bomb (200 processus)",
     code: `const { spawn } = await import("node:child_process");
 const kids = [];

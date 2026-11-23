@@ -122,7 +122,13 @@ async function prepareRuntime(req: RunRequest, dir: string): Promise<RuntimeComm
   if (testFiles.length === 0) return "Aucun fichier *.test.js fourni.";
   await writeFile(path.join(dir, "package.json"), '{ "type": "module" }\n');
   const args = ["--test", "--test-reporter=tap", ...testFiles];
-  return { image: config.image, argv: ["node", ...args], localArgv: [process.execPath, ...args], env: {} };
+  // NODE_NO_WARNINGS : masque l'avertissement « SQLite expérimental » de node:sqlite dans la sortie du joueur.
+  return {
+    image: config.image,
+    argv: ["node", ...args],
+    localArgv: [process.execPath, ...args],
+    env: { NODE_NO_WARNINGS: "1" },
+  };
 }
 
 function execDocker(id: string, dir: string, command: RuntimeCommand): Promise<ExecResult> {
