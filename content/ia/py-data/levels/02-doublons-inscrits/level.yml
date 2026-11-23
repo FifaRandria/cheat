@@ -1,0 +1,28 @@
+id: data-02
+title: 1 200 inscrits, dont 300 en double
+order: 2
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: data-cleaning
+entry: inscrits.py
+lessons: [data-02]
+brief: |
+  L'équipe marketing annonce 1 200 inscrits à la newsletter. Mais certains abonnés reçoivent
+  **chaque e-mail deux ou trois fois**, et se plaignent. Le script de dédoublonnage existe
+  pourtant.
+
+  `inscrits_uniques(emails)` doit renvoyer les adresses **normalisées** (sans espaces autour,
+  en minuscules), sans doublon, dans l'ordre de leur **première** apparition. Les entrées
+  vides doivent être ignorées.
+logs: |
+  [newsletter] adresses importées : 1 200
+  [newsletter] après dédoublonnage : 1 200
+  [support] « Je reçois tout en double : Ada@Ex.com et ada@ex.com, c'est moi ! »
+hints:
+  - "Pour Python, \"Ada@Ex.com\" et \"ada@ex.com\" sont-ils égaux ?"
+  - "Normalise chaque adresse avant de vérifier si tu l'as déjà vue. Et set() garde-t-il l'ordre ?"
+tests: tests/
