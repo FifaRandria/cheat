@@ -1,0 +1,78 @@
+id: react-04
+title: La page qui clignote au chargement
+order: 4
+type: quiz
+difficulty: 4
+xp: 120
+blackout: true
+hintCost: 0
+bugType: mutation
+lessons: [react-04]
+brief: |
+  **Mode Blackout.** Sur le site Next.js, plusieurs pages « clignotent » au chargement, et la
+  console du navigateur affiche :
+
+  `Error: Hydration failed because the server rendered text didn't match the client.`
+
+  Pour chaque composant, décide s'il provoque une erreur d'hydratation, et comment le corriger.
+  La [documentation de React](https://react.dev/reference/react-dom/client/hydrateRoot) est
+  ouverte.
+hints: []
+questions:
+  - prompt: |
+      ```js
+      function Bandeau() {
+        return <p>Mis à jour à {new Date().toLocaleTimeString()}</p>;
+      }
+      ```
+
+      Provoque-t-il une erreur d'hydratation ?
+    choices:
+      - Non
+      - Oui, l'heure n'est pas la même au moment du rendu serveur et du rendu navigateur
+    answer: 1
+  - prompt: Comment corriger le composant précédent ?
+    choices:
+      - Calculer l'heure dans un useEffect, et afficher une valeur neutre au premier rendu
+      - Utiliser Date.now() à la place
+      - Ajouter une key
+    answer: 0
+  - prompt: |
+      ```js
+      function Theme() {
+        const sombre = localStorage.getItem("theme") === "sombre";
+        return <div className={sombre ? "sombre" : "clair"} />;
+      }
+      ```
+
+      Que se passe-t-il côté serveur ?
+    choices:
+      - Tout va bien
+      - "Une erreur : `localStorage` n'existe pas sur le serveur"
+    answer: 1
+  - prompt: |
+      ```js
+      function Champ() {
+        const id = "champ-" + Math.random();
+        return <label htmlFor={id}>Nom <input id={id} /></label>;
+      }
+      ```
+
+      Quelle est la meilleure correction ?
+    choices:
+      - "Utiliser `useId()`, qui donne le même identifiant sur le serveur et dans le navigateur"
+      - Utiliser Date.now()
+      - Supprimer l'identifiant
+    answer: 0
+  - prompt: |
+      ```js
+      function Prix({ montant }) {
+        return <p>{montant.toFixed(2)} €</p>;
+      }
+      ```
+
+      Provoque-t-il une erreur d'hydratation ?
+    choices:
+      - Non, le résultat est identique sur le serveur et dans le navigateur
+      - Oui
+    answer: 0
