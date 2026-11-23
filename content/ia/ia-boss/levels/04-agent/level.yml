@@ -1,0 +1,38 @@
+id: ia-boss-04
+title: "Étape 4 : l'audit de l'agent"
+order: 4
+type: bug-hunt
+runtime: python
+difficulty: 4
+xp: 150
+blackout: false
+hintCost: 20
+bugType: agent
+entry: agent.py
+lessons: [llm-04, ia-boss-02]
+brief: |
+  Un premier prototype d'agent existe. Avant de l'ouvrir aux membres, un audit a relevé trois
+  problèmes graves. Corrige `executer_agent(llm, outils, question, confirmer)` dans `agent.py` :
+
+  1. **Aucune réservation sans accord.** Avant d'exécuter un outil de `SENSIBLES`, l'agent
+     appelle `confirmer(nom, entree)`. Si le membre refuse (`False`), l'outil n'est **pas**
+     exécuté : le modèle reçoit un `tool_result` en erreur (`"is_error": True`) qui le dit.
+  2. **Valider les paramètres.** Avant tout appel, l'entrée est vérifiée avec `SCHEMAS` :
+     exactement les paramètres prévus, avec le bon type. Sinon : `tool_result` en erreur, outil
+     non exécuté. Un outil inconnu aussi.
+  3. **Un journal.** La fonction renvoie `{"texte": …, "journal": [...]}`, avec une entrée par
+     outil demandé : `{"outil": nom, "entree": entree, "statut": s}`, où `s` vaut `"ok"`,
+     `"erreur"` (paramètres invalides, outil inconnu, exception) ou `"refuse"`.
+
+  La boucle, l'historique et la limite de tours sont déjà corrects (tu les as réparés dans le
+  module « LLM par API »). `faux_llm.py` n'est pas en cause.
+logs: |
+  [audit] « réserve-moi la perceuse » → reserver(outil_id=1) exécuté sans demander au membre
+  [audit] reserver(outil_id="1; annuler tout") → TypeError dans le service de réservation
+  [audit] reserver(outil_id=3, membre="admin") → paramètre inattendu transmis tel quel
+  [audit] aucune trace des actions de l'agent : impossible de savoir qui a réservé quoi
+hints:
+  - "Écris une fonction valider(nom, entree) qui renvoie un message d'erreur ou None : outil inconnu, paramètres manquants ou en trop, mauvais type."
+  - "Attention : en Python, True est un int. Pour outil_id, refuse les booléens explicitement."
+  - "Ordre conseillé pour chaque bloc tool_use : valider, puis confirmer si sensible, puis exécuter dans un try. Chaque cas ajoute une entrée au journal."
+tests: tests/

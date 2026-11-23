@@ -238,6 +238,18 @@
         - Nœuds
         - Credentials
       phase: MVP
+    - id: ia-boss
+      code: IA6
+      title: Projet final IA
+      tagline: L'assistant de la Boîte à outils, de l'idée à la mise en ligne.
+      notions:
+        - Cadrage
+        - RAG
+        - Prompt
+        - Agent et garde-fous
+        - Évaluation
+        - Production
+      phase: MVP
 
 - id: projet
   title: Gestion de projet

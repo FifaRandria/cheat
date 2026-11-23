@@ -1,0 +1,29 @@
+id: ia-boss-03
+title: "Étape 3 : la requête de l'assistant"
+order: 3
+type: write
+runtime: python
+difficulty: 3
+xp: 120
+blackout: false
+hintCost: 15
+bugType: ecrire
+entry: requete.py
+lessons: [llm-01, llm-02, rag-04]
+brief: |
+  **Exercice d'écriture.** Écris `preparer_requete(question, passages, historique)` dans
+  `requete.py`. Elle renvoie le dictionnaire passé à `client.messages.create(**params)` :
+
+  - `model` (la constante `MODELE`) et un `max_tokens` positif ;
+  - `system` : la consigne `CONSIGNE` (déjà écrite), suivie d'une ligne vide, puis des
+    documents. Chaque passage est délimité ainsi :
+    `<document id="R3">Emprunts : Un membre peut emprunter…</document>` (titre, « : », texte),
+    le tout entre `<documents>` et `</documents>`. Sans passage, le bloc contient
+    `Aucun document pertinent.` ;
+  - `messages` : les **6 derniers** messages de l'historique au plus (chaque message renvoyé
+    coûte), en commençant toujours par un message `user`, puis la question.
+hints:
+  - "Écris d'abord une petite fonction bloc_documents(passages) qui renvoie le texte entre <documents> et </documents>."
+  - "Les 6 derniers messages : historique[-6:]. S'ils commencent par un message assistant, retire-le."
+  - "N'oublie pas : la consigne va dans system, jamais dans messages."
+tests: tests/

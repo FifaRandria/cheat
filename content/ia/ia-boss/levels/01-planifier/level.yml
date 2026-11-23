@@ -1,0 +1,27 @@
+id: ia-boss-01
+title: "Étape 1 : planifier l'assistant"
+order: 1
+type: ordering
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: organisation
+lessons: [ia-boss-01, llm-03]
+brief: |
+  Le bureau de l'association a validé l'idée d'un assistant. Une bénévole développeuse propose
+  de « brancher ChatGPT sur le site ce week-end ». Tu proposes plutôt un plan, dans le bon
+  ordre. Remets les étapes dans l'ordre où tu vas les mener.
+hints:
+  - "On commence par vérifier le besoin, puis on fixe ce qu'est une bonne réponse avant de construire."
+  - "Le prototype le plus simple vient avant les outils et l'agent."
+  - "On ne met en ligne pour tout le monde qu'après un essai avec quelques membres."
+steps:
+  - label: Recenser les questions réelles des membres et vérifier qu'un LLM est utile
+  - label: Constituer le jeu d'évaluation avec les bénévoles (questions et bonnes réponses)
+  - label: Rassembler et nettoyer les documents (règlement, horaires, tarifs)
+  - label: Construire le prototype le plus simple (recherche dans le règlement et prompt)
+  - label: Mesurer le prototype sur le jeu d'évaluation
+  - label: Ajouter les outils (disponibilités, réservation) avec leurs garde-fous
+  - label: Faire tester l'assistant par quelques membres volontaires
+  - label: Mettre en ligne, puis surveiller les coûts, les retours et les questions ratées

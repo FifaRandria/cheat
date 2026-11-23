@@ -1,0 +1,51 @@
+id: ia-boss-06
+title: "Étape 6 : l'assistant en ligne"
+order: 6
+type: quiz
+difficulty: 4
+xp: 150
+blackout: true
+hintCost: 0
+bugType: deploiement
+lessons: [ia-boss-02, llm-03]
+brief: |
+  **Mode Blackout.** L'assistant est ouvert à tous les membres depuis un mois. Le bureau te
+  présente le bilan, avec cinq décisions à prendre.
+hints: []
+questions:
+  - prompt: |
+      Les journaux conservent toutes les conversations depuis l'ouverture, avec les noms,
+      téléphones et adresses que les membres ont écrits. Personne ne les a jamais relus.
+    choices:
+      - Les garder pour toujours, ça peut servir
+      - "Fixer une durée de conservation courte, supprimer l'ancien, masquer les données personnelles inutiles, et informer les membres"
+    answer: 1
+  - prompt: |
+      Un bénévole a « amélioré » le prompt directement en production, sans le dire. Depuis, le
+      taux de pouces baissés a doublé, et personne ne retrouve l'ancienne version.
+    choices:
+      - "Versionner les prompts comme du code (Git, revue), les évaluer sur le jeu d'évaluation avant de les déployer, et pouvoir revenir en arrière"
+      - Interdire toute modification du prompt
+    answer: 0
+  - prompt: |
+      Les questions sur les horaires ratent depuis la semaine dernière : les horaires ont changé,
+      mais l'assistant donne les anciens.
+    choices:
+      - "Le règlement indexé n'a pas été mis à jour : il faut réindexer les documents à chaque modification, et ajouter un cas au jeu d'évaluation"
+      - Le modèle a oublié les horaires
+    answer: 0
+  - prompt: |
+      Une conversation a coûté 4 euros à elle seule : 60 messages, et l'agent a appelé l'outil
+      de disponibilité 140 fois.
+    choices:
+      - "Surveiller le coût par conversation, avec une alerte, et vérifier la limite de tours et la limite d'historique"
+      - Augmenter le budget mensuel
+    answer: 0
+  - prompt: |
+      22 % des questions reçoivent « Je ne sais pas ». En les lisant, tu constates que la moitié
+      portent sur la réservation d'un créneau d'atelier, un service qui n'existe pas dans le
+      règlement.
+    choices:
+      - "C'est un signal produit : en parler au bureau (le service manque-t-il ?), et transmettre ces questions à un bénévole via une automatisation"
+      - "Demander au modèle d'inventer une réponse plausible"
+    answer: 0
