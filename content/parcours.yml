@@ -118,8 +118,19 @@
         - GitHub Actions
         - Déploiement
       phase: MVP
-    - id: web-boss
+    - id: transfert
       code: W10
+      title: Changer de langage
+      tagline: Apprendre un nouveau langage vite, en partant de ce que tu sais déjà.
+      notions:
+        - Méthode
+        - JavaScript vers Python
+        - Pièges propres
+        - Familles de bugs
+        - Documentation
+      phase: MVP
+    - id: web-boss
+      code: W11
       title: Projet final web
       tagline: La Boîte à outils, du cahier des charges à la mise en production.
       notions:

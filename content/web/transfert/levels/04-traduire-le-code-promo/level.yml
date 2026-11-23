@@ -1,0 +1,36 @@
+id: transfert-04
+title: Traduire le code promo en Python
+order: 4
+type: write
+runtime: python
+difficulty: 2
+xp: 80
+blackout: false
+hintCost: 10
+bugType: ecrire
+entry: promo.py
+lessons: [transfert-02, transfert-01]
+brief: |
+  **Exercice d'écriture : un portage.** Le service de facturation passe en Python. Traduis la
+  fonction JavaScript ci-dessous, que tu as peut-être déjà réparée dans le module
+  « Bases de JavaScript ». Elle est correcte : seul le langage change.
+
+  ```js
+  const REMISES = { BIENVENUE: 0.1, VIP: 0.2, SOLDES: 0.3 };
+
+  export function totalAvecPromo(prix, code) {
+    const cle = (code ?? "").trim().toUpperCase();
+    const taux = REMISES[cle] ?? 0;
+    return Math.round(prix * (1 - taux) * 100) / 100;
+  }
+  ```
+
+  En Python, la fonction s'appelle `total_avec_promo(prix, code=None)`. Les tests sont la
+  traduction exacte des tests JavaScript.
+
+  Méthode : la table d'équivalences de la leçon « De JavaScript à Python ».
+hints:
+  - "?? (valeur si absent) : code or \"\" convient ici ; REMISES[cle] ?? 0 devient REMISES.get(cle, 0)."
+  - "trim() devient strip(), toUpperCase() devient upper()."
+  - "Math.round(x * 100) / 100 devient round(x, 2)."
+tests: tests/

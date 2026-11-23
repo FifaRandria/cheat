@@ -1,0 +1,28 @@
+id: transfert-01
+title: Le classement où 100 arrive avant 9
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 50
+blackout: false
+hintCost: 5
+bugType: tri
+entry: classement.js
+lessons: [transfert-03]
+brief: |
+  Un développeur Python vient de rejoindre l'équipe et a écrit le classement du concours de
+  code. Il l'a testé avec des scores entre 10 et 99 : parfait. En production, la gagnante avec
+  **100 points** apparaît troisième.
+
+  `podium(participants)` reçoit `[{ nom, score }]` et doit renvoyer les **noms** des trois
+  meilleurs, du meilleur score au moins bon. `scoresTries(scores)` renvoie une **nouvelle**
+  liste de scores triés du plus petit au plus grand, sans modifier la liste reçue.
+logs: |
+  [concours] scores : [100, 95, 9, 87]
+  [concours] podium affiché : Linus (95), Grace (9), Ada (100)
+hints:
+  - "En Python, sorted trie des nombres. En JavaScript, sort() sans argument trie autre chose. Quoi ?"
+  - "Essaie dans une leçon : [10, 9, 100].sort(). Il faut une fonction de comparaison (a, b) => a - b."
+  - "Attention aussi : sort() modifie le tableau d'origine. Pour une nouvelle liste, copie d'abord : [...scores]."
+tests: tests/

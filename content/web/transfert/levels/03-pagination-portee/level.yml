@@ -1,0 +1,30 @@
+id: transfert-03
+title: La pagination qui plante après le portage
+order: 3
+type: bug-hunt
+runtime: python
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: division
+entry: pagination.py
+lessons: [transfert-03, transfert-02]
+brief: |
+  La pagination du catalogue a été portée de JavaScript vers Python. L'original utilisait
+  `Math.ceil` et `Math.floor`. Le portage plante dès la première page.
+
+  - `nombre_de_pages(total, par_page)` : le nombre de pages nécessaires (25 articles, 10 par
+    page : 3 pages ; aucun article : 0 page).
+  - `page(elements, numero, par_page)` : les éléments de la page `numero` (la première page
+    porte le numéro 1). Une page au-delà de la dernière est vide.
+logs: |
+  Traceback (most recent call last):
+    File "pagination.py", line 13, in page
+      return elements[debut:fin]
+  TypeError: slice indices must be integers or None or have an __index__ method
+hints:
+  - "Lis la dernière ligne du traceback, puis affiche debut et fin avec print(repr(…)). Quel est leur type ?"
+  - "En Python, / donne toujours un nombre à virgule. La division entière s'écrit //."
+  - "Pour nombre_de_pages, il faut arrondir au-dessus : math.ceil, comme Math.ceil en JavaScript."
+tests: tests/
