@@ -1,0 +1,33 @@
+id: js-bases-07
+title: Le code promo qui fait payer NaN euros
+order: 7
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: debug-method
+entry: promo.js
+lessons: [js-bases-07]
+brief: |
+  Le service client reçoit des captures d'écran : « Total : NaN € ». Le problème ne touche
+  que **certains** clients qui saisissent un code promo. Applique la méthode de diagnostic :
+  reproduis, observe, isole.
+
+  `totalAvecPromo(prix, code)` doit :
+
+  - appliquer la remise du code, **quelle que soit la casse** (`"vip"`, `"Vip"`, `"VIP"`) ;
+  - ignorer les espaces autour du code ;
+  - ne rien retirer si le code est inconnu ou absent ;
+  - renvoyer un prix arrondi au centime.
+logs: |
+  [shop] commande #881 code="VIP"       total=80.00
+  [shop] commande #882 code="vip"       total=NaN
+  [shop] commande #883 code=" BIENVENUE" total=NaN
+  [shop] commande #884 code=undefined   total=TypeError: Cannot read properties of undefined (reading 'trim')
+hints:
+  - "Les commandes en échec ont-elles un point commun ? Compare les codes qui marchent et ceux qui échouent."
+  - "Affiche la valeur de taux juste après la recherche dans le tableau des remises."
+  - "Il y a trois cas à traiter : la casse, les espaces, et un code absent."
+tests: tests/
