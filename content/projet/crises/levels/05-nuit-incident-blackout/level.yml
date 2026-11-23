@@ -1,0 +1,43 @@
+id: crises-05
+title: La nuit de l'incident
+order: 5
+type: quiz
+difficulty: 4
+xp: 130
+blackout: true
+hintCost: 0
+bugType: risques
+lessons: [crises-02, crises-03, crises-04]
+brief: |
+  **Mode Blackout.** 23 h 40 : les paiements échouent depuis une demi-heure. Tu es responsable
+  d'incident. Les décisions s'enchaînent, et personne pour te souffler la réponse.
+hints: []
+questions:
+  - prompt: "Trois développeurs ont chacun une hypothèse et veulent tester un correctif directement en production, en même temps. Que fais-tu ?"
+    choices:
+      - Tu les laisses faire, plus on essaie, plus vite on trouve
+      - Tu coordonnes, une seule action à la fois en production, chacune annoncée dans le canal d'incident
+      - Tu corriges toi-même
+    answer: 1
+  - prompt: Une mise en production a eu lieu à 23 h. Le développeur veut d'abord comprendre le bug avant de revenir en arrière. Que décides-tu ?
+    choices:
+      - On revient d'abord à la version précédente, on comprendra ensuite
+      - On cherche la cause d'abord, pour ne pas perdre d'information
+    answer: 0
+  - prompt: La direction appelle toutes les cinq minutes pour avoir des nouvelles, et ralentit l'équipe. Que mets-tu en place ?
+    choices:
+      - Couper ton téléphone
+      - Un point régulier (par exemple toutes les 20 minutes) fait par le communicant, pour que l'équipe technique reste concentrée
+      - Passer l'appel en haut-parleur pour toute l'équipe
+    answer: 1
+  - prompt: Le lendemain, un manager veut « sanctionner celui qui a fait la mise en production ». Que réponds-tu ?
+    choices:
+      - Tu es d'accord, il faut un responsable
+      - Tu proposes un post-mortem sans blâme, centré sur ce qui a rendu l'erreur possible et sur les actions pour l'empêcher
+    answer: 1
+  - prompt: Quelle action de post-mortem est la mieux formulée ?
+    choices:
+      - « Faire plus attention lors des mises en production. »
+      - « Ajouter une vérification automatique de la configuration de paiement au démarrage · Tom · avant le 15. »
+      - « Mieux tester. »
+    answer: 1

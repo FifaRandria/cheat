@@ -1,0 +1,26 @@
+id: crises-02
+title: Le site tombe un samedi à 21 h
+order: 2
+type: ordering
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 10
+bugType: risques
+lessons: [crises-02]
+brief: |
+  Samedi, 21 h, en plein service. Le site de réservation de Table Ronde ne répond plus depuis
+  une mise en production faite à 20 h 55. Le téléphone du restaurant sonne sans arrêt.
+
+  Remets dans l'ordre les étapes de gestion de cet incident.
+hints:
+  - "On ne cherche pas la ligne de code fautive tant que le service n'est pas rétabli."
+  - "Les clients et le restaurant doivent être prévenus avant même de connaître la cause."
+steps:
+  - label: Recevoir l'alerte et constater la panne
+  - label: Qualifier la sévérité (SEV1) et désigner un responsable d'incident
+  - label: Publier un premier message, « nous sommes au courant »
+  - label: Revenir à la version précédente (rollback)
+  - label: Vérifier que les réservations fonctionnent à nouveau
+  - label: Annoncer la fin de l'incident au restaurant et aux clients
+  - label: Chercher la cause racine et planifier le post-mortem
