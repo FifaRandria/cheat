@@ -14,6 +14,8 @@ const theme: PrismTheme = {
     { types: ["string", "char", "template-string", "attr-value", "regex"], style: { color: "var(--fix)" } },
     { types: ["number", "boolean", "constant"], style: { color: "var(--warn)" } },
     { types: ["function", "class-name"], style: { color: "var(--warn)" } },
+    { types: ["tag", "selector"], style: { color: "var(--break)" } },
+    { types: ["attr-name", "property"], style: { color: "var(--info)" } },
     { types: ["punctuation", "operator"], style: { color: "var(--ink-2)" } },
     { types: ["interpolation-punctuation", "template-punctuation"], style: { color: "var(--break)" } },
   ],
@@ -34,6 +36,9 @@ const LANG: Record<string, string> = {
   shell: "bash",
   dockerfile: "dockerfile",
   http: "http",
+  html: "markup",
+  markup: "markup",
+  css: "css",
 };
 const LABEL: Record<string, string> = {
   javascript: "JavaScript",
@@ -45,6 +50,8 @@ const LABEL: Record<string, string> = {
   bash: "Terminal",
   dockerfile: "Dockerfile",
   http: "HTTP",
+  markup: "HTML",
+  css: "CSS",
 };
 
 export function CodeBlock({ code, language, runnable }: { code: string; language: string; runnable: boolean }) {

@@ -25,4 +25,4 @@ if (client.premium === true) {
   presque toujours un nom de propriété mal écrit.
 - Copie les noms de propriétés depuis la donnée réelle (les logs, la réponse de l'API) plutôt
   que de les retaper de mémoire.
-- TypeScript (module W6) détecte ce bug avant même l'exécution.
+- TypeScript (module « TypeScript et qualité ») détecte ce bug avant même l'exécution.

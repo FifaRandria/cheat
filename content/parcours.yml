@@ -14,8 +14,20 @@
     production.
   icon: code
   modules:
-    - id: js-bases
+    - id: html-css
       code: W0
+      title: HTML et CSS
+      tagline: La structure d'une page, l'accessibilité, la cascade et la mise en page.
+      notions:
+        - Balises sémantiques
+        - Formulaires
+        - Accessibilité
+        - Cascade et spécificité
+        - Flexbox
+        - Responsive
+      phase: MVP
+    - id: js-bases
+      code: W1
       title: Bases de JavaScript
       tagline: Variables, conditions, boucles, fonctions. Le point de départ.
       notions:
@@ -27,7 +39,7 @@
         - Objets
       phase: MVP
     - id: js-async
-      code: W1
+      code: W2
       title: JavaScript asynchrone
       tagline: Promesses, async/await, et les bugs qui vont avec.
       notions:
@@ -37,7 +49,7 @@
         - Promise.all
       phase: MVP
     - id: outils
-      code: W2
+      code: W3
       title: Terminal, Git et HTTP
       tagline: Les outils du diagnostic au quotidien.
       notions:
@@ -47,7 +59,7 @@
         - HTTP
       phase: MVP
     - id: express
-      code: W3
+      code: W4
       title: Backend Express et API REST
       tagline: Routes, middlewares, validation, JWT.
       notions:
@@ -57,7 +69,7 @@
         - JWT
       phase: MVP
     - id: postgres
-      code: W4
+      code: W5
       title: SQL et bases de données
       tagline: Requêtes, jointures, index, N+1 et transactions.
       notions:
@@ -69,7 +81,7 @@
         - Transactions
       phase: MVP
     - id: frontend
-      code: W5
+      code: W6
       title: Frontend avec React
       tagline: Composants, état, effets, et les bugs de rendu.
       notions:
@@ -79,7 +91,7 @@
         - Hydratation
       phase: MVP
     - id: typescript
-      code: W6
+      code: W7
       title: TypeScript et qualité
       tagline: Types, tests, lint, en finir avec any.
       notions:
@@ -88,7 +100,7 @@
         - Lint
       phase: V1
     - id: docker
-      code: W7
+      code: W8
       title: Docker
       tagline: Images, volumes, réseaux, compose.
       notions:
@@ -98,7 +110,7 @@
         - Réseaux
       phase: MVP
     - id: cicd
-      code: W8
+      code: W9
       title: CI/CD
       tagline: Pipelines, GitHub Actions, déploiement.
       notions:
@@ -107,7 +119,7 @@
         - Déploiement
       phase: MVP
     - id: web-boss
-      code: W9
+      code: W10
       title: Projet final web
       tagline: Une app fullstack dockerisée avec un CI vert.
       notions:

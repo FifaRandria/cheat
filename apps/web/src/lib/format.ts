@@ -20,6 +20,9 @@ export function incidentCode(moduleCode: string, order: number) {
 
 const BUG_TYPES: Record<string, string> = {
   ecrire: "Écrire à partir des tests",
+  accessibilite: "Accessibilité",
+  specificite: "Spécificité CSS",
+  "mise-en-page": "Mise en page",
   "off-by-one": "Décalage de un",
   "async-await": "await oublié",
   "async-loop": "Boucle async",

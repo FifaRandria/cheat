@@ -1,0 +1,37 @@
+id: html-css-02
+title: L'article que Google et les lecteurs d'écran ne comprennent pas
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 60
+blackout: false
+hintCost: 10
+bugType: accessibilite
+entry: article.html
+lessons: [html-css-01, html-css-02]
+brief: |
+  Le blog de l'atelier n'apparaît plus dans les résultats de recherche, et un lecteur aveugle
+  écrit : « impossible de naviguer dans vos articles, les titres partent dans tous les sens et
+  j'entends des noms de fichiers ».
+
+  Corrige `article.html` :
+
+  - **un seul** titre de niveau 1 ;
+  - une hiérarchie de titres **sans saut** de niveau ;
+  - chaque image a un `alt` : descriptif pour les images informatives, **vide** pour l'image
+    décorative (celle qui a la classe `deco`) ;
+  - aucun lien du type « cliquez ici », « ici » ou « en savoir plus ».
+
+  Garde le contenu : le texte des paragraphes et les adresses des liens ne changent pas.
+logs: |
+  [lighthouse] Accessibilité : 54/100
+  [lighthouse] ✘ Plusieurs éléments <h1>
+  [lighthouse] ✘ Les titres ne se suivent pas dans l'ordre (h2 → h4)
+  [lighthouse] ✘ Images sans attribut [alt] (3)
+  [lighthouse] ✘ Les liens n'ont pas de texte explicite (2)
+hints:
+  - "Fais le plan de la page : quel est LE sujet de l'article ? C'est lui le h1. Les autres h1 deviennent des h2."
+  - "Après un h2, le niveau suivant est h3, jamais h4."
+  - "L'image deco prend alt=\"\". Pour les liens, mets le texte cliquable sur les mots qui disent où l'on va."
+tests: tests/

@@ -1,0 +1,76 @@
+id: html-css-05
+title: La page qui déborde sur mobile
+order: 5
+type: quiz
+difficulty: 3
+xp: 100
+blackout: true
+hintCost: 0
+bugType: mise-en-page
+lessons: [html-css-03, html-css-04]
+brief: |
+  **Mode Blackout.** La nouvelle page « Tarifs » vient d'être mise en ligne, et le service client
+  croule sous les captures d'écran. Pour chaque symptôme, trouve la cause. Seule la
+  [documentation MDN](https://developer.mozilla.org/fr/docs/Web/CSS) est ouverte.
+hints: []
+questions:
+  - prompt: |
+      Trois cartes de tarifs doivent tenir côte à côte dans un conteneur de 960 px. Chaque carte
+      a ce style, et la troisième passe à la ligne :
+
+      ```css
+      .carte { width: 300px; padding: 16px; border: 2px solid #ddd; margin: 0 6px; }
+      ```
+
+      Pourquoi ?
+    choices:
+      - Le conteneur est trop petit d'un pixel
+      - "Avec le box-sizing par défaut, chaque carte occupe 300 + 32 + 4 + 12 = 348 px, soit 1 044 px pour trois"
+      - Les cartes n'ont pas de hauteur
+    answer: 1
+    explain: "En content-box, width ne compte que le contenu. Avec box-sizing: border-box, la carte ferait 300 px bordure et padding compris."
+  - prompt: |
+      Sur iPhone, la page entière s'affiche en tout petit, comme une version bureau réduite. Les
+      media queries ne se déclenchent jamais. Le CSS est correct. Que manque-t-il ?
+    choices:
+      - Une media query supplémentaire
+      - "La balise `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">` dans le head"
+      - Une police plus grande
+    answer: 1
+  - prompt: |
+      Sur téléphone, on peut faire défiler la page **horizontalement**, et un grand vide blanc
+      apparaît à droite. Quel style est le suspect numéro un ?
+    choices:
+      - "`.bandeau { width: 1200px; }`"
+      - "`.bandeau { max-width: 1200px; width: 100%; }`"
+      - "`.bandeau { margin: 0 auto; }`"
+    answer: 0
+  - prompt: |
+      Les boutons du menu doivent être centrés **verticalement** dans la barre :
+
+      ```css
+      .menu { display: flex; height: 64px; justify-content: center; }
+      ```
+
+      Ils restent collés en haut. Quelle propriété manque ?
+    choices:
+      - "`text-align: center`"
+      - "`align-items: center`"
+      - "`vertical-align: middle`"
+    answer: 1
+    explain: "Dans une flexbox en ligne, justify-content agit sur l'axe horizontal, align-items sur l'axe vertical."
+  - prompt: |
+      Sur mobile, les trois cartes doivent s'empiler. Le développeur a écrit :
+
+      ```css
+      @media (min-width: 600px) {
+        .cartes { flex-direction: column; }
+      }
+      ```
+
+      Résultat : elles s'empilent sur ordinateur, et restent côte à côte sur téléphone. Le bug ?
+    choices:
+      - "min-width applique la règle aux écrans de 600 px et PLUS : il fallait max-width"
+      - "flex-direction n'existe pas"
+      - "Il manque !important"
+    answer: 0

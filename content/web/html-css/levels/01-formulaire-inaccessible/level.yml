@@ -1,0 +1,36 @@
+id: html-css-01
+title: Le formulaire que personne ne peut remplir
+order: 1
+type: bug-hunt
+runtime: node
+difficulty: 1
+xp: 40
+blackout: false
+hintCost: 5
+bugType: accessibilite
+entry: inscription.html
+lessons: [html-css-02, html-css-01]
+brief: |
+  Une association d'aide aux personnes malvoyantes signale que l'inscription est impossible
+  avec un lecteur d'écran : les champs sont annoncés « zone de texte, vide », sans nom. Une
+  personne qui navigue au clavier ne peut pas envoyer le formulaire. Et le mot de passe
+  s'affiche en clair.
+
+  Corrige `inscription.html` :
+
+  - chaque champ doit avoir un **label relié** ;
+  - le champ e-mail doit être de type e-mail, le mot de passe masqué ;
+  - les trois champs sont **obligatoires** ;
+  - le formulaire doit s'envoyer avec un **vrai bouton**.
+
+  Attention : le serveur attend les champs `nom`, `email` et `motdepasse` (attribut `name`).
+logs: |
+  [audit-a11y] input[name=nom]         : aucun nom accessible
+  [audit-a11y] input[name=email]       : aucun nom accessible (label sans « for »)
+  [audit-a11y] input[name=motdepasse]  : label for="mdp" ne correspond à aucun id
+  [audit-a11y] div.bouton              : élément cliquable non atteignable au clavier
+hints:
+  - "Relis l'audit : chaque ligne correspond à un des problèmes. Le for d'un label doit valoir exactement l'id du champ."
+  - "Les types utiles sont email et password ; l'attribut qui rend un champ obligatoire s'appelle required."
+  - "Remplace la div cliquable par <button type=\"submit\">S'inscrire</button>."
+tests: tests/

@@ -1,0 +1,36 @@
+id: html-css-04
+title: Le bouton « Supprimer » qui reste bleu
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 80
+blackout: false
+hintCost: 15
+bugType: specificite
+entry: style.css
+lessons: [html-css-03]
+brief: |
+  Un utilisateur a supprimé son compte par erreur : le bouton « Supprimer mon compte » était
+  **bleu**, comme le bouton « Enregistrer » juste à côté. La règle `.btn-danger` (fond rouge)
+  existe pourtant bien dans `style.css`.
+
+  Corrige **uniquement** `style.css` pour que :
+
+  - le bouton « Supprimer mon compte » ait un fond `crimson` et un texte `white` ;
+  - le bouton « Enregistrer » du formulaire reste `steelblue` ;
+  - le bouton « Aide », hors du formulaire, reste `lightgray`.
+
+  Sans `!important` : l'équipe l'a banni de la base de code.
+
+  Les tests appliquent les vraies règles de la cascade sur ton CSS. Le moteur de test comprend
+  les sélecteurs de balise, de classe, d'id, composés (`button.x`), descendants et enfants.
+logs: |
+  [devtools] <button class="btn btn-danger">Supprimer mon compte</button>
+  [devtools]   background: steelblue;   #formulaire button   style.css:11
+  [devtools]   background: crimson;     .btn-danger          style.css:6    (barrée)
+hints:
+  - "Dans les outils de développement, la règle .btn-danger est barrée : une autre règle l'emporte. Laquelle, et pourquoi ?"
+  - "Calcule les spécificités : .btn-danger vaut (0, 1, 0), #formulaire button vaut (1, 0, 1). L'ordre des règles ne change rien."
+  - "Écris une règle au moins aussi précise que #formulaire button, qui vise le bouton danger : #formulaire .btn-danger."
+tests: tests/
