@@ -1,0 +1,32 @@
+id: sql-04
+title: La page qui fait 101 requêtes
+order: 4
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 110
+blackout: false
+hintCost: 20
+bugType: n-plus-one
+entry: tableau.js
+lessons: [sql-04, sql-03]
+brief: |
+  La page « Dernières commandes » met **8 secondes** à s'afficher en production. Le code
+  semble pourtant simple, et chaque requête prise seule est rapide.
+
+  `dernieresCommandes(db)` doit renvoyer les commandes triées par `id`, sous la forme
+  `{ id, total, client }` (le nom du client), en **deux requêtes au maximum**, quel que soit
+  le nombre de commandes.
+
+  `db.requetes` donne le nombre de requêtes exécutées.
+logs: |
+  [db] SELECT * FROM commandes ORDER BY id                      2 ms
+  [db] SELECT nom FROM clients WHERE id = 1                     1 ms
+  [db] SELECT nom FROM clients WHERE id = 1                     1 ms
+  [db] SELECT nom FROM clients WHERE id = 2                     1 ms
+  [db] … (97 requêtes identiques plus loin)
+  [web] GET /commandes/dernieres → 200 en 8 140 ms (101 requêtes SQL)
+hints:
+  - "Compte les requêtes dans les logs : 1 pour la liste, puis une par… ?"
+  - "Une requête dans une boucle est le signe du problème N+1. Comment obtenir le nom du client dans la même requête que la commande ?"
+tests: tests/

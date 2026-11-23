@@ -1,0 +1,27 @@
+id: sql-02
+title: Le rapport qui oublie les clients inactifs
+order: 2
+type: bug-hunt
+runtime: node
+difficulty: 2
+xp: 70
+blackout: false
+hintCost: 15
+bugType: sql-join
+entry: rapport.js
+lessons: [sql-03]
+brief: |
+  Le service commercial veut relancer les clients **qui n'ont jamais commandé**. Problème :
+  le rapport n'en affiche aucun, alors que Linus, inscrit depuis un an, n'a rien acheté.
+
+  `commandesParClient(db)` doit renvoyer **tous** les clients, triés par `id`, sous la forme
+  `{ nom, nb }`, où `nb` est leur nombre de commandes, y compris `0`.
+logs: |
+  [rapport] clients en base : 4
+  [rapport] lignes du rapport : 3
+  [rapport] clients avec nb = 0 : aucun
+hints:
+  - "Il y a 4 clients et 3 lignes. Lequel manque, et qu'a-t-il de particulier ?"
+  - "Quelle jointure garde toutes les lignes de la table de gauche, même sans correspondance ?"
+  - "Une fois la bonne jointure en place, vérifie ce que compte COUNT(*) pour un client sans commande."
+tests: tests/

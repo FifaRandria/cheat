@@ -1,0 +1,27 @@
+id: sql-03
+title: La recherche qui révèle tous les clients
+order: 3
+type: bug-hunt
+runtime: node
+difficulty: 3
+xp: 100
+blackout: false
+hintCost: 20
+bugType: sql-injection
+entry: recherche.js
+lessons: [sql-02]
+brief: |
+  **Alerte sécurité.** Un chercheur en sécurité signale qu'en tapant `' OR '1'='1` dans la
+  barre de recherche de clients, il obtient **la liste complète** de la base. Avec une autre
+  saisie, il a même réussi à faire planter le serveur.
+
+  `rechercherClient(db, nom)` doit renvoyer les clients dont le nom correspond **exactement**
+  à la saisie, triés par `id`, quoi que l'utilisateur tape.
+logs: |
+  [api] GET /clients?nom=Ada            → 1 résultat
+  [api] GET /clients?nom=' OR '1'='1    → 4 résultats (!)
+  [api] GET /clients?nom=O'Brien        → 500 SqliteError: near "Brien": syntax error
+hints:
+  - "Affiche la requête SQL construite pour la saisie ' OR '1'='1. Que devient le WHERE ?"
+  - "La valeur de l'utilisateur ne doit jamais être collée dans le texte SQL. Quel symbole la remplace ?"
+tests: tests/
